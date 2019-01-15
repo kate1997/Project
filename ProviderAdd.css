@@ -8,6 +8,31 @@ html {
 height: 100%; /* Высота страницы */     
 }
 
+header{
+    widows: 100%;
+    height: 20%;
+}
+.prov{
+    margin-top: 18%;
+    margin-left: 35%;
+    color:wheat;
+    width: 380px;
+    height: 300px;
+    font-size: 25px;
+
+}
+li{
+    display: block;
+    text-align: left;
+    padding-top: 7px;
+    
+}
+input{
+    float: right;
+    padding-top: 3px;
+    margin-top: 5px;
+}
+
 /* свойства для заголовка*/
 h1{ 
 text-align:center;
@@ -21,9 +46,5 @@ font-family: Georgia, 'Times New Roman', Times, serif;
 
 body{
 background-image: url('les.jpg'); background-size: 100%;
+
 }
-
-
-
-
-
