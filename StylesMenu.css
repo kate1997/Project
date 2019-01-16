@@ -1,9 +1,16 @@
 
+body{
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-attachment:fixed;
+	overflow: auto;
+	min-width:750px;;text-width: bold;
+}
 /*Свойства меню*/  
 #nav{ 
     margin-top: -8px;
     float:left;
-	margin-left: 10%;
+	margin-left: 5%;
     width:60px;
     list-style: none;
     font-weight: bold;
@@ -80,7 +87,15 @@ a{
 }
 
 
-
+footer{
+    position: absolute;
+   width:100%;
+   text-align: right;
+    color: antiquewhite;
+    height: 80px;
+    left: 0;
+    bottom: 0;
+}
 
 
 

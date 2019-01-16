@@ -17,13 +17,27 @@ margin-top:50px;
 padding-top:10px;
 padding-bottom:10px;
 font-family: Georgia, 'Times New Roman', Times, serif;
+color: black;
 }
 
 body{
 background-image: url('les.jpg'); background-size: 100%;
 }
 
+.buttons{
+    margin-bottom: 5px;
+    text-align: center;
+    font-size: 50px;
+list-style: none;
+margin-left: 420px;
+   
+}
+#button2{
+    font-size:20px; display: none; margin-left: 100px;
+}
 
-
+input{
+    position: fixed;
+}
 
 

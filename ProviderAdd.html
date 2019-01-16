@@ -15,23 +15,24 @@
 
 <header>  
 <h1> Поставщики </h1>
-
-<!--Меню-->
-<ul id="nav" style="margin-top: -8px;">
-    <li>
-        <a href="#" title="Меню"  id="menu" ><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/1200px-Hamburger_icon.svg.png" width="30px" height="30px"  ></a>
-        <ul>
-            <li><a href="">График поставок </a></li>
-            <li><a href="">Грузоотправители </a></li>
-            <li><a href="">Вагоны </a></li>
-            <li><a href="page1.html">Настройки </a></li>
-            <li><a href="site.html#">Главная </a></li>
-        </ul>
-    </li>
-</ul>
 </header>
+<nav>
+<!--Меню-->
+    <ul id="nav" style="margin-top: -15px;">
+        <li>
+            <a href="#" title="Меню"  id="menu" ><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/1200px-Hamburger_icon.svg.png" width="30px" height="30px"  ></a>
+            <ul>
+                <li><a href="">График поставок </a></li>
+                <li><a href="">Грузоотправители </a></li>
+                <li><a href="">Вагоны </a></li>
+                <li><a href="page1.html">Настройки </a></li>
+                <li><a href="site.html#">Главная </a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>
 <main>
-    <form class="prov">
+    <form class="prov" action="'php'">
         <li>
             <label >Наименование:</label>
             <input title="Введите наименование" type="text" id="name">
@@ -44,12 +45,18 @@
 
         <li>
                 <label >Рейтинг:</label>
-                <input title="Введите введите рейтинг" type="text" id="raiting">
+                <input title="Введите рейтинг" type="text" id="raiting">
         </li>
+        <input onclick="" id ="AddButton" type="button" value="Добавить" style = "font-size:20px; padding:0px; text-align: center;margin-top: 12px;">
     </form>
-</main>
 
-<input onclick="" id ="AddButton" type="button" value="Добавить" style = "font-size:20px;">
+</main>
+<footer>
+        <address>...</address>
+        <small>@2019...</small>
+  </footer>
 
 </body>
+<script src="index.js">
+</script>
 </html>

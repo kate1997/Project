@@ -1,4 +1,4 @@
-function check(){
+document.getElementById("AddButton").onclick = function (){
 
     var name = document.getElementById('name').value;
     var cost = document.getElementById('cost').value;
@@ -20,7 +20,7 @@ function check(){
              if(provCost == true && provRaiting ==true){
                  alert('Данные успешно отправлены');
              }
-                else alert('Поля должны содержать только числовые значения');    
+                else alert('Поля 2 и 3 должны содержать только числовые значения');    
           }     
     }
     

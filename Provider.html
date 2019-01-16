@@ -6,34 +6,188 @@
   <link rel="stylesheet" href="provider.css ">
   <link rel="stylesheet" href="StylesMenu.css ">
 
+  <style>
+        table{
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 60%;
+        margin-top: 20px;
+        color: brown;
+        margin-left: 20%;
+        background: linear-gradient(to top left, powderblue, pink);
+        }
+        h2{
+            margin-top: 180px;
+            color:bisque;
+        }
+
+        td, th {
+        border: 2px solid #270303;
+        text-align: left;
+        padding: 8px;
+        }
+
+        
+        section{
+            text-align: center;
+        }
+        
+    </style>
 </head>
 <body>
-    
+
+ <header> 
 <h1> Поставщики </h1>
+</header>
 
-<!--Меню-->
-<ul id="nav" style="margin-top: 15px;">
-    <li>
-        <a href="#" title="Меню"  id="menu" ><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/1200px-Hamburger_icon.svg.png" width="30px" height="30px"  ></a>
-        <ul>
-            <li><a href="">График поставок </a></li>
-            <li><a href="">Грузоотправители </a></li>
-            <li><a href="">Вагоны </a></li>
-            <li><a href="page1.html">Настройки </a></li>
-            <li><a href="site.html#">Главная </a></li>
-        </ul>
+<nav>
+    <!--Меню-->
+    <ul id="nav" style="margin-top: 15px;">
+        <li>
+            <a href="#" title="Меню"  id="menu" ><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/1200px-Hamburger_icon.svg.png" width="30px" height="30px"  ></a>
+            <ul>
+                <li><a href="">График поставок </a></li>
+                <li><a href="">Грузоотправители </a></li>
+                <li><a href="">Вагоны </a></li>
+                <li><a href="page1.html">Настройки </a></li>
+                <li><a href="site.html#">Главная </a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+
+
+<section>
+<h2></h2>
+    
+    <table id='mytbl'>
+    <tr>
+        <th>Идентификатор поставщика</th>
+        <th>Наименование поставщика</th>
+        <th>Стоимость сырья</th>
+        <th>Рейтинг поставщика</th>
+        <th id="Del">Удалить</th>
+    </tr>
+    </table>
+
+    <div class="buttons" style="position: fixed;">
+    <li >
+    <input onclick="location.href='ProviderAdd.html'" id="button2" type="button" value="Добавить" >
+        <input  id ="e6" type="button" value="Редактировать" style = " font-size:20px; margin-left: 200px;">
+       <!-- <button id="mybtn" >Просмотр</button>
+            . <button onclick="load()">load!</button>-->
     </li>
-</ul>
+</div>
+</section>
 
-<input onclick="location.href='ProviderAdd.html'" id="button2" type="button" value="Добавить" >
+
+
+
+
 
 <script>
-function Add(){
-    document.getElementById(button2).css=({'display':'block'});
-}
+        document.getElementById("e6").onclick = function (){
+            document.getElementById("button2").style.display = "block";
+                
+            }
+        
 </script>
 
-<input onclick="Add()" id ="e6" type="button" value="Изменить" style = " margin-left: 300px;margin-top: 200px; font-size:20px;">
+<script>
+        //Data for table. 
+    var dataForTable = [{
+        "id":1,"data":["Apple","Banana","Grapes","Melon"]},
+        {"id":2,"data":["Tomato","Potato","Onion","Cabage"]},
+        {"id":3,"data":["Cat","Dog","Cow","Coat"]},
+        {"id":4,"data":["Pen","Pencil","Book","Note"]},
+        {"id":5,"data":["Car","Bicycle","Skate","Foot"]}];
 
+    var myBtn = document.getElementById('mybtn');
+    var mytbl = document.getElementById('mytbl');
+    var tb = mytbl.querySelector('tbody');
+    // event process
+
+    var clearTable = function(countRow){
+        if (countRow > 1) {
+            for (i=tb.rows.length-1; i>0; i--){
+                tb.deleteRow(i);
+            }
+        }
+    }
+    
+    window.onload = function(event) {
+        clearTable(tb.rows.length)
+        dataForTable.forEach(function(item, i, arr) {
+            var tr = document.createElement('tr');
+            var id = item.id;
+            var data = item.data;
+            tr.id = `row-${id}`;
+            tr.innerHTML = `<td>${data[0]}</td>
+                            <td>${data[1]}</td>
+                            <td>${data[2]}</td>
+                            <td>${data[3]}</td>
+                            <td id="Del"><button id=${`row-btn-${id}`}>Delete</button></td>`;
+            tb.appendChild(tr);
+            var deleteBtn = document.getElementById(`row-btn-${id}`);
+            deleteBtn.onclick = function(event) {
+                var rowId = "row-" + event.target.id[event.target.id.length-1];
+                var row = document.getElementById(rowId);
+                tb.removeChild(row);
+            }
+    });
+    }
+
+    </script>
+
+<footer>
+        <address>...</address>
+        <small>@2019...</small>
+  </footer>
 </body>
+<script>/*
+function load(){ 
+    
+// 1. Создаём новый объект XMLHttpRequest
+var xhr = new XMLHttpRequest();
+
+xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/showProvider.php',true);
+
+// 3. Отсылаем запрос
+xhr.send();
+
+// 4. Если код ответа сервера не 200, то это ошибка
+if (xhr.status != 200) {
+  // обработать ошибку
+  console.log(xhr);
+  //alert( xhr.status + ': ' + xhr.statusText );  пример вывода: 404: Not Found
+} 
+    else {
+        alert( xhr.status);
+         var obj = JSON.parse(xhr.responseText);
+
+}
+
+for (var i = 0; i < obj.length; i++) {
+	
+		document.getElementById("table").innerHTML += "<tr><td>" + obj[i]["provId"] + "</td>" + "<td>" + obj[i]["provName"] + "</td>"+ "<td>" + obj[i]["provPrice"] + "</td>"+ "<td>" + obj[i]["provRating"] + "</td></tr>";
+	
+}
+}
+
+ 
+    document.getElementById("show").onclick =function(){
+        var array1=['a','b','c','d'];
+    document.getElementById("show").onclick = array1.forEach(function(element){
+           console.log(element);
+     var obj =JSON.parse()   
+           var arr = ["Яблоко", "Апельсин", "Груша"];
+arr.forEach(function(item, i, arr) {
+  alert( i + ": " + item + " (массив:" + arr + ")" );
+});
+           }*/
+     //var obj = JSON.parse(data); getElementById().innerHTML = "<tr>" + data[i]["day1"] + "</tr>" + "<tr>" + data[i]["day2"] + "</tr>" 
+     
+
+</script>     
+
 </html>
