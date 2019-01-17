@@ -11,7 +11,7 @@
         font-family: arial, sans-serif;
         border-collapse: collapse;
         width: 60%;
-        margin-top: 20px;
+        margin-top: 150px;
         color: brown;
         margin-left: 20%;
         background: linear-gradient(to top left, powderblue, pink);
@@ -26,13 +26,33 @@
         text-align: left;
         padding: 8px;
         }
-
         
         section{
             text-align: center;
         }
+        #imgEx{
+            width:25px;
+            height: 25px;
+            padding: 0;
+            text-align: center;
+        }
+        #imgDel{
+            width:25px;
+            height: 25px;
+            padding: 0;
+            text-align: center;
+            margin-left: 30%;
+        }
+        #test{
+            width: 100px;
+        }
+        #Del{width: 100px;}
         
     </style>
+    <script>
+       
+                            
+          </script>
 </head>
 <body>
 
@@ -57,52 +77,62 @@
 </nav>
 
 
-<section>
-<h2></h2>
-    
+<section>   
     <table id='mytbl'>
-    <tr>
-        <th>Идентификатор поставщика</th>
-        <th>Наименование поставщика</th>
-        <th>Стоимость сырья</th>
-        <th>Рейтинг поставщика</th>
-        <th id="Del">Удалить</th>
-    </tr>
+            <tbody id='tbody'>
+                    <tr>
+                        <th>Идентификатор поставщика</th>
+                        <th>Наименование поставщика</th>
+                        <th>Стоимость сырья</th>
+                        <th>Рейтинг поставщика</th>
+                        <th>Удалить</th>
+                    </tr>
+            </tbody>
     </table>
 
-    <div class="buttons" style="position: fixed;">
-    <li >
-    <input onclick="location.href='ProviderAdd.html'" id="button2" type="button" value="Добавить" >
-        <input  id ="e6" type="button" value="Редактировать" style = " font-size:20px; margin-left: 200px;">
-       <!-- <button id="mybtn" >Просмотр</button>
-            . <button onclick="load()">load!</button>-->
-    </li>
-</div>
+        <div class="buttons" style="position: fixed;">
+            <li >
+                <input onclick="location.href='ProviderAdd.html'" id="button2" type="button" value="Добавить" >
+                <input  id ="e6" type="button" value="Редактировать" style = " font-size:20px; margin-left: 200px;">
+            <!-- <button id="mybtn" >Просмотр</button>
+            <input  id ="test" type="button"  value="Загрузить">
+            <input  id ="build" type="button"  value="Построить">-->
+            </li>
+        </div>
 </section>
 
 
+<script type="text/javascript">
+       
 
-
-
-
-<script>
-        document.getElementById("e6").onclick = function (){
-            document.getElementById("button2").style.display = "block";
+        window.onload = function (){ 
+        var obj; 
+         
+             
+         // 1. Создаём новый объект XMLHttpRequest
+         var xhr = new XMLHttpRequest();
+         
+         xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/showProvider.php',false);
+         
+         // 3. Отсылаем запрос
+         xhr.send();
+         
+         // 4. Если код ответа сервера не 200, то это ошибка
+         if (xhr.status != 200) {
+           // обработать ошибку
+           console.log(xhr);
+           alert( xhr.status + ': ' + xhr.statusText );  //пример вывода: 404: Not Found
+         } else {
+         
+                 ourObj = JSON.parse(xhr.responseText);
                 
-            }
-        
-</script>
+         
+         }
+         
 
-<script>
         //Data for table. 
-    var dataForTable = [{
-        "id":1,"data":["Apple","Banana","Grapes","Melon"]},
-        {"id":2,"data":["Tomato","Potato","Onion","Cabage"]},
-        {"id":3,"data":["Cat","Dog","Cow","Coat"]},
-        {"id":4,"data":["Pen","Pencil","Book","Note"]},
-        {"id":5,"data":["Car","Bicycle","Skate","Foot"]}];
 
-    var myBtn = document.getElementById('mybtn');
+    var myBtn = document.getElementById('build');
     var mytbl = document.getElementById('mytbl');
     var tb = mytbl.querySelector('tbody');
     // event process
@@ -115,79 +145,51 @@
         }
     }
     
-    window.onload = function(event) {
+  //document.getElementById("e6").onclick= function (event){
         clearTable(tb.rows.length)
-        dataForTable.forEach(function(item, i, arr) {
+        ourObj.forEach(function(item, i, arr) {
             var tr = document.createElement('tr');
-            var id = item.id;
-            var data = item.data;
+            var id = item.provId;
+           
             tr.id = `row-${id}`;
-            tr.innerHTML = `<td>${data[0]}</td>
-                            <td>${data[1]}</td>
-                            <td>${data[2]}</td>
-                            <td>${data[3]}</td>
-                            <td id="Del"><button id=${`row-btn-${id}`}>Delete</button></td>`;
+            tr.innerHTML = `<td >${id}</td>
+                            <td>${item.provName}</td>
+                            <td>${item.provPrice}</td>
+                            <td>${item.provRating}</td>
+                            <td id="Del"><button id=${`row-btn-${id}`} style="margin-left: 35%;outline:none;border:0;background: transparent;heigth:25px;"><img src="del.png" id="imgDel"></button></td>`;
             tb.appendChild(tr);
             var deleteBtn = document.getElementById(`row-btn-${id}`);
+
             deleteBtn.onclick = function(event) {
+                alert(id);
                 var rowId = "row-" + event.target.id[event.target.id.length-1];
+                alert(id.length-1);
+                alert(event.target.id[event.target.id.length-1]);
+                alert(rowId);
                 var row = document.getElementById(rowId);
                 tb.removeChild(row);
             }
     });
     }
-
+//}
+    //<td id="Exit"><button id=${`row-btn2-${id}`} style="margin-left: 35%;outline:none;border:0;background: transparent;heigth:25px;"><img src="pen.ico" id="imgEx"></button></td>
+      
     </script>
+
+   <script type="text/javascript">
+          document.getElementById("button2").onclick=function(){
+           alert("fd");
+       }
+   </script>
 
 <footer>
         <address>...</address>
         <small>@2019...</small>
   </footer>
+  	<!--Подключаем библиотеку-->
+	
+
 </body>
-<script>/*
-function load(){ 
-    
-// 1. Создаём новый объект XMLHttpRequest
-var xhr = new XMLHttpRequest();
 
-xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/showProvider.php',true);
-
-// 3. Отсылаем запрос
-xhr.send();
-
-// 4. Если код ответа сервера не 200, то это ошибка
-if (xhr.status != 200) {
-  // обработать ошибку
-  console.log(xhr);
-  //alert( xhr.status + ': ' + xhr.statusText );  пример вывода: 404: Not Found
-} 
-    else {
-        alert( xhr.status);
-         var obj = JSON.parse(xhr.responseText);
-
-}
-
-for (var i = 0; i < obj.length; i++) {
-	
-		document.getElementById("table").innerHTML += "<tr><td>" + obj[i]["provId"] + "</td>" + "<td>" + obj[i]["provName"] + "</td>"+ "<td>" + obj[i]["provPrice"] + "</td>"+ "<td>" + obj[i]["provRating"] + "</td></tr>";
-	
-}
-}
-
- 
-    document.getElementById("show").onclick =function(){
-        var array1=['a','b','c','d'];
-    document.getElementById("show").onclick = array1.forEach(function(element){
-           console.log(element);
-     var obj =JSON.parse()   
-           var arr = ["Яблоко", "Апельсин", "Груша"];
-arr.forEach(function(item, i, arr) {
-  alert( i + ": " + item + " (массив:" + arr + ")" );
-});
-           }*/
-     //var obj = JSON.parse(data); getElementById().innerHTML = "<tr>" + data[i]["day1"] + "</tr>" + "<tr>" + data[i]["day2"] + "</tr>" 
-     
-
-</script>     
 
 </html>
