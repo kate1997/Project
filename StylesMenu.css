@@ -4,11 +4,12 @@ body{
     background-size: 100%;
     background-attachment:fixed;
 	overflow: auto;
-	min-width:750px;;text-width: bold;
+    min-width:750px;;text-width: bold;
+    
 }
 /*Свойства меню*/  
 #nav{ 
-    margin-top: -8px;
+   
     float:left;
 	margin-left: 5%;
     width:60px;
@@ -88,7 +89,7 @@ a{
 
 
 footer{
-    position: absolute;
+   /* position: absolute;*/
    width:100%;
    text-align: right;
     color: antiquewhite;

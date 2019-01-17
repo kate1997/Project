@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Forest</title>
+  <link rel="stylesheet" href="provider.css ">
+  <link rel="stylesheet" href="StylesMenu.css ">
+
+  <style>
+        table{
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 60%;
+        margin-top: 150px;
+        color: brown;
+        margin-left: 20%;
+        background: linear-gradient(to top left, powderblue, pink);
+        }
+        h2{
+            margin-top: 180px;
+            color:bisque;
+        }
+
+        td, th {
+        border: 2px solid #270303;
+        text-align: left;
+        padding: 8px;
+        }
+        
+        section{
+            text-align: center;
+        }
+        #imgEx{
+            width:25px;
+            height: 25px;
+            padding: 0;
+            text-align: center;
+        }
+        #imgDel{
+            width:25px;
+            height: 25px;
+            padding: 0;
+            text-align: center;
+            margin-left: 30%;
+        }
+        #test{
+            width: 100px;
+        }
+        #Del{width: 100px;}
+        
+    </style>
+    <script>
+       
+                            
+          </script>
+</head>
+<body>
+
+ <header> 
+<h1> Вагоны </h1>
+ </header>
+
+<nav>
+    <!--Меню-->
+    <ul id="nav" style="margin-top: 15px;">
+        <li>
+            <a href="#" title="Меню"  id="menu" ><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/1200px-Hamburger_icon.svg.png" width="30px" height="30px"  ></a>
+            <ul>
+                <li><a href="SupplyScheme.html">График поставок </a></li>
+                <li><a href="">Грузоотправители </a></li>
+                <li><a href="Provider.html">Поставщики </a></li>
+                <li><a href="page1.html">Настройки </a></li>
+                <li><a href="site.html#">Главная </a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+
+
+<section>   
+    <table id='mytbl'>
+            <tbody id='tbody'>
+                    <tr>
+                        <th>Идентификатор вагона</th>
+                        <th>Номер вагона</th>
+                        <th>Объем вагона</th>
+                        <th>Стоимость аренды вагона</th>
+                        <th>Тип вагона</th>
+                        <th>Удалить</th>
+                    </tr>
+            </tbody>
+    </table>
+
+        <div class="buttons" style="position: fixed;">
+            <li >
+                    <input onclick="location.href='ProviderAdd.html'" id="button2" type="button" value="Добавить" >
+                    <input  id ="e6" type="button" value="Редактировать" style = " font-size:20px; margin-left: 200px;">
+            <!-- <button id="mybtn" >Просмотр</button>
+            <input  id ="test" type="button"  value="Загрузить">
+            <input  id ="build" type="button"  value="Построить">-->
+            </li>
+        </div>
+</section>
+
+
+<script type="text/javascript">
+
+
+        window.onload = function (){ 
+        var obj; 
+         
+             
+         // 1. Создаём новый объект XMLHttpRequest
+         var xhr = new XMLHttpRequest();
+         
+         xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/showWagon.php',false);
+         
+         // 3. Отсылаем запрос
+         xhr.send();
+         
+         // 4. Если код ответа сервера не 200, то это ошибка
+         if (xhr.status != 200) {
+           // обработать ошибку
+           console.log(xhr);
+           alert( xhr.status + ': ' + xhr.statusText );  //пример вывода: 404: Not Found
+         } else {
+         
+                 ourObj = JSON.parse(xhr.responseText);
+                
+         
+         }
+         
+
+        //Data for table. 
+
+    var myBtn = document.getElementById('build');
+    var mytbl = document.getElementById('mytbl');
+    var tb = mytbl.querySelector('tbody');
+    // event process
+
+    var clearTable = function(countRow){
+        if (countRow > 1) {
+            for (i=tb.rows.length-1; i>0; i--){
+                tb.deleteRow(i);
+            }
+        }
+    }
+    
+  //document.getElementById("e6").onclick= function (event){
+        clearTable(tb.rows.length)
+        ourObj.forEach(function(item, i, arr) {
+            var tr = document.createElement('tr');
+            var id = item.wagId;
+           
+            tr.id = `row-${id}`;
+            tr.innerHTML = `<td >${id}</td>
+                            <td>${item.wagNumber}</td>
+                            <td>${item.wagVolume}</td>
+                            <td>${item.wagRentCost}</td>
+                            <td>${item.wagType}</td>
+                            <td id="Del"><button id=${`row-btn-${id}`} style="margin-left: 35%;outline:none;border:0;background: transparent;heigth:25px;"><img src="del.png" id="imgDel"></button></td>`;
+            tb.appendChild(tr);
+            var deleteBtn = document.getElementById(`row-btn-${id}`);
+
+            deleteBtn.onclick = function(event) {
+                alert(id);
+                var rowId = "row-" + event.target.id[event.target.id.length-1];
+                alert(id.length-1);
+                alert(event.target.id[event.target.id.length-1]);
+                alert(rowId);
+                var row = document.getElementById(rowId);
+                tb.removeChild(row);
+            }
+    });
+    }
+//}
+    //<td id="Exit"><button id=${`row-btn2-${id}`} style="margin-left: 35%;outline:none;border:0;background: transparent;heigth:25px;"><img src="pen.ico" id="imgEx"></button></td>
+      document.getElementById('e6').onclick=function(){
+    document.getElementById('button2').style.display='block';
+}
+      
+   </script>
+
+<footer>
+        <address>...</address>
+        <small>@2019...</small>
+  </footer>
+  	<!--Подключаем библиотеку-->
+	
+
+</body>
+
+
+</html>

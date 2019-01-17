@@ -58,7 +58,7 @@
 
  <header> 
 <h1> Поставщики </h1>
-</header>
+ </header>
 
 <nav>
     <!--Меню-->
@@ -66,9 +66,9 @@
         <li>
             <a href="#" title="Меню"  id="menu" ><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/1200px-Hamburger_icon.svg.png" width="30px" height="30px"  ></a>
             <ul>
-                <li><a href="">График поставок </a></li>
-                <li><a href="">Грузоотправители </a></li>
-                <li><a href="">Вагоны </a></li>
+                <li><a href="SupplyScheme.html">График поставок </a></li>
+                <li><a href="Consigner.html">Грузоотправители </a></li>
+                <li><a href="Wagons.html">Вагоны </a></li>
                 <li><a href="page1.html">Настройки </a></li>
                 <li><a href="site.html#">Главная </a></li>
             </ul>
@@ -92,8 +92,8 @@
 
         <div class="buttons" style="position: fixed;">
             <li >
-                <input onclick="location.href='ProviderAdd.html'" id="button2" type="button" value="Добавить" >
-                <input  id ="e6" type="button" value="Редактировать" style = " font-size:20px; margin-left: 200px;">
+                    <input onclick="location.href='ProviderAdd.html'" id="button2" type="button" value="Добавить" >
+                    <input  id ="e6" type="button" value="Редактировать" style = " font-size:20px; margin-left: 200px;">
             <!-- <button id="mybtn" >Просмотр</button>
             <input  id ="test" type="button"  value="Загрузить">
             <input  id ="build" type="button"  value="Построить">-->
@@ -103,7 +103,7 @@
 
 
 <script type="text/javascript">
-       
+
 
         window.onload = function (){ 
         var obj; 
@@ -173,13 +173,10 @@
     }
 //}
     //<td id="Exit"><button id=${`row-btn2-${id}`} style="margin-left: 35%;outline:none;border:0;background: transparent;heigth:25px;"><img src="pen.ico" id="imgEx"></button></td>
+      document.getElementById('e6').onclick=function(){
+    document.getElementById('button2').style.display='block';
+}
       
-    </script>
-
-   <script type="text/javascript">
-          document.getElementById("button2").onclick=function(){
-           alert("fd");
-       }
    </script>
 
 <footer>
