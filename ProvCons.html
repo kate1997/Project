@@ -30,26 +30,27 @@
 
  </header>
 <main>
-<section>   
+<section> 
+      <div class="buttons" style="position: fixed;">
+            <li >
+                    <input onclick="location.href='ProvConsAdd.html'" id="button2" type="button" value="Добавить" >
+                    <input  id ="e6" type="button" value="Редактировать" style = " font-size:20px; margin-left: 200px;">
+         
+            </li>
+        </div>  
     <table id='mytbl'>
             <tbody id='tbody'>
                     <tr>
                         <th>Идентификатор связи</th>
                         <th>Идентификатор поставщика</th>
                         <th>Идентификатор грузоотправителя</th>
-                        <th>Удалить</th>
+                        
                       
                     </tr>
             </tbody>
     </table>
 
-        <div class="buttons" style="position: fixed;">
-            <li >
-                    <input onclick="location.href='ProvConsAdd.html'" id="button2" type="button" value="Добавить" >
-                    <input  id ="e6" type="button" value="Редактировать" style = " font-size:20px; margin-left: 200px;">
-         
-            </li>
-        </div>
+      
 </section>
 
 
@@ -108,20 +109,31 @@
                         <td>${item.consId}</td>
                         <button id=${`row-btn-${id}`} style="margin-left: 35%;outline:none;border:0;background: transparent;heigth:25px;"><img src="del.png" id="imgDel"></button>`;
         tb.appendChild(tr);
-        
-        //Удаление элемента
-        var deleteBtn = document.getElementById(`row-btn-${id}`);
-        deleteBtn.onclick = function(event) {
-            alert(id);
-                // 1. Создаём новый объект XMLHttpRequest
-            var xhr = new XMLHttpRequest();
 
-            xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/deleteProvCons.php?provConsId=' + document.getElementById(`row-btn-${id}`).value,false);
+         //Изменение элемента
+         document.getElementById(`row-${id}`).ondblclick=function(){
+            alert(tr.id);
 
-            // 3. Отсылаем запрос
-            xhr.send();
         }
 
+            //Удаление элемента
+                var deleteBtn = document.getElementById(`row-btn-${id}`);
+                    deleteBtn.onclick = function(event) {
+                        
+                        var result = confirm("Вы действительно хотите удалить эту взаимосвязь?");
+                        if(result==true){
+
+                                // 1. Создаём новый объект XMLHttpRequest
+                                var xhr = new XMLHttpRequest();
+                
+                                xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/actionsTables.php?table=provcons&provConsId=' + id,false);
+                
+                                // 3. Отсылаем запрос
+                                xhr.send();
+                                alert("Взаимосвязь удалена. Пожалуйста,обновите страницу");
+                        }
+                    }
+          
     });
     }
 //}

@@ -69,7 +69,7 @@
 document.getElementById('submit').onclick= function (){ 
 var obj; 
  
-var name = document.getElementById('name').value;
+    var name = document.getElementById('name').value;
     var cost = document.getElementById('cost').value;
     var cost_par = /[0-9]+/;
     var provCost = cost_par.test(cost);
@@ -87,36 +87,34 @@ var name = document.getElementById('name').value;
        }
           else{
              if(provCost == true && provRaiting ==true){
-                 
-                  // 1. Создаём новый объект XMLHttpRequest
- var xhr = new XMLHttpRequest();
- 
- xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/actionsTables.php?table=provider&provName=' + document.getElementById("name").value + "&provPrice=" + document.getElementById("cost").value + "&provRating=" + document.getElementById("raiting").value,false);
- 
- // 3. Отсылаем запрос
- xhr.send();
- 
- // 4. Если код ответа сервера не 200, то это ошибка
- if (xhr.status != 200) {
-   // обработать ошибку
-   console.log(xhr);
-   alert( xhr.status + ': ' + xhr.statusText );  //пример вывода: 404: Not Found
- } else {
- 
-         if(xhr.responseText==1){
-            alert('Данные добавлены в БД');
-         }
-        
- 
- }
-             }
-                else alert('Поля 2 и 3 должны содержать только числовые значения');    
-          }     
+
+                //Отправка данных на сервер
+                // 1. Создаём новый объект XMLHttpRequest
+                var xhr = new XMLHttpRequest();
+                
+                xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/actionsTables.php?table=provider&provName=' + document.getElementById("name").value + "&provPrice=" + document.getElementById("cost").value + "&provRating=" + document.getElementById("raiting").value,false);
+                
+                // 3. Отсылаем запрос
+                xhr.send();
+                
+                // 4. Если код ответа сервера не 200, то это ошибка
+                if (xhr.status != 200) {
+                // обработать ошибку
+                console.log(xhr);
+                alert( xhr.status + ': ' + xhr.statusText );  //пример вывода: 404: Not Found
+                } 
+                else {
+                
+                        if(xhr.responseText==1){
+                            alert('Данные добавлены в БД');
+                            }
+
+                    }
+
+                }
+            else alert('Поля 2 и 3 должны содержать только числовые значения');    
+        }     
     }
-
-
-
-     
 
 }
 </script>

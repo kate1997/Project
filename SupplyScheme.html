@@ -4,15 +4,9 @@
  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title>Forest</title>
   <link rel="stylesheet" href="provider.css ">
-  <!--<link rel="stylesheet" href="StylesMenu.css ">
--->
-  <style>
-        
-    </style>
-    <script>
-       
-                            
-          </script>
+ <style>
+ 
+ </style>
 </head>
 <body>
 
@@ -21,14 +15,16 @@
 
 
 
-    <!--Меню-->
+<!--Меню-->
     <ul id="nav" >
         <li>
             <a href="#" title="Меню"  id="menu" ><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/1200px-Hamburger_icon.svg.png" width="30px" height="30px"  ></a>
             <ul>
-                <li><a href="">Грузоотправители </a></li>
+                <li><a href="Consigner.html">Грузоотправители </a></li>
                 <li><a href="Provider.html">Поставщики </a></li>
+                <li><a href="ProvCons.html">Взаимосвязь</a></li>
                 <li><a href="Wagons.html">Вагоны </a></li>
+                <li><a href="ScheduleWagons.html">Расписание вагонов </a></li>
                 <li><a href="page1.html">Настройки </a></li>
                 <li><a href="site.html#">Главная </a></li>
             </ul>
@@ -37,8 +33,84 @@
  </header>
 
 <main>
-<section>   
-    <table id='mytbl'>
+    
+<section>
+        <!--<button id="otch">Отчет</button>-->
+
+        <form id="typeTbl" action="select1.php" method="post">
+            <p id="typeWag">Выберите тип вагона</p>
+                <p><select size="1" name="type" id="type">
+                 <option disabled selected></option>
+                 <option value="Щепа">Щепа</option>
+                 <option value="Опилки">Опилки</option>
+                 <option value="Бревна">Бревна</option>
+                 <option value="Доски">Доски</option>
+                </select></p>
+                
+        </form>
+
+        <form id="dateTbl" action="select1.php" method="post">
+            <p id="dateChoose">Выбор даты</p>
+                <p id="dateWag">Выберите дату</p>
+                    <p><select size="1" name="type" id="type">
+                     <option disabled selected></option>
+                     <option value="1">1</option>
+                     <option value="2">2</option>
+                     <option value="3">3</option>
+                     <option value="4">4</option>
+                     <option value="5">5</option>
+                     <option value="6">6</option>
+                     <option value="7">7</option>
+                     <option value="8">8</option>
+                     <option value="9">9</option>
+                     <option value="10">10</option>
+                     <option value="11">11</option>
+                     <option value="12">12</option>
+                     <option value="13">13</option>
+                     <option value="14">14</option>
+                     <option value="15">15</option>
+                     <option value="16">16</option>
+                     <option value="17">17</option>
+                     <option value="18">18</option>
+                     <option value="19">19</option>
+                     <option value="20">20</option>
+                     <option value="21">21</option>
+                     <option value="22">22</option>
+                     <option value="23">23</option>
+                     <option value="24">24</option>
+                     <option value="25">25</option>
+                     <option value="26">26</option>
+                     <option value="27">27</option>
+                     <option value="28">28</option>
+                     <option value="29">29</option>
+                     <option value="30">30</option>
+                     <option value="31">31</option>
+                    </select></p>
+                    
+            </form>
+ 
+            <form id="monthTbl" action="select1.php" method="post">
+                    <p id="dateWag">Выберите месяц</p>
+                        <p><select size="1" name="type" id="type">
+                         <option disabled selected></option>
+                         <option value="Январь">Январь</option>
+                         <option value="Февраль">Февраль</option>
+                         <option value="Март">Март</option>
+                         <option value="Апрель">Апрель</option>
+                         <option value="Май">Май</option>
+                         <option value="Июнь">Июнь</option>
+                         <option value="Июль">Июль</option>
+                         <option value="Август">Август</option>
+                         <option value="Сентябрь">Сентябрь</option>
+                         <option value="Октябрь">Октябрь</option>
+                         <option value="Ноябрь">Ноябрь</option>
+                         <option value="Декабрь">Декабрь</option>
+                        </select></p>
+                        
+                    </form>
+      
+
+        <table id='mytbl'>
             <tbody id='tbody'>
                     <tr>
                         <th>Идентификатор поставок</th>
@@ -61,7 +133,7 @@
         window.onload = function (){ 
         var obj; 
          
-             
+         //Получение данных с сервера    
          // 1. Создаём новый объект XMLHttpRequest
          var xhr = new XMLHttpRequest();
          
@@ -83,51 +155,38 @@
          }
          
 
-        //Data for table. 
-
-    var myBtn = document.getElementById('build');
-    var mytbl = document.getElementById('mytbl');
-    var tb = mytbl.querySelector('tbody');
-    // event process
-
-    var clearTable = function(countRow){
-        if (countRow > 1) {
-            for (i=tb.rows.length-1; i>0; i--){
-                tb.deleteRow(i);
+        //Данные для таблицы
+        var myBtn = document.getElementById('build');
+        var mytbl = document.getElementById('mytbl');
+        var tb = mytbl.querySelector('tbody');
+        
+        // event process
+        var clearTable = function(countRow){
+            if (countRow > 1) {
+                for (i=tb.rows.length-1; i>0; i--){
+                    tb.deleteRow(i);
+                }
             }
         }
-    }
-    
-  //document.getElementById("e6").onclick= function (event){
-        clearTable(tb.rows.length)
-        ourObj.forEach(function(item, i, arr) {
-            var tr = document.createElement('tr');
-            var id = item.supId;
-           
-            tr.id = `row-${id}`;
-            tr.innerHTML = `<td >${id}</td>
-                            <td>${item.suoNameCons}</td>
-                            <td>${item.suoQuantityWagon}</td>
-                            <td>${item.supTypeWagon}</td>
-                            <td>${item.supDate}</td>`
-                            
-                            tb.appendChild(tr);
-            var deleteBtn = document.getElementById(`row-btn-${id}`);
-
-            deleteBtn.onclick = function(event) {
-                alert(id);
-                var rowId = "row-" + event.target.id[event.target.id.length-1];
-                alert(id.length-1);
-                alert(event.target.id[event.target.id.length-1]);
-                alert(rowId);
-                var row = document.getElementById(rowId);
-                tb.removeChild(row);
-            }
-    });
-    }
-//}
-    //<td id="Exit"><button id=${`row-btn2-${id}`} style="margin-left: 35%;outline:none;border:0;background: transparent;heigth:25px;"><img src="pen.ico" id="imgEx"></button></td>
-      document.getElementById('e6').onclick=function(){
+        
+ 
+            clearTable(tb.rows.length)
+            ourObj.forEach(function(item, i, arr) {
+                var tr = document.createElement('tr');
+                var id = item.supId;
+            
+                tr.id = `row-${id}`;
+                tr.innerHTML = `<td >${id}</td>
+                                <td>${item.supNameCons}</td>
+                                <td>${item.supQuantityWagon}</td>
+                                <td>${item.supTypeWagon}</td>
+                                <td>${item.supDate}</td>`
+                                
+                                tb.appendChild(tr);
+               
+        });
+        }
+     document.getElementById('e6').onclick=function(){
     document.getElementById('button2').style.display='block';
 }
       
@@ -137,9 +196,7 @@
         <address>...</address>
         <small>@2019...</small>
   </footer>
-  	<!--Подключаем библиотеку-->
-	
-
+  
 </body>
 
 

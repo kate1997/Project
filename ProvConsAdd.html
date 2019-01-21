@@ -62,31 +62,55 @@
 </body>
 
 <script type="text/javascript">
-
-
 document.getElementById('submit').onclick= function (){ 
 var obj; 
- alert('blabla');
-     
- // 1. Создаём новый объект XMLHttpRequest
- var xhr = new XMLHttpRequest();
  
- xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/createProvCons.php?prodId=' + document.getElementById("provId").value + "&consId=" + document.getElementById("consId").value ,false);
- 
- // 3. Отсылаем запрос
- xhr.send();
- 
- // 4. Если код ответа сервера не 200, то это ошибка
- if (xhr.status != 200) {
-   // обработать ошибку
-   console.log(xhr);
-   alert( xhr.status + ': ' + xhr.statusText );  //пример вывода: 404: Not Found
- } else {
- 
-         ourObj = JSON.parse(xhr.responseText);
-        
- 
- }
+    var provId = document.getElementById('provId').value;
+    var provId_par = /[0-9]+/;
+    var provProvId = provId_par.test(provId);
+    var consId = document.getElementById('consId').value;
+    var consId_par = /[0-9]+/;
+    var provConsId = consId_par.test(consId);
+    
+    
+    if( provId == "" && consId =="" ){
+       alert('Заполните поля!');
+    }
+    else{
+       if( provId == "" || consId ==""){
+          alert('Вы не заполнили одно из полей');
+       }
+          else{
+             if(provProvId == true && provConsId == true){
+
+                //Отправка данных на сервер
+                // 1. Создаём новый объект XMLHttpRequest
+                var xhr = new XMLHttpRequest();
+                
+                xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/actionsTables.php?table=provcons&provId=' + document.getElementById("provId").value + "&consId=" + document.getElementById("consId").value,false);
+                
+                // 3. Отсылаем запрос
+                xhr.send();
+                
+                // 4. Если код ответа сервера не 200, то это ошибка
+                if (xhr.status != 200) {
+                // обработать ошибку
+                console.log(xhr);
+                alert( xhr.status + ': ' + xhr.statusText );  //пример вывода: 404: Not Found
+                } 
+                else {
+                
+                        if(xhr.responseText==1){
+                            alert('Данные добавлены в БД');
+                            }
+
+                    }
+
+                }
+            else alert('Поля должны содержать только числовые значения');    
+        }     
+    }
+
 }
 </script>
 

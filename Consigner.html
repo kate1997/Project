@@ -4,24 +4,14 @@
  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title>Forest</title>
   <link rel="stylesheet" href="Provider.css ">
-  <!--<link rel="stylesheet" href="StylesMenu.css ">-->
 
-<style>  
-
-</style>
-    <script>
-       
-                            
-          </script>
 </head>
 <body>
 
  <header> 
 <h1> Грузоотправители </h1>
 
-
-
-    <!--Меню-->
+<!--Меню-->
     <ul id="nav" >
         <li>
             <a href="#" title="Меню"  id="menu" ><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/1200px-Hamburger_icon.svg.png" width="30px" height="30px"  ></a>
@@ -36,8 +26,8 @@
             </ul>
         </li>
     </ul>
-
  </header>
+ 
 <main>
 <section> 
     <div class="buttons" style="position: fixed;">
@@ -59,47 +49,42 @@
                       
                     </tr>
             </tbody>
-    </table>
-
-        
+    </table>     
 </section>
 
 
 <script type="text/javascript">
 
-
-        window.onload = function (){ 
-        var obj; 
-         
-             
-         // 1. Создаём новый объект XMLHttpRequest
-         var xhr = new XMLHttpRequest();
-         
-         xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/showConsigner.php',false);
-         
-         // 3. Отсылаем запрос
-         xhr.send();
-         
-         // 4. Если код ответа сервера не 200, то это ошибка
-         if (xhr.status != 200) {
-           // обработать ошибку
-           console.log(xhr);
-           alert( xhr.status + ': ' + xhr.statusText );  //пример вывода: 404: Not Found
-         } else {
-         
-                 ourObj = JSON.parse(xhr.responseText);
-                
-         
-         }
+window.onload = function (){ 
+var obj; 
+    
+        
+    // 1. Создаём новый объект XMLHttpRequest
+    var xhr = new XMLHttpRequest();
+    
+    xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/showConsigner.php',false);
+    
+    // 3. Отсылаем запрос
+    xhr.send();
+    
+    // 4. Если код ответа сервера не 200, то это ошибка
+    if (xhr.status != 200) {
+    // обработать ошибку
+    console.log(xhr);
+    alert( xhr.status + ': ' + xhr.statusText );  //пример вывода: 404: Not Found
+    } 
+            else {
+    
+                    ourObj = JSON.parse(xhr.responseText);
+            }
          
 
-        //Data for table. 
-
+//Данные для таблицы 
     var myBtn = document.getElementById('build');
     var mytbl = document.getElementById('mytbl');
     var tb = mytbl.querySelector('tbody');
-    // event process
 
+// event process
     var clearTable = function(countRow){
         if (countRow > 1) {
             for (i=tb.rows.length-1; i>0; i--){
@@ -108,7 +93,7 @@
         }
     }
     
-  //document.getElementById("e6").onclick= function (event){
+//построение таблицы 
         clearTable(tb.rows.length)
         ourObj.forEach(function(item, i, arr) {
             var tr = document.createElement('tr');
@@ -124,32 +109,33 @@
                             <button id=${`row-btn-${id}`} style="margin-left: 35%;outline:none;border:0;background: transparent;heigth:25px;"><img src="del.png" id="imgDel"></button>`;
             tb.appendChild(tr);
 
-//Изменение элемента
+            //Изменение элемента
+            document.getElementById(`row-${id}`).ondblclick=function(){
+            alert(tr.id);
 
-    document.getElementById(`row-${id}`).ondblclick=function(){
-    alert(tr.id);
-
-
-
-}
-
-//Удаление элемента
-            var deleteBtn = document.getElementById(`row-btn-${id}`);
-            deleteBtn.onclick = function(event) {
-                alert(id);
-                 // 1. Создаём новый объект XMLHttpRequest
-                var xhr = new XMLHttpRequest();
- 
-                xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/actionsTables.php?table=consigner&consId=' + id,false);
- 
-                // 3. Отсылаем запрос
-                xhr.send();
             }
+
+            //Удаление элемента
+                    var deleteBtn = document.getElementById(`row-btn-${id}`);
+                    deleteBtn.onclick = function(event) {
+
+                        var result = confirm("Вы действительно хотите удалить этого грузоотправителя?");
+                        if(result==true){
+                                
+                                // 1. Создаём новый объект XMLHttpRequest
+                                var xhr = new XMLHttpRequest();
+                
+                                xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/actionsTables.php?table=consigner&consId=' + id,false);
+                
+                                // 3. Отсылаем запрос
+                                xhr.send();
+                                alert("Грузоотправитель удален. Пожалуйста,обновите страницу");
+                        }
+                    }
     });
     }
-//}
-    //<td id="Exit"><button id=${`row-btn2-${id}`} style="margin-left: 35%;outline:none;border:0;background: transparent;heigth:25px;"><img src="pen.ico" id="imgEx"></button></td>
-      document.getElementById('e6').onclick=function(){
+
+     document.getElementById('e6').onclick=function(){
     document.getElementById('button2').style.display='block';
 }
       
@@ -160,7 +146,6 @@
         <address>...</address>
         <small>@2019...</small>
   </footer>
-  	<!--Подключаем библиотеку-->
 	
 </body>
 

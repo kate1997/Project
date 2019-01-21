@@ -49,8 +49,8 @@ input{
 
 footer{
     /* position: absolute;*/
-    width:20%;
-    margin-left: 990px;
+    width:10%;
+    margin-left: 1100px;
     text-align: right;
      color: antiquewhite;
      height: 10%;
@@ -100,6 +100,36 @@ footer{
     th{
         color:rgb(240, 146, 6);
     }
+#typeTbl{
+    margin-top: 40px;
+    margin-left: 50px;
+    float: left;
+}
+
+#typeWag {
+    color:white;
+}
+
+#dateWag{
+    color: white;
+}
+
+#dateChoose{
+font-size: 30px;
+color:rgb(255, 162, 56);
+}
+
+#dateTbl{
+    margin-top: 120px;
+    margin-left: -150px;
+    float: left;
+}
+#monthTbl{
+    margin-top: 200px;
+    margin-left: -130px;
+    float: left;
+}
+
 
 /*Свойства меню*/  
 #nav{ 

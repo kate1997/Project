@@ -57,7 +57,7 @@
 
         <li>
                 <label >Тип вагона:</label>
-                <input  type="text" id="WagType" name="wagType">
+                <input  type="text" id="wagType" name="wagType">
         </li>
 
         
@@ -75,30 +75,57 @@
 
 <script type="text/javascript">
 
-
 document.getElementById('submit').onclick= function (){ 
-var obj; 
- alert('blabla');
-     
- // 1. Создаём новый объект XMLHttpRequest
- var xhr = new XMLHttpRequest();
- 
- xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/createWagon.php?wagNumber=' + document.getElementById("wagNumber").value + "&wagVolume=" + document.getElementById("wagVolume").value + "&wagRentCost=" + document.getElementById("wagRentCost").value + "&wagType=" + document.getElementById("wagType").value,false);
- 
- // 3. Отсылаем запрос
- xhr.send();
- 
- // 4. Если код ответа сервера не 200, то это ошибка
- if (xhr.status != 200) {
-   // обработать ошибку
-   console.log(xhr);
-   alert( xhr.status + ': ' + xhr.statusText );  //пример вывода: 404: Not Found
- } else {
- 
-         ourObj = JSON.parse(xhr.responseText);
+
+//проверка ввода данных
+var wagNumber = document.getElementById('wagNumber').value;
+var wagVolume= document.getElementById('wagVolume').value;
+var wagVolume_par = /[0-9]+/;
+var provWagVolume = wagVolume_par.test(wagVolume);
+var wagRentCost = document.getElementById('wagRentCost').value;
+var wagRentCost_par = /[0-9]+/;
+var provWagRentCost = wagRentCost_par.test(wagRentCost);
+var wagType = document.getElementById('wagType').value;
+var wagType_par = /[0-9]+/;
+var provWagType = wagType_par.test(wagType);
+
+
+if( wagNumber == "" && wagVolume =="" && wagRentCost=="" && wagType==""){
+   alert('Заполните поля!');
+}
+else{
+   if( wagNumber == "" || wagVolume =="" || wagRentCost=="" || wagType==""){
+       alert('Вы не заполнили одно из полей');
+   }
+       else{
+           if( provWagVolume == true && provWagRentCost== true && provWagType==true){
+
+                    //отправка данных на сервер         
+                    // 1. Создаём новый объект XMLHttpRequest
+                    var xhr = new XMLHttpRequest();
+                    
+                    xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/actionsTables.php?table=wagon&wagNumber=' + document.getElementById("wagNumber").value + "&wagVolume=" + document.getElementById("wagVolume").value + "&wagRentCost=" + document.getElementById("wagRentCost").value + "&wagType=" + document.getElementById("wagType").value,false);
+                    
+                    // 3. Отсылаем запрос
+                    xhr.send();
+                    
+                    // 4. Если код ответа сервера не 200, то это ошибка
+                    if (xhr.status != 200) {
+                        // обработать ошибку
+                        console.log(xhr);
+                        alert( xhr.status + ': ' + xhr.statusText );  //пример вывода: 404: Not Found
+                        } 
+                            else {
+                            
+                                if(xhr.responseText==1){
+                                    alert('Данные добавлены в БД');
+                                    }
+                                }
+                }
+            else alert('2,3,4 поля должны содержать только числовые значения');   
         
- 
- }
+            }     
+}
 }
 </script>
 
