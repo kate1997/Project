@@ -1,4 +1,4 @@
-document.getElementById("AddButton").onclick = function (){
+document.getElementById("submit").onclick = function (){
 
     var name = document.getElementById('name').value;
     var cost = document.getElementById('cost').value;

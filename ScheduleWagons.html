@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Forest</title>
+  <link rel="stylesheet" href="provider.css ">
+ <!--<link rel="stylesheet" href="StylesMenu.css ">-->
+
+ 
+</head>
+<body>
+
+ <header> 
+<h1>Расписание вагонов</h1>
+
+    <!--Меню-->
+    <ul id="nav">
+        <li>
+            <a href="#" title="Меню"  id="menu" ><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/1200px-Hamburger_icon.svg.png" width="30px" height="30px"  ></a>
+            <ul>
+                <li><a href="SupplyScheme.html">График поставок </a></li>
+                <li><a href="Consigner.html">Грузоотправители </a></li>
+                <li><a href="Provider.html">Поставщики </a></li>
+                <li><a href="Wagons.html">Вагоны </a></li>
+                <li><a href="ProvCons.html">Взаимосвязь</a></li>
+                <li><a href="page1.html">Настройки </a></li>
+                <li><a href="site.html#">Главная </a></li>
+            </ul>
+        </li>
+    </ul>
+
+ </header>
+ 
+<main>
+<section> 
+      
+    <table id='mytbl'>
+            <tbody id='tbody'>
+                    <tr>
+                        <th>Идентификатор схемы</th>
+                        <th>Дата(день)</th>
+                        <th>кол-во вагонов</th>
+                        
+                      
+                    </tr>
+            </tbody>
+    </table>
+
+        
+</section>
+
+
+<script type="text/javascript">
+
+
+window.onload = function (){ 
+var obj; 
+    
+        
+    // 1. Создаём новый объект XMLHttpRequest
+    var xhr = new XMLHttpRequest();
+    
+    xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/showScheduleWagons.php',false);
+    
+    // 3. Отсылаем запрос
+    xhr.send();
+    
+    // 4. Если код ответа сервера не 200, то это ошибка
+    if (xhr.status != 200) {
+    // обработать ошибку
+    console.log(xhr);
+    alert( xhr.status + ': ' + xhr.statusText );  //пример вывода: 404: Not Found
+    } else {
+    
+            ourObj = JSON.parse(xhr.responseText);
+        
+    
+    }
+         
+
+//Данные для таблицы 
+
+    var myBtn = document.getElementById('build');
+    var mytbl = document.getElementById('mytbl');
+    var tb = mytbl.querySelector('tbody');
+
+// event process
+
+    var clearTable = function(countRow){
+        if (countRow > 1) {
+            for (i=tb.rows.length-1; i>0; i--){
+                tb.deleteRow(i);
+            }
+        }
+    }
+  
+        clearTable(tb.rows.length)
+        ourObj.forEach(function(item, i, arr) {
+            var tr = document.createElement('tr');
+            var id = item.SWagId;
+           
+            tr.id = `row-${id}`;
+            tr.innerHTML = `<td >${id}</td>
+                            <td>${item.SWagDay}</td>
+                            <td>${item.SWagQuantityWagon}</td>`;
+            tb.appendChild(tr);
+//Изменение элемента
+
+    document.getElementById(`row-${id}`).ondblclick=function(){
+    alert(tr.id);
+
+
+
+}
+    });
+    }
+     document.getElementById('e6').onclick=function(){
+    document.getElementById('button2').style.display='block';
+}
+      
+   </script>
+
+</main>
+
+<footer>
+        <address>...</address>
+        <small>@2019...</small>
+</footer>
+  
+</body>
+</html>

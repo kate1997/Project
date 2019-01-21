@@ -1,19 +1,13 @@
-*{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+html{
+    height: 100%;
 }
-
-html {
-height: 100%; /* Высота страницы */     
-}
-
 /* свойства для заголовка*/
 h1{ 
 text-align:center;
 background-color: #FFEBCD; 
-margin-bottom:-80px;
-margin-top:50px;
+background-color: rgba(190,254, 168, 0.6);
+margin-bottom:-70px;
+margin-top:0px;
 padding-top:10px;
 padding-bottom:10px;
 font-family: Georgia, 'Times New Roman', Times, serif;
@@ -21,7 +15,14 @@ color: black;
 }
 
 body{
-    background-image: url('https://img4.goodfon.ru/wallpaper/nbig/1/8d/priroda-derevia-vid-sverkhu-les.jpg'); background-size: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+  
+    background-attachment:fixed;
+	overflow: auto;background-image: url('https://img4.goodfon.ru/wallpaper/nbig/1/8d/priroda-derevia-vid-sverkhu-les.jpg'); background-size: 100%;
+}
+main{
+    height:70%;
 }
 
 .buttons{
@@ -29,7 +30,7 @@ body{
     text-align: center;
     font-size: 50px;
 list-style: none;
-margin-left: 420px;
+margin-left: 920px;
    
 }
 #button2{
@@ -39,5 +40,144 @@ margin-left: 420px;
 input{
     position: fixed;
 }
+ 
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+footer{
+    /* position: absolute;*/
+    width:20%;
+    margin-left: 990px;
+    text-align: right;
+     color: antiquewhite;
+     height: 10%;
+     left: 0;
+     bottom: 0;
+     position: fixed;
+     
+    
+ }
+ table{
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 60%;
+    margin-top: 150px;
+    color: rgb(228, 233, 160);
+    margin-left: 20%;
+    background: linear-gradient(to top left,  rgba(5, 146, 23, 0.7), rgba(58, 175, 190, 0.7));
+    }
+    
+
+    td, th {
+    border: 2px solid #270303;
+    text-align: left;
+    padding: 8px;
+    }
+    
+    section{
+        text-align: center;
+    }
+    #imgEx{
+        width:25px;
+        height: 25px;
+        padding: 0;
+        text-align: center;
+    }
+    #imgDel{
+        width:25px;
+        height: 25px;
+        padding: 0;
+       margin-left: -10px;
+    
+    }
+    #test{
+        width: 100px;
+    }
+    #Del{width: 100px;}
+    th{
+        color:rgb(240, 146, 6);
+    }
+
+/*Свойства меню*/  
+#nav{ 
+   
+    float:left;
+	margin-left: 5%;
+    width:60px;
+    list-style: none;
+    font-weight: bold;
+	text-align: center;
+	padding-left: 1px;
+    padding-right: 0px;
+
+        
+    
+    /*border: none;*/
+}
+
+#nav li{
+    
+    float: left;
+    /* Делаем элементы блочными. */
+    display: block;
+    /* Позиционирование относительно исходного места */
+    position: relative;
+}
 
 
+/* настройка выпадающего списка*/
+#nav ul{
+    /* Убираем маркеры у выпадающего списка*/
+    list-style:none;
+    left:-9999px; /* убираем элементы за пределы программы*/
+	opacity:0; /* При помощи прозрачности, скрываем <ul>. */
+    
+    /* Обрабатываем всплывающие элементы выпадающего списка при наведении мышки. */
+	-webkit-transition: 0.8s linear opacity; 
+    position:absolute;
+}
+
+/*Настройка элементов списка*/
+#nav ul li{
+    padding-top: 1px; 
+    float: none;
+    text-align: left;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    display:block;
+    /* Запрет переноса строки текста на новую строки */
+    white-space: nowrap; 
+}
+
+/*Свойства для ссылок*/
+a{
+    display: block;
+    width: 100%;
+    padding: 10px;
+    color: white;
+    text-decoration: none;
+
+}
+/*Наведение мыши на меню*/
+#nav li:hover ul{ /* Создаю выпадающий пункт, который появится при наведении. */
+    left:0; /* Возвращение элементов обратно на экран пользователя */
+    opacity:1; /* Убирается прозрачность*/
+}
+
+#nav li:hover a{ 
+    background:#024e19;
+    /* Убераем форматирование*/
+    text-decoration:none;
+    -webkit-transition:-webkit-transform 0.077s linear;
+}
+
+#nav li:hover ul li a:hover{ /* Здесь я задаю стили для конкретных выпадающих пунктов, при наведении на них курсора — чтобы они отличались от тех элементов, куда курсор не попадает*/
+    -moz-transform:scale(1.07);
+    -webkit-transform:scale(1.07);
+    /* Задам цвет фона выпадающего элемента*/
+    background:#334;
+    background:rgba(50,50,50,0.4); /* Сделаю полупрозрачным. */
+    text-decoration:underline;
+}

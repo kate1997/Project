@@ -4,54 +4,52 @@
  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title>Forest</title>
   <link rel="stylesheet" href="provider.css ">
-  <!--<link rel="stylesheet" href="StylesMenu.css ">
--->
-  <style>
-        
-    </style>
-    <script>
-       
-                            
-          </script>
+ <!--<link rel="stylesheet" href="StylesMenu.css ">-->
+
 </head>
 <body>
 
  <header> 
-<h1> График поставок </h1>
-
-
+<h1>Поставщики-грузоотправители</h1>
 
     <!--Меню-->
-    <ul id="nav" >
+    <ul id="nav">
         <li>
             <a href="#" title="Меню"  id="menu" ><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/1200px-Hamburger_icon.svg.png" width="30px" height="30px"  ></a>
             <ul>
-                <li><a href="">Грузоотправители </a></li>
+                <li><a href="SupplyScheme.html">График поставок </a></li>
+                <li><a href="Consigner.html">Грузоотправители </a></li>
                 <li><a href="Provider.html">Поставщики </a></li>
                 <li><a href="Wagons.html">Вагоны </a></li>
+                <li><a href="ScheduleWagons.html">Расписание вагонов </a></li>
                 <li><a href="page1.html">Настройки </a></li>
                 <li><a href="site.html#">Главная </a></li>
             </ul>
         </li>
     </ul>
- </header>
 
+ </header>
 <main>
 <section>   
     <table id='mytbl'>
             <tbody id='tbody'>
                     <tr>
-                        <th>Идентификатор поставок</th>
-                        <th>Наименование грузоотправителя</th>
-                        <th>Количество вагонов</th>
-                        <th>Тип вагона</th>
-                        <th>Дата отправки</th>
-                       
+                        <th>Идентификатор связи</th>
+                        <th>Идентификатор поставщика</th>
+                        <th>Идентификатор грузоотправителя</th>
+                        <th>Удалить</th>
+                      
                     </tr>
             </tbody>
     </table>
 
-        
+        <div class="buttons" style="position: fixed;">
+            <li >
+                    <input onclick="location.href='ProvConsAdd.html'" id="button2" type="button" value="Добавить" >
+                    <input  id ="e6" type="button" value="Редактировать" style = " font-size:20px; margin-left: 200px;">
+         
+            </li>
+        </div>
 </section>
 
 
@@ -65,7 +63,7 @@
          // 1. Создаём новый объект XMLHttpRequest
          var xhr = new XMLHttpRequest();
          
-         xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/showSupply.php',false);
+         xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/showProvCons.php',false);
          
          // 3. Отсылаем запрос
          xhr.send();
@@ -98,31 +96,32 @@
         }
     }
     
-  //document.getElementById("e6").onclick= function (event){
-        clearTable(tb.rows.length)
-        ourObj.forEach(function(item, i, arr) {
-            var tr = document.createElement('tr');
-            var id = item.supId;
-           
-            tr.id = `row-${id}`;
-            tr.innerHTML = `<td >${id}</td>
-                            <td>${item.suoNameCons}</td>
-                            <td>${item.suoQuantityWagon}</td>
-                            <td>${item.supTypeWagon}</td>
-                            <td>${item.supDate}</td>`
-                            
-                            tb.appendChild(tr);
-            var deleteBtn = document.getElementById(`row-btn-${id}`);
+    //document.getElementById("e6").onclick= function (event){
+    clearTable(tb.rows.length)
+    ourObj.forEach(function(item, i, arr) {
+        var tr = document.createElement('tr');
+        var id = item.provConsId;
+        
+        tr.id = `row-${id}`;
+        tr.innerHTML = `<td >${id}</td>
+                        <td>${item.provId}</td>
+                        <td>${item.consId}</td>
+                        <button id=${`row-btn-${id}`} style="margin-left: 35%;outline:none;border:0;background: transparent;heigth:25px;"><img src="del.png" id="imgDel"></button>`;
+        tb.appendChild(tr);
+        
+        //Удаление элемента
+        var deleteBtn = document.getElementById(`row-btn-${id}`);
+        deleteBtn.onclick = function(event) {
+            alert(id);
+                // 1. Создаём новый объект XMLHttpRequest
+            var xhr = new XMLHttpRequest();
 
-            deleteBtn.onclick = function(event) {
-                alert(id);
-                var rowId = "row-" + event.target.id[event.target.id.length-1];
-                alert(id.length-1);
-                alert(event.target.id[event.target.id.length-1]);
-                alert(rowId);
-                var row = document.getElementById(rowId);
-                tb.removeChild(row);
-            }
+            xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/deleteProvCons.php?provConsId=' + document.getElementById(`row-btn-${id}`).value,false);
+
+            // 3. Отсылаем запрос
+            xhr.send();
+        }
+
     });
     }
 //}
@@ -132,15 +131,13 @@
 }
       
    </script>
+
 </main>
+
 <footer>
         <address>...</address>
         <small>@2019...</small>
-  </footer>
+</footer>
   	<!--Подключаем библиотеку-->
-	
-
 </body>
-
-
 </html>

@@ -3,22 +3,43 @@
     margin: 0;
     box-sizing: border-box;
 }
-
-html {
-height: 100%; /* Высота страницы */     
+html{
+    height: 100%;
 }
+body{
+    height: 100%;
+    background-repeat: no-repeat;
+  
+    background-attachment:fixed;
+	overflow: auto;
+    background-image: url('https://img4.goodfon.ru/wallpaper/nbig/1/8d/priroda-derevia-vid-sverkhu-les.jpg'); background-size: 100%;
 
-header{
-    widows: 100%;
-    height: 20%;
 }
+main{
+    height:60%;
+}
+/* свойства для заголовка*/
+h1{ 
+    text-align:center;
+    
+    background-color: rgba(190,254, 168, 0.6);
+    margin-bottom:-100px;
+    margin-top:0px;
+    padding-top:12px;
+    padding-bottom:12px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: black;
+    }
+
+
 .prov{
     margin-top: 18%;
-    margin-left: 27%;
+    margin-left: 25%;
     color:wheat;
-    width: 600px;
-    height: 00px;
+    width: 50%;
+    height: 400px;
     font-size: 25px;
+    
 
 }
 li{
@@ -35,26 +56,113 @@ input{
     margin-top: 5px;
 }
 
-/* свойства для заголовка*/
-h1{ 
-    text-align:center;
-    background-color: #FFEBCD; 
-    margin-bottom:-80px;
-    margin-top:50px;
-    padding-top:10px;
-    padding-bottom:10px;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-}
 
-body{
-    background-image: url('https://img4.goodfon.ru/wallpaper/nbig/1/8d/priroda-derevia-vid-sverkhu-les.jpg'); background-size: 100%;
 
-}
 form li{
     margin-top: 10px;
     
 }
-form{
-    background-color: green;
-    height: 200px;
+section{
+    text-align: center;
 }
+
+
+
+
+/*Свойства меню*/  
+#nav{ 
+
+float:left;
+margin-left: 5%;
+width:60px;
+list-style: none;
+font-weight: bold;
+text-align: center;
+padding-left: 1px;
+padding-right: 0px;
+
+    
+
+/*border: none;*/
+}
+
+#nav li{
+
+float: left;
+/* Делаем элементы блочными. */
+display: block;
+/* Позиционирование относительно исходного места */
+position: relative;
+}
+
+
+/* настройка выпадающего списка*/
+#nav ul{
+/* Убираем маркеры у выпадающего списка*/
+list-style:none;
+left:-9999px; /* убираем элементы за пределы программы*/
+opacity:0; /* При помощи прозрачности, скрываем <ul>. */
+
+/* Обрабатываем всплывающие элементы выпадающего списка при наведении мышки. */
+-webkit-transition: 0.8s linear opacity; 
+position:absolute;
+}
+
+/*Настройка элементов списка*/
+#nav ul li{
+padding-top: 1px; 
+float: none;
+text-align: left;
+font-family: Georgia, 'Times New Roman', Times, serif;
+display:block;
+/* Запрет переноса строки текста на новую строки */
+white-space: nowrap; 
+}
+
+/*Свойства для ссылок*/
+a{
+display: block;
+width: 100%;
+padding: 10px;
+color: white;
+text-decoration: none;
+
+}
+/*Наведение мыши на меню*/
+#nav li:hover ul{ /* Создаю выпадающий пункт, который появится при наведении. */
+left:0; /* Возвращение элементов обратно на экран пользователя */
+opacity:1; /* Убирается прозрачность*/
+}
+
+#nav li:hover a{ 
+background:#024e19;
+/* Убераем форматирование*/
+text-decoration:none;
+-webkit-transition:-webkit-transform 0.077s linear;
+}
+
+#nav li:hover ul li a:hover{ /* Здесь я задаю стили для конкретных выпадающих пунктов, при наведении на них курсора — чтобы они отличались от тех элементов, куда курсор не попадает*/
+-moz-transform:scale(1.07);
+-webkit-transform:scale(1.07);
+/* Задам цвет фона выпадающего элемента*/
+background:#334;
+background:rgba(50,50,50,0.4); /* Сделаю полупрозрачным. */
+text-decoration:underline;
+}
+
+
+footer{
+/* position: absolute;*/
+width:100%;
+text-align: right;
+color: antiquewhite;
+height: 10%;
+left: 0;
+bottom: 0;
+
+
+}
+
+
+
+

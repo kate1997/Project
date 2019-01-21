@@ -4,49 +4,10 @@
  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title>Forest</title>
   <link rel="stylesheet" href="provider.css ">
-  <link rel="stylesheet" href="StylesMenu.css ">
+  <!--<link rel="stylesheet" href="StylesMenu.css ">-->
 
   <style>
-        table{
-        font-family: arial, sans-serif;
-        border-collapse: collapse;
-        width: 60%;
-        margin-top: 150px;
-        color: brown;
-        margin-left: 20%;
-        background: linear-gradient(to top left, powderblue, pink);
-        }
-        h2{
-            margin-top: 180px;
-            color:bisque;
-        }
-
-        td, th {
-        border: 2px solid #270303;
-        text-align: left;
-        padding: 8px;
-        }
         
-        section{
-            text-align: center;
-        }
-        #imgEx{
-            width:25px;
-            height: 25px;
-            padding: 0;
-            text-align: center;
-        }
-        #imgDel{
-            width:25px;
-            height: 25px;
-            padding: 0;
-            text-align: center;
-            margin-left: 30%;
-        }
-        #test{
-            width: 100px;
-        }
-        #Del{width: 100px;}
         
     </style>
     <script>
@@ -58,26 +19,34 @@
 
  <header> 
 <h1> Вагоны </h1>
- </header>
+ 
 
-<nav>
+
     <!--Меню-->
-    <ul id="nav" style="margin-top: 15px;">
+    <ul id="nav" >
         <li>
             <a href="#" title="Меню"  id="menu" ><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/1200px-Hamburger_icon.svg.png" width="30px" height="30px"  ></a>
             <ul>
                 <li><a href="SupplyScheme.html">График поставок </a></li>
-                <li><a href="">Грузоотправители </a></li>
+                <li><a href="Consigner.html">Грузоотправители </a></li>
                 <li><a href="Provider.html">Поставщики </a></li>
+                <li><a href="ProvCons.html">Взаимосвязь</a></li>
+                <li><a href="ScheduleWagons.html">Расписание вагонов</a></li>
                 <li><a href="page1.html">Настройки </a></li>
                 <li><a href="site.html#">Главная </a></li>
             </ul>
         </li>
     </ul>
-</nav>
 
-
-<section>   
+</header>
+<main>
+<section>  <div class="buttons" style="position: fixed;">
+            <li >
+                    <input onclick="location.href='WagonsAdd.html'" id="button2" type="button" value="Добавить" >
+                    <input  id ="e6" type="button" value="Редактировать" style = " font-size:20px; margin-left: 200px;">
+            
+            </li>
+        </div> 
     <table id='mytbl'>
             <tbody id='tbody'>
                     <tr>
@@ -91,15 +60,7 @@
             </tbody>
     </table>
 
-        <div class="buttons" style="position: fixed;">
-            <li >
-                    <input onclick="location.href='ProviderAdd.html'" id="button2" type="button" value="Добавить" >
-                    <input  id ="e6" type="button" value="Редактировать" style = " font-size:20px; margin-left: 200px;">
-            <!-- <button id="mybtn" >Просмотр</button>
-            <input  id ="test" type="button"  value="Загрузить">
-            <input  id ="build" type="button"  value="Построить">-->
-            </li>
-        </div>
+        
 </section>
 
 
@@ -158,18 +119,21 @@
                             <td>${item.wagVolume}</td>
                             <td>${item.wagRentCost}</td>
                             <td>${item.wagType}</td>
-                            <td id="Del"><button id=${`row-btn-${id}`} style="margin-left: 35%;outline:none;border:0;background: transparent;heigth:25px;"><img src="del.png" id="imgDel"></button></td>`;
+                            <button id=${`row-btn-${id}`} style="margin-left: 35%;outline:none;border:0;background: transparent;heigth:25px;"><img src="del.png" id="imgDel"></button>`;
             tb.appendChild(tr);
-            var deleteBtn = document.getElementById(`row-btn-${id}`);
+           
 
+         //Удаление элемента
+         var deleteBtn = document.getElementById(`row-btn-${id}`);
             deleteBtn.onclick = function(event) {
                 alert(id);
-                var rowId = "row-" + event.target.id[event.target.id.length-1];
-                alert(id.length-1);
-                alert(event.target.id[event.target.id.length-1]);
-                alert(rowId);
-                var row = document.getElementById(rowId);
-                tb.removeChild(row);
+                 // 1. Создаём новый объект XMLHttpRequest
+                var xhr = new XMLHttpRequest();
+ 
+                xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/deleteWagons.php?WagId=' + document.getElementById(`row-btn-${id}`).value,false);
+ 
+                // 3. Отсылаем запрос
+                xhr.send();
             }
     });
     }
@@ -180,7 +144,7 @@
 }
       
    </script>
-
+</main>
 <footer>
         <address>...</address>
         <small>@2019...</small>

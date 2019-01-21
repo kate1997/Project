@@ -1,12 +1,67 @@
 
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+
+
 body{
     background-repeat: no-repeat;
     background-size: 100%;
     background-attachment:fixed;
 	overflow: auto;
-    min-width:750px;;text-width: bold;
+   }
+
+   /*Свойства звголовка*/ 
+h1{
+    text-align:center;
+    background-color: rgba(190,254, 168, 0.6);
+    margin-bottom:-80px;
+    margin-top:0px;
+    padding-top:10px;
+    padding-bottom:10px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: black;
+    }
     
-}
+table{
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 60%;
+    margin-top: 150px;
+    color: rgb(228, 233, 160);
+    margin-left: 20%;
+    background: linear-gradient(to top left,  rgba(5, 146, 23, 0.8), rgba(58, 175, 190, 0.8));
+    }
+
+th{
+        color:rgb(248, 255, 230);
+    }
+td, th {
+    border: 2px solid #270303;
+    text-align: left;
+    padding: 8px;
+    }
+    
+section{
+        text-align: center;
+    }
+#imgDel{
+        width:25px;
+        height: 25px;
+        padding: 0;
+        text-align: center;
+        margin-left: 30%;
+    }
+#test{
+        width: 100px;
+    }
+#Del{width: 100px;}
+
+
+
 /*Свойства меню*/  
 #nav{ 
    
@@ -16,11 +71,12 @@ body{
     list-style: none;
     font-weight: bold;
 	text-align: center;
-	padding-top:10px;
-    padding-bottom:10px;
 	padding-left: 1px;
     padding-right: 0px;
-    border: none;
+
+        
+    
+    /*border: none;*/
 }
 
 #nav li{
@@ -93,9 +149,11 @@ footer{
    width:100%;
    text-align: right;
     color: antiquewhite;
-    height: 80px;
+    height: 10%;
     left: 0;
     bottom: 0;
+   
+   
 }
 
 

@@ -4,7 +4,11 @@
  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title>Forest</title>
   <link rel="stylesheet" href="ProviderAdd.css ">
-  
+  <style>
+  #prov{
+    width:70%;
+}
+</style>
 </head>
 <body>
 
@@ -13,7 +17,7 @@
     </script>
 
 <header>  
-<h1> Поставщики </h1>
+<h1> Схема отправки вагонов </h1>
 
 
 <!--Меню-->
@@ -23,7 +27,7 @@
             <ul>
                 <li><a href="SupplyScheme.html">График поставок </a></li>
                 <li><a href="Consigner.html">Грузоотправители </a></li>
-                <li><a href="Provider.html">Поставщики </a></li>
+                <li><a href="Provider.html">Поставщики </a></li>          
                 <li><a href="ProvCons.html">Взаимосвязь</a></li>
                 <li><a href="Wagons.html">Вагоны </a></li>
                 <li><a href="ScheduleWagons.html">Расписание вагонов </a></li>
@@ -35,21 +39,19 @@
 
 </header>
 <main>
-    <form class="prov" >
+    <form class="prov" style="width:55%;margin-left: 23%">
         <li>
-            <label >Наименование:</label>
-            <input title="Введите наименование" type="text" id="name" name="name">
+            <label >Дата:</label>
+            <input type="text" id="SWagDate" name="SWagDate">
         </li>
 
         <li>
-                <label >Стоимость сырья:</label>
-                <input title="Введите стоимость сырья" type="text" id="cost" name="cost">
+                <label >Кол-во вагонов:</label>
+                <input  type="text" id="SWagQuantityWagon" name="SWagQuantityWagon">
         </li>
 
-        <li>
-                <label >Рейтинг:</label>
-                <input title="Введите рейтинг" type="text" id="raiting" name="raiting">
-        </li>
+        
+        
         
         <input   id ="submit" type="button" name="submit" value="Отправить" style = "font-size:20px; padding:0px; text-align: center;margin-top: 12px;">
     
@@ -68,30 +70,12 @@
 
 document.getElementById('submit').onclick= function (){ 
 var obj; 
- 
-var name = document.getElementById('name').value;
-    var cost = document.getElementById('cost').value;
-    var cost_par = /[0-9]+/;
-    var provCost = cost_par.test(cost);
-    var raiting = document.getElementById('raiting').value;
-    var time_par = /[0-9]+/;
-    var provRaiting = time_par.test(raiting);
-    
-    
-    if( name == "" && cost =="" && raiting==""){
-       alert('Заполните поля!');
-    }
-    else{
-       if( name == "" || cost =="" || raiting==""){
-          alert('Вы не заполнили одно из полей');
-       }
-          else{
-             if(provCost == true && provRaiting ==true){
-                 
-                  // 1. Создаём новый объект XMLHttpRequest
+ alert('blabla');
+     
+ // 1. Создаём новый объект XMLHttpRequest
  var xhr = new XMLHttpRequest();
  
- xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/actionsTables.php?table=provider&provName=' + document.getElementById("name").value + "&provPrice=" + document.getElementById("cost").value + "&provRating=" + document.getElementById("raiting").value,false);
+ xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/createConsigner.php?SWagDate=' + document.getElementById("SWagDate").value + "&SWagQuantityWagon=" + document.getElementById("SWagQuantityWagon").value ,false);
  
  // 3. Отсылаем запрос
  xhr.send();
@@ -103,21 +87,10 @@ var name = document.getElementById('name').value;
    alert( xhr.status + ': ' + xhr.statusText );  //пример вывода: 404: Not Found
  } else {
  
-         if(xhr.responseText==1){
-            alert('Данные добавлены в БД');
-         }
+         ourObj = JSON.parse(xhr.responseText);
         
  
  }
-             }
-                else alert('Поля 2 и 3 должны содержать только числовые значения');    
-          }     
-    }
-
-
-
-     
-
 }
 </script>
 

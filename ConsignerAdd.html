@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Forest</title>
+  <link rel="stylesheet" href="ProviderAdd.css ">
+  <style>
+  #prov{
+    width:70%;
+}
+</style>
+</head>
+<body>
+
+    <script src="index.js">
+        
+    </script>
+
+<header>  
+<h1> Добавление грузоотправителя </h1>
+
+
+<!--Меню-->
+    <ul id="nav" >
+        <li>
+            <a href="#" title="Меню"  id="menu" ><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/1200px-Hamburger_icon.svg.png" width="30px" height="30px"  ></a>
+            <ul>
+                <li><a href="SupplyScheme.html">График поставок </a></li>
+                <li><a href="Consigner.html">Грузоотправители </a></li>
+                <li><a href="Provider.html">Поставщики </a></li>          
+                <li><a href="ProvCons.html">Взаимосвязь</a></li>
+                <li><a href="Wagons.html">Вагоны </a></li>
+                <li><a href="ScheduleWagons.html">Расписание вагонов </a></li>
+                <li><a href="page1.html">Настройки </a></li>
+                <li><a href="site.html#">Главная </a></li>
+            </ul>
+        </li>
+    </ul>
+
+</header>
+<main>
+    <form class="prov" style="width:55%;margin-left: 23%">
+        <li>
+            <label >Мин.кол-во вагонов:</label>
+            <input type="text" id="consMinWagon" name="consMinWagon">
+        </li>
+
+        <li>
+                <label >Макс.кол-во вагонов:</label>
+                <input  type="text" id="consMaxWagon" name="consMaxWagon">
+        </li>
+
+        <li>
+                <label >Время загрузки вагона:</label>
+                <input  type="text" id="consLoadTime" name="consLoadTime">
+        </li>
+
+        <li>
+                <label >Время оборота:</label>
+                <input  type="text" id="consTimeOnRoad" name="consTimeOnRoad">
+        </li>
+
+        <li>
+                <label >Тариф до грузоотправителя:</label>
+                <input  type="text" id="consCost" name="consCost">
+        </li>
+        
+        
+        <input   id ="submit" type="button" name="submit" value="Отправить" style = "font-size:20px; padding:0px; text-align: center;margin-top: 12px;">
+    
+    </form>
+
+</main>
+<footer>
+        <address>...</address>
+        <small>@2019...</small>
+  </footer>
+
+</body>
+
+<script type="text/javascript">
+
+document.getElementById('submit').onclick= function (){ 
+
+ //проверка ввода данных
+var consMinWagon = document.getElementById('consMinWagon').value;
+var consMinWagon_par = /[0-9]+/;
+var provConsMinWagon = consMinWagon_par.test(consMinWagon);
+var consMaxWagon = document.getElementById('consMaxWagon').value;
+var consMaxWagon_par = /[0-9]+/;
+var provConsMaxWagon = consMaxWagon_par.test(consMaxWagon);
+var consLoadTime = document.getElementById('consLoadTime').value;
+var consLoadTime_par = /[0-9]+/;
+var provConsLoadTime = consLoadTime_par.test(consLoadTime);
+var consTimeOnRoad = document.getElementById('consTimeOnRoad').value;
+var consTimeOnRoad_par = /[0-9]+/;
+var provConsTimeOnRoad = consTimeOnRoad_par.test(consTimeOnRoad);
+var consCost = document.getElementById('consCost').value;
+var consCost_par = /[0-9]+/;
+var provConsCost = consCost_par.test(consCost);
+
+
+if( consMinWagon == "" && consMaxWagon =="" && consLoadTime=="" && consTimeOnRoad=="" && consCost==""){
+    alert('Заполните поля!');
+}
+else{
+    if( consMinWagon == "" || consMaxWagon =="" || consLoadTime=="" || consTimeOnRoad=="" || consCost==""){
+        alert('Вы не заполнили одно из полей');
+    }
+        else{
+            if(provConsMinWagon == true && provConsMaxWagon == true && provConsLoadTime == true && provConsTimeOnRoad == true && provConsCost == true){
+
+//отправка данных на сервер                 
+// 1. Создаём новый объект XMLHttpRequest
+ var xhr = new XMLHttpRequest();
+ 
+ xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/actionsTables.php?table=consigner&consMinWagon=' + document.getElementById("consMinWagon").value + "&consMaxWagon=" + document.getElementById("consMaxWagon").value + "&consloadTime=" + document.getElementById("consLoadTime").value + "&consTimeOnRoad=" + document.getElementById("consTimeOnRoad").value + "&consCost=" + document.getElementById("consCost").value,false);
+ 
+ // 3. Отсылаем запрос
+ xhr.send();
+ 
+ // 4. Если код ответа сервера не 200, то это ошибка
+ if (xhr.status != 200) {
+   // обработать ошибку
+   console.log(xhr);
+   alert( xhr.status + ': ' + xhr.statusText );  //пример вывода: 404: Not Found
+ }
+         else {
+           
+            if(xhr.responseText==1){
+                alert('Данные добавлены в БД');
+                }
+            }
+            }
+    else alert('Поля должны содержать только числовые значения');    
+}     
+}
+}
+</script>
+
+</html>
