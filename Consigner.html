@@ -103,7 +103,7 @@ var obj;
             tr.innerHTML = `<td >${id}</td>
                             <td>${item.consMinWagon}</td>
                             <td>${item.consMaxWagon}</td>
-                            <td>${item.consLoadTime}</td>
+                            <td>${item.consloadTime}</td>
                             <td>${item.consTimeOnRoad}</td>
                             <td>${item.consCost}</td>
                             <button id=${`row-btn-${id}`} style="margin-left: 35%;outline:none;border:0;background: transparent;heigth:25px;"><img src="del.png" id="imgDel"></button>`;
@@ -129,7 +129,9 @@ var obj;
                 
                                 // 3. Отсылаем запрос
                                 xhr.send();
-                                alert("Грузоотправитель удален. Пожалуйста,обновите страницу");
+                                // Обновление страницы
+                                location.reload();
+                                alert("Грузоотправитель удален.");
                         }
                     }
     });

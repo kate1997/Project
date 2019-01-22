@@ -21,6 +21,8 @@ body{
     background-attachment:fixed;
 	overflow: auto;background-image: url('https://img4.goodfon.ru/wallpaper/nbig/1/8d/priroda-derevia-vid-sverkhu-les.jpg'); background-size: 100%;
 }
+
+
 main{
     height:70%;
 }
@@ -66,7 +68,7 @@ footer{
     width: 60%;
     margin-top: 150px;
     color: rgb(228, 233, 160);
-    margin-left: 20%;
+    margin-left: 19%;
     background: linear-gradient(to top left,  rgba(5, 146, 23, 0.7), rgba(58, 175, 190, 0.7));
     }
     
@@ -129,13 +131,20 @@ color:rgb(255, 162, 56);
     margin-left: -130px;
     float: left;
 }
-
+#otch{
+    margin-top: 300px;
+    margin-left: -120px;
+    float: left;
+    padding: 10px;
+    padding-left: 25px;
+    padding-right: 25px;
+}
 
 /*Свойства меню*/  
 #nav{ 
    
     float:left;
-	margin-left: 5%;
+	margin-left: 1%;
     width:60px;
     list-style: none;
     font-weight: bold;
@@ -203,11 +212,11 @@ a{
     -webkit-transition:-webkit-transform 0.077s linear;
 }
 
-#nav li:hover ul li a:hover{ /* Здесь я задаю стили для конкретных выпадающих пунктов, при наведении на них курсора — чтобы они отличались от тех элементов, куда курсор не попадает*/
+#nav li:hover ul li a:hover{ /* стили для конкретных выпадающих пунктов, при наведении на них курсора */
     -moz-transform:scale(1.07);
     -webkit-transform:scale(1.07);
-    /* Задам цвет фона выпадающего элемента*/
+    /* цвет фона выпадающего элемента*/
     background:#334;
-    background:rgba(50,50,50,0.4); /* Сделаю полупрозрачным. */
+    background:rgba(50,50,50,0.4); /* Полупрозрачность. */
     text-decoration:underline;
 }

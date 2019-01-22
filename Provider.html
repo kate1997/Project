@@ -127,8 +127,13 @@ var obj;
                                 xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/actionsTables.php?table=provider&provId=' + id,false);
                 
                                 // 3. Отсылаем запрос
-                                xhr.send();
-                                alert("Поставщик удален. Пожалуйста,обновите страницу");
+                                xhr.send(); 
+                                //обновление страницы
+                                location.reload();
+                                alert("Поставщик удален.");
+
+                               
+
                         }
                     }
           

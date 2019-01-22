@@ -42,7 +42,7 @@
     <table id='mytbl'>
             <tbody id='tbody'>
                     <tr>
-                        <th>Идентификатор вагона</th>
+                        
                         <th>Номер вагона</th>
                         <th>Объем вагона</th>
                         <th>Стоимость аренды вагона</th>
@@ -103,7 +103,7 @@ var obj;
             var id = item.wagId;
             
             tr.id = `row-${id}`;
-            tr.innerHTML = `<td >${id}</td>
+            tr.innerHTML = `
                             <td>${item.wagNumber}</td>
                             <td>${item.wagVolume}</td>
                             <td>${item.wagRentCost}</td>
@@ -131,7 +131,9 @@ var obj;
             
                             // 3. Отсылаем запрос
                             xhr.send();
-                            alert("Вагон удален. Пожалуйста,обновите страницу");
+                            //
+                            location.reload();
+                            alert("Вагон удален.");
                     }
                 }
     });

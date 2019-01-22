@@ -67,7 +67,8 @@
         
         
         <input   id ="submit" type="button" name="submit" value="Отправить" style = "font-size:20px; padding:0px; text-align: center;margin-top: 12px;">
-    
+        <input type="button" onclick="location.href='Consigner.html'" value="Вернуться к таблице" style = "font-size:20px; padding:0px; text-align: center;margin-top: 12px; margin-right: 55px;">
+  
     </form>
 
 </main>
@@ -128,7 +129,7 @@ else{
                             else {
                             
                                 if(xhr.responseText==1){
-                                    alert('Данные добавлены в БД'); 
+                                    alert('Данные добавлены в БД'); location.reload();
                                     }
                                 }
                 }

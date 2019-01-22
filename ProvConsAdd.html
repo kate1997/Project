@@ -50,7 +50,7 @@
 
         
         <input   id ="submit" type="button" name="submit" value="Отправить" style = "font-size:20px; padding:0px; text-align: center;margin-top: 12px;">
-    
+    <input type="button" onclick="location.href='ProvCons.html'" value="Вернуться к таблице" style = "font-size:20px; padding:0px; text-align: center;margin-top: 12px; margin-right: 55px;">
     </form>
 
 </main>
@@ -103,14 +103,14 @@ var obj;
                         if(xhr.responseText==1){
                             alert('Данные добавлены в БД');
                             }
-
+                        else{alert('Данные не могут быть добавлены');}
                     }
 
                 }
             else alert('Поля должны содержать только числовые значения');    
         }     
     }
-
+location.reload();
 }
 </script>
 

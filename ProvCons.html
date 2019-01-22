@@ -41,7 +41,7 @@
     <table id='mytbl'>
             <tbody id='tbody'>
                     <tr>
-                        <th>Идентификатор связи</th>
+                        
                         <th>Идентификатор поставщика</th>
                         <th>Идентификатор грузоотправителя</th>
                         
@@ -81,14 +81,12 @@
          
          }
          
-
-        //Data for table. 
-
+//Данные для таблицы. 
     var myBtn = document.getElementById('build');
     var mytbl = document.getElementById('mytbl');
     var tb = mytbl.querySelector('tbody');
-    // event process
-
+   
+// event process
     var clearTable = function(countRow){
         if (countRow > 1) {
             for (i=tb.rows.length-1; i>0; i--){
@@ -96,23 +94,27 @@
             }
         }
     }
-    
-    //document.getElementById("e6").onclick= function (event){
+ //создание таблицы   
     clearTable(tb.rows.length)
     ourObj.forEach(function(item, i, arr) {
         var tr = document.createElement('tr');
         var id = item.provConsId;
         
         tr.id = `row-${id}`;
-        tr.innerHTML = `<td >${id}</td>
+        tr.innerHTML = `
                         <td>${item.provId}</td>
-                        <td>${item.consId}</td>
+                        <td >${item.consId}</td>
                         <button id=${`row-btn-${id}`} style="margin-left: 35%;outline:none;border:0;background: transparent;heigth:25px;"><img src="del.png" id="imgDel"></button>`;
         tb.appendChild(tr);
 
          //Изменение элемента
          document.getElementById(`row-${id}`).ondblclick=function(){
+             var thisId = id;
+             alert(thisId);
             alert(tr.id);
+
+        
+
 
         }
 
@@ -130,7 +132,9 @@
                 
                                 // 3. Отсылаем запрос
                                 xhr.send();
-                                alert("Взаимосвязь удалена. Пожалуйста,обновите страницу");
+                                //обновление страницы
+                                location.reload();
+                                alert("Взаимосвязь удалена.");
                         }
                     }
           
