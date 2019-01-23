@@ -1,7 +1,45 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
 html{
     height: 100%;
 }
-/* свойства для заголовка*/
+
+
+
+body{
+    height: 100%;
+    background-repeat: no-repeat;
+  
+    background-attachment:fixed;
+	overflow: auto;background-image: url('https://img4.goodfon.ru/wallpaper/nbig/1/8d/priroda-derevia-vid-sverkhu-les.jpg'); background-size: 100%;
+}
+
+main{
+    height:70%;
+}
+
+section{
+        text-align: center;
+    }
+
+footer{
+  
+    width:10%;
+    margin-left: 90%;
+    text-align: right;
+     color: antiquewhite;
+     height: 10%;
+     left: 0;
+     bottom: 0;
+     position: fixed;
+    
+ }
+
+/* заголовок страницы*/
 h1{ 
 text-align:center;
 background-color: #FFEBCD; 
@@ -14,25 +52,13 @@ font-family: Georgia, 'Times New Roman', Times, serif;
 color: black;
 }
 
-body{
-    height: 100%;
-    background-repeat: no-repeat;
-  
-    background-attachment:fixed;
-	overflow: auto;background-image: url('https://img4.goodfon.ru/wallpaper/nbig/1/8d/priroda-derevia-vid-sverkhu-les.jpg'); background-size: 100%;
-}
-
-
-main{
-    height:70%;
-}
-
+/*кнопоки Добавить и Редактировать*/
 .buttons{
     margin-bottom: 0px;
     text-align: center;
     font-size: 50px;
 list-style: none;
-margin-left: 920px;
+margin-left: 77%;
    
 }
 #button2{
@@ -43,25 +69,7 @@ input{
     position: fixed;
 }
  
-*{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-}
 
-footer{
-    /* position: absolute;*/
-    width:10%;
-    margin-left: 1100px;
-    text-align: right;
-     color: antiquewhite;
-     height: 10%;
-     left: 0;
-     bottom: 0;
-     position: fixed;
-     
-    
- }
  table{
     font-family: arial, sans-serif;
     border-collapse: collapse;
@@ -70,67 +78,74 @@ footer{
     color: rgb(228, 233, 160);
     margin-left: 19%;
     background: linear-gradient(to top left,  rgba(5, 146, 23, 0.7), rgba(58, 175, 190, 0.7));
-    }
+}
     
 
-    td, th {
+td, th {
     border: 2px solid #270303;
     text-align: left;
     padding: 8px;
-    }
-    
-    section{
-        text-align: center;
-    }
-    #imgEx{
-        width:25px;
-        height: 25px;
-        padding: 0;
-        text-align: center;
-    }
-    #imgDel{
-        width:25px;
-        height: 25px;
-        padding: 0;
-       margin-left: -10px;
-    
-    }
-    #test{
-        width: 100px;
-    }
-    #Del{width: 100px;}
-    th{
+}
+  
+th{
         color:rgb(240, 146, 6);
-    }
+}  
+    
+/*картинки "Удалить"*/
+#imgDel{
+    width:25px;
+    height: 25px;
+    padding: 0;
+    margin-left: -10px;
+    
+
+}
+
+#test{
+    width: 100px;
+}
+    
+#Del{width: 100px;}
+    
+
+/*список "Тип вагона"*/
 #typeTbl{
     margin-top: 40px;
     margin-left: 50px;
     float: left;
 }
 
+/*заголовок списка "Тип вагона"*/
 #typeWag {
     color:white;
 }
 
+/*заголовок списка месяца */
 #dateWag{
     color: white;
 }
 
-#dateChoose{
-font-size: 30px;
-color:rgb(255, 162, 56);
-}
-
+/*список дней*/
 #dateTbl{
     margin-top: 120px;
     margin-left: -150px;
     float: left;
 }
+
+/*заголовок списка дней*/
+#dateChoose{
+    font-size: 30px;
+    color:rgb(255, 162, 56);
+}
+
+/*список месяцев*/
 #monthTbl{
     margin-top: 200px;
     margin-left: -130px;
     float: left;
 }
+
+/*кнопка отчета*/
 #otch{
     margin-top: 300px;
     margin-left: -120px;
@@ -139,6 +154,19 @@ color:rgb(255, 162, 56);
     padding-left: 25px;
     padding-right: 25px;
 }
+
+#editSell{
+    width: 10%;
+    height: 2,5%;
+    margin-top: 0px  ;
+    background-color: rgba(190,254, 168, 0.6);
+
+}
+
+
+
+
+
 
 /*Свойства меню*/  
 #nav{ 
@@ -152,29 +180,21 @@ color:rgb(255, 162, 56);
 	padding-left: 1px;
     padding-right: 0px;
 
-        
-    
-    /*border: none;*/
 }
 
 #nav li{
     
     float: left;
-    /* Делаем элементы блочными. */
     display: block;
-    /* Позиционирование относительно исходного места */
     position: relative;
 }
 
 
 /* настройка выпадающего списка*/
 #nav ul{
-    /* Убираем маркеры у выпадающего списка*/
     list-style:none;
     left:-9999px; /* убираем элементы за пределы программы*/
-	opacity:0; /* При помощи прозрачности, скрываем <ul>. */
-    
-    /* Обрабатываем всплывающие элементы выпадающего списка при наведении мышки. */
+	opacity:0; /*скрываем <ul> */
 	-webkit-transition: 0.8s linear opacity; 
     position:absolute;
 }
@@ -186,7 +206,7 @@ color:rgb(255, 162, 56);
     text-align: left;
     font-family: Georgia, 'Times New Roman', Times, serif;
     display:block;
-    /* Запрет переноса строки текста на новую строки */
+    /* Запрет переноса строки текста на новую строку */
     white-space: nowrap; 
 }
 
@@ -200,9 +220,9 @@ a{
 
 }
 /*Наведение мыши на меню*/
-#nav li:hover ul{ /* Создаю выпадающий пункт, который появится при наведении. */
-    left:0; /* Возвращение элементов обратно на экран пользователя */
-    opacity:1; /* Убирается прозрачность*/
+#nav li:hover ul{ 
+    left:0; /* Возвращение элементов обратно на экран */
+    opacity:1; 
 }
 
 #nav li:hover a{ 

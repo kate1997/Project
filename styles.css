@@ -1,5 +1,3 @@
-
-
 *{
     padding: 0;
     margin: 0;
@@ -16,10 +14,25 @@ body{
     background-attachment:fixed;
     overflow: auto;
     height: 100%;
-   }
-   main{
+   background-image: url('http://www.rosphoto.com/images/u/articles/1605/6-tim-verbrugghe.jpg'); background-size: 100%;
+}
+
+
+main{
        height: 90%;
    }
+
+
+footer{
+
+   width:100%;
+   text-align: right;
+    color: antiquewhite;
+    height: 10%;
+    left: 0;
+    bottom: 0;
+    position: fixed;
+}
 
    /*Свойства звголовка*/ 
 h1{
@@ -35,6 +48,7 @@ h1{
 
     
 
+
 /*Свойства меню*/  
 #nav{ 
    
@@ -46,28 +60,21 @@ h1{
 	text-align: center;
 	padding-left: 1px;
     padding-right: 0px;
-
-        
-    
-    /*border: none;*/
 }
 
 #nav li{
     
     float: left;
-    /* Делаем элементы блочными. */
     display: block;
-    /* Позиционирование относительно исходного места */
     position: relative;
 }
 
 
 /* настройка выпадающего списка*/
 #nav ul{
-    /* Убираем маркеры у выпадающего списка*/
     list-style:none;
     left:-9999px; /* убираем элементы за пределы программы*/
-	opacity:0; /* При помощи прозрачности, скрываем <ul>. */
+	opacity:0; /* скрываем <ul>. */
     
     /* Обрабатываем всплывающие элементы выпадающего списка при наведении мышки. */
 	-webkit-transition: 0.8s linear opacity; 
@@ -95,9 +102,9 @@ a{
 
 }
 /*Наведение мыши на меню*/
-#nav li:hover ul{ /* Создаю выпадающий пункт, который появится при наведении. */
-    left:0; /* Возвращение элементов обратно на экран пользователя */
-    opacity:1; /* Убирается прозрачность*/
+#nav li:hover ul{ /*выпадающий пункт, который появится при наведении. */
+    left:0; /* Возвращение элементов обратно на экран */
+    opacity:1; 
 }
 
 #nav li:hover a{ 
@@ -107,16 +114,17 @@ a{
     -webkit-transition:-webkit-transform 0.077s linear;
 }
 
-#nav li:hover ul li a:hover{ /* Здесь я задаю стили для конкретных выпадающих пунктов, при наведении на них курсора — чтобы они отличались от тех элементов, куда курсор не попадает*/
+#nav li:hover ul li a:hover{ /*стили для конкретных выпадающих пунктов, при наведении на них курсора*/
     -moz-transform:scale(1.07);
     -webkit-transform:scale(1.07);
-    /* Задам цвет фона выпадающего элемента*/
     background:#334;
-    background:rgba(50,50,50,0.4); /* Сделаю полупрозрачным. */
+    background:rgba(50,50,50,0.4); /*полупрозрачность */
     text-decoration:underline;
 }
 
 
+<<<<<<< HEAD
+=======
 footer{
    /* position: absolute;*/
    width:100%;
@@ -135,6 +143,7 @@ body{
 background-image: url('http://www.rosphoto.com/images/u/articles/1605/6-tim-verbrugghe.jpg'); background-size: 100%;
 }
 
+>>>>>>> f3ee117acfb1e1c48a8566741d965a99967aac6d
 
 
 

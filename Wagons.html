@@ -110,13 +110,7 @@ var obj;
                             <td>${item.wagType}</td>
                             <button id=${`row-btn-${id}`} style="margin-left: 35%;outline:none;border:0;background: transparent;heigth:25px;"><img src="del.png" id="imgDel"></button>`;
             tb.appendChild(tr);
-            
-            //Изменение элемента
-            document.getElementById(`row-${id}`).ondblclick=function(){
-                        alert(tr.id);
-
-                    }
-
+        
                 //Удаление элемента
             var deleteBtn = document.getElementById(`row-btn-${id}`);
             deleteBtn.onclick = function(event) {
@@ -137,6 +131,31 @@ var obj;
                     }
                 }
     });
+
+//изменение элемента по щелчку 
+var elements = document.getElementsByTagName('td');
+    function SellHandle(event) {
+	    var content = event.target//указываем на элемент
+      var data = content.innerText//получаем содержимое элемента
+      function SellBlur(event) {
+        if (event.target.value === "") {//если пусто,то присваиваем прежнее значение
+            content.innerText = data; 
+        }
+            else{
+        content.innerText = event.target.value;}//иначе-присваиваем другое значение
+        input.removeEventListener('blur', SellBlur);
+           }
+         
+      content.innerHTML = '<input type="text" id="editSell" ></input>'
+      input = document.getElementById("editSell");
+      input.addEventListener('blur', SellBlur);
+      input.focus();
+    };
+    for(var i=0; i<elements.length; i++) {
+      elements[i].addEventListener('dblclick', SellHandle)
+    }
+
+
     }
     document.getElementById('e6').onclick=function(){
     document.getElementById('button2').style.display='block';

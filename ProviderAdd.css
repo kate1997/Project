@@ -3,9 +3,11 @@
     margin: 0;
     box-sizing: border-box;
 }
+
 html{
     height: 100%;
 }
+
 body{
     height: 100%;
     background-repeat: no-repeat;
@@ -17,10 +19,28 @@ body{
    
 
 }
+
 main{
     height:60%;
 }
-/* свойства для заголовка*/
+
+section{
+    text-align: center;
+}
+
+footer{
+width:100%;
+text-align: right;
+color: antiquewhite;
+height: 10%;
+left: 0;
+bottom: 0;
+position: fixed;
+
+}
+
+
+/*заголовок страницы*/
 h1{ 
     text-align:center;
     
@@ -33,7 +53,7 @@ h1{
     color: black;
     }
 
-
+/*форма*/
 .prov{
     margin-top: 18%;
     margin-left: 25%;
@@ -41,9 +61,6 @@ h1{
     width: 50%;
     height: 400px;
     font-size: 25px;
-   /* border: 4px double rgb(238, 234, 234);*/
-    
-    
 
 }
 li{
@@ -51,7 +68,6 @@ li{
     text-align: left;
     padding-top: 7px;
    
-    
 }
 input{
     float: right;
@@ -59,23 +75,19 @@ input{
     padding-right: 190px;
     margin-top: 5px;
 }
-
-
-
 form li{
-    margin-top: 10px;
-    
-}
-section{
-    text-align: center;
+    margin-top: 10px;    
 }
 
 
+/*кнопка "вернуться назад"*/
+#return{
+    font-size:20px; padding:0px; text-align: center;margin-top: 12px; margin-right: 7%;
+}
 
 
 /*Свойства меню*/  
 #nav{ 
-
 float:left;
 margin-left: 1%;
 width:60px;
@@ -84,30 +96,22 @@ font-weight: bold;
 text-align: center;
 padding-left: 1px;
 padding-right: 0px;
-
-    
-
-/*border: none;*/
 }
 
 #nav li{
-
 float: left;
-/* Делаем элементы блочными. */
 display: block;
-/* Позиционирование относительно исходного места */
 position: relative;
 }
 
 
 /* настройка выпадающего списка*/
 #nav ul{
-/* Убираем маркеры у выпадающего списка*/
 list-style:none;
 left:-9999px; /* убираем элементы за пределы программы*/
-opacity:0; /* При помощи прозрачности, скрываем <ul>. */
+opacity:0; /* скрываем <ul> */
 
-/* Обрабатываем всплывающие элементы выпадающего списка при наведении мышки. */
+/*при наведении мышки*/
 -webkit-transition: 0.8s linear opacity; 
 position:absolute;
 }
@@ -130,12 +134,12 @@ width: 100%;
 padding: 10px;
 color: white;
 text-decoration: none;
-
 }
+
 /*Наведение мыши на меню*/
-#nav li:hover ul{ /* Создаю выпадающий пункт, который появится при наведении. */
-left:0; /* Возвращение элементов обратно на экран пользователя */
-opacity:1; /* Убирается прозрачность*/
+#nav li:hover ul{ 
+left:0; /* Возвращение элементов обратно на экран */
+opacity:1; 
 }
 
 #nav li:hover a{ 
@@ -145,27 +149,16 @@ text-decoration:none;
 -webkit-transition:-webkit-transform 0.077s linear;
 }
 
-#nav li:hover ul li a:hover{ /* Здесь я задаю стили для конкретных выпадающих пунктов, при наведении на них курсора — чтобы они отличались от тех элементов, куда курсор не попадает*/
+#nav li:hover ul li a:hover{ /* стили для конкретных выпадающих пунктов, при наведении на них курсора*/
 -moz-transform:scale(1.07);
 -webkit-transform:scale(1.07);
-/* Задам цвет фона выпадающего элемента*/
+/*цвет фона выпадающего элемента*/
 background:#334;
-background:rgba(50,50,50,0.4); /* Сделаю полупрозрачным. */
+background:rgba(50,50,50,0.4); /* Полупрозрачность */
 text-decoration:underline;
 }
 
 
-footer{
-/* position: absolute;*/
-width:100%;
-text-align: right;
-color: antiquewhite;
-height: 10%;
-left: 0;
-bottom: 0;
-
-
-}
 
 
 
