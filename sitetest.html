@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body>
+  <table>
+    <colgroup>
+      <col span="2" style="background:Khaki"><!-- С помощью этой конструкции задаем цвет фона для первых двух столбцов таблицы-->
+      <col style="background-color:LightCyan"><!-- Задаем цвет фона для следующего (одного) столбца таблицы-->
+    </colgroup>
+    <tr>
+      <th>№ п/п</th>
+      <th>Наименование</th>
+      <th>Цена, руб.</th>
+    </tr>
+    <tr>
+      <td class='edit'>1</td>
+      <td class='edit'>Карандаш цветной</td>
+      <td class='edit'>20,00</td>
+    </tr>
+    <tr>
+      <td class='edit'>2</td>
+      <td class='edit'>Линейка 20 см</td>
+      <td class='edit'>30,00</td>
+    </tr>
+  </table>
+  <script>
+    var elements = document.getElementsByTagName('td');
+
+    function SellHandle(event) {
+	    var content = event.target
+      var data = content.innerText
+
+      function SellBlur(event) {
+        if (event.target.value === "") {
+            content.innerText = data; // Если в инпут ничего не ввели, то должен занести старое значение. Не работает. Разберешься сама. Или уже завтра посмотрю
+        }else{
+        content.innerText = event.target.value;}
+        input.removeEventListener('blur', SellBlur);
+           }
+         
+      content.innerHTML = '<input type="text" id="editSell"></input>'
+      input = document.getElementById("editSell");
+
+      input.addEventListener('blur', SellBlur);
+      input.focus();
+
+    };
+
+    for(var i=0; i<elements.length; i++) {
+      elements[i].addEventListener('dblclick', SellHandle)
+    }
+  </script>
+</body>
+</html>
