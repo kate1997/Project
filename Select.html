@@ -81,7 +81,6 @@ Date.prototype.daysInMonth = function(month) {
       var month = months[months.selectedIndex].text;
       daysInMonth = date.daysInMonth(month);
       var divDay = document.getElementById('daysDisplay');
-      alert(divDay);
       alert(daysInMonth);
       divDay.innerText = `Days: ${daysInMonth}`
     }
@@ -111,8 +110,8 @@ Date.prototype.daysInMonth = function(month) {
  
 });  
 document.getElementById('save').onclick=function(){
-    var arr = document.getElementsByClassName("test");alert(arr);
+var arr = document.getElementsByClassName("test")[0].value;alert(arr);
 }
-
+document.getElementsByName
 </script>
 </html>

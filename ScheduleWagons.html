@@ -65,7 +65,7 @@ INPUT{
 <main>
 <section> 
 <div id="leftCol">
-        <form id="typeTbl" action="select1.php" method="post">
+        <form id="typeTbl" action="select1.php" method="post" onchange="change()">
             <p id="typeWag">Выберите тип вагона</p>
                 <p><select size="1" name="type" id="type">
                 <option disabled selected></option>
@@ -77,18 +77,18 @@ INPUT{
                 <p id="dateWag">Выберите месяц</p>
                     <p><select size="1" name="type" id="month">
                         <option disabled selected></option>
-                        <option id="1" value="Январь" onclick=month(1) >Январь</option>
-                        <option id="2" value="Февраль" onclick=month(2) >Февраль</option>
-                        <option id="3" value="Март" onclick=month(3) >Март</option>
-                        <option id="4" value="Апрель" onclick=month(4) >Апрель</option>
-                        <option id="5" value="Май" onclick=month(5) >Май</option>
-                        <option id="6" value="Июнь" onclick=month(6) >Июнь</option>
-                        <option id="7" value="Июль" onclick=month(7) >Июль</option>
-                        <option id="8" value="Август" onclick=month(8) >Август</option>
-                        <option id="9" value="Сентябрь" onclick=month(9) >Сентябрь</option>
-                        <option id="10" value="Октябрь" onclick=month(10) >Октябрь</option>
-                        <option id="11" value="Ноябрь" onclick=month(11) >Ноябрь</option>
-                        <option id="12" value="Декабрь" onclick=month(12)>Декабрь</option>
+                        <option id="1" value="Январь"  >Январь</option>
+                        <option id="2" value="Февраль"  >Февраль</option>
+                        <option id="3" value="Март"  >Март</option>
+                        <option id="4" value="Апрель"  >Апрель</option>
+                        <option id="5" value="Май"  >Май</option>
+                        <option id="6" value="Июнь"  >Июнь</option>
+                        <option id="7" value="Июль"  >Июль</option>
+                        <option id="8" value="Август"  >Август</option>
+                        <option id="9" value="Сентябрь"  >Сентябрь</option>
+                        <option id="10" value="Октябрь"  >Октябрь</option>
+                        <option id="11" value="Ноябрь"  >Ноябрь</option>
+                        <option id="12" value="Декабрь" >Декабрь</option>
                     </select></p>                   
         </form>
 
@@ -141,13 +141,26 @@ var typeWagon;
 
    for (i = 0; i < typeWagon.length; i++) {
    	for (var key in typeWagon[i]) {
-     
-   			selector.innerHTML+='<option id="'+key+'"  onclick=typeWgn(1)>type'+key+'('+typeWagon[i][key]+')</option>'
+    
+   			selector.innerHTML+='<option id="'+key+'"  >'+key+'</option>'
+            
    	}
    }
-
 }
-   
+
+
+var select, value, text,value;
+
+function change() {
+    select = document.getElementById("type"); // Выбираем  select по id
+    typeId=select.selectedIndex;
+    value = select.options[select.selectedIndex].value; // Значение value для выбранного option
+    text = select.options[select.selectedIndex].text; // Текстовое значение для выбранного option
+    alert("typeId:" + typeId + "\nValue: " + value + "\nТекст: " + text ); // Вывод алерта для проверки значений
+}
+//if(document.getElementById(type)==1) {
+ //   alert('ura');
+//}
 
 //получение количества дней в выбранном месяце
 var monthData;
@@ -184,28 +197,14 @@ function GenerateRowsTbl(evt) {
       daysInMonth = date.daysInMonth(month);
       var divDay = document.getElementById('daysDisplay');
     
-     // divDay.innerText = `Days: ${daysInMonth}`
+   
 
-/*
-            // 1. Создаём новый объект XMLHttpRequest
-            var xhr = new XMLHttpRequest();
 
-            xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/actionsFiles.php?table=schedule&day=' + daysInMonthb,false);
-
-            // 3. Отсылаем запрос
-            xhr.send(); 
-            //обновление страницы
-            
-            alert("Поставщик удален.");*/
     
 
 //Создание таблицы
-    
-//http://www.cyberforum.ru/javascript/thread826942.html
 
-//var k=0;
-//button.addEventListener("click", function(){
-k++;
+k++;//проверка для того,чтобы не дублировать несколько месяцев
 if(k==1){
         for(count=0;count<daysInMonth;count++) {
                     var input = document.createElement('INPUT');
@@ -227,11 +226,28 @@ if(k==1){
  
 //});
  } 
-document.getElementById('save').onclick=function(){
-    var arr = document.getElementsByClassName("test");alert(arr);
+ document.getElementById('save').onclick=function(){
+var arr = document.getElementsByClassName("test")[0].value;
+
+var str="table=schedule&SWagType="+value+"&action=edit&day="+daysInMonth;
+for(i=1;i<daysInMonth;i++){
+    str+="&"+i+"="+document.getElementsByClassName("test")[i].value;
+}
+alert(str);
+
 }
 
+//отправка данных на сервер
+ // 1. Создаём новый объект XMLHttpRequest
+ var xhr = new XMLHttpRequest();
+                
+                 xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/actionsFiles.php?' + str,false);
 
+                // 3. Отсылаем запрос
+                xhr.send();
+                // Обновление страницы
+                location.reload();
+                alert("Грузоотправитель удален.");
 
 
 
