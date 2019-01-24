@@ -52,21 +52,22 @@ font-family: Georgia, 'Times New Roman', Times, serif;
 color: black;
 }
 
-/*кнопоки Добавить и Редактировать*/
+/*кнопоки Добавить*/
 .buttons{
     margin-bottom: 0px;
     text-align: center;
     font-size: 50px;
 list-style: none;
 margin-left: 77%;
+position: absolute;
    
 }
 #button2{
-    font-size:20px; margin-left: 100px;display: none;
+    font-size:20px; margin-left: 100px;
 }
 
 input{
-    position: fixed;
+   /* position: fixed;*/
 }
  
 
@@ -125,12 +126,7 @@ th{
     color: white;
 }
 
-/*список дней*/
-#dateTbl{
-    margin-top: 120px;
-    margin-left: -150px;
-    float: left;
-}
+
 
 /*заголовок списка дней*/
 #dateChoose{
@@ -140,7 +136,7 @@ th{
 
 /*список месяцев*/
 #monthTbl{
-    margin-top: 200px;
+    margin-top: 160px;
     margin-left: -130px;
     float: left;
 }
@@ -156,7 +152,7 @@ th{
 }
 
 #editSell{
-    width: 10%;
+    width: 100%;
     height: 2,5%;
     margin-top: 0px  ;
     background-color: rgba(190,254, 168, 0.6);

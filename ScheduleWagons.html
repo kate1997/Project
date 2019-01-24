@@ -5,14 +5,36 @@
   <title>Forest</title>
   <link rel="stylesheet" href="provider.css ">
  <style>
- #monthTbl{
-     margin-top: 120px;
- }
+ 
  #nav li:hover ul li a:hover{ /* стили для конкретных выпадающих пунктов, при наведении на них курсора */
     
     background:rgba(50,50,50,1); /* Полупрозрачность. */
    
 }
+main{
+    margin-top: 10%;
+}
+label{
+    color: bisque;
+    margin-top: 2px;
+}
+INPUT{
+    margin-top: 2px;
+}
+
+#div{float: left;position: absolute; right: 0; top: 90px; width: 80%;
+
+}
+#butt{
+    float: left;
+    margin-top: 250px;
+    margin-left: -120px;
+    list-style: none;
+}
+
+  #left{
+    position: absolute; left: 250px; top: 0; width: 30%;
+  }
  </style>
 
  
@@ -42,138 +64,179 @@
  
 <main>
 <section> 
+<div id="leftCol">
+        <form id="typeTbl" action="select1.php" method="post">
+            <p id="typeWag">Выберите тип вагона</p>
+                <p><select size="1" name="type" id="type">
+                <option disabled selected></option>
 
-    <form id="typeTbl" action="select1.php" method="post">
-        <p id="typeWag">Выберите тип вагона</p>
-            <p><select size="1" name="type" id="type">
-             <option disabled selected></option>
-             <option value="Щепа" onclick=typeWgn(1)>Щепа</option>
-             <option value="Опилки" onclick=typeWgn(2)>Опилки</option>
-             <option value="Бревна" onclick=typeWgn(3)>Бревна</option>
-             <option value="Доски" onclick=typeWgn(4)>Доски</option>
-            </select></p>        
-    </form>
+                </select></p>        
+        </form>
 
         <form id="monthTbl" action="select1.php" method="post">
                 <p id="dateWag">Выберите месяц</p>
-                    <p><select size="1" name="type" id="type">
-                     <option disabled selected></option>
-                     <option value="Январь" onclick=month(1) value="1">Январь</option>
-                     <option value="Февраль" onclick=month(2) value="2">Февраль</option>
-                     <option value="Март" onclick=month(3) value="3">Март</option>
-                     <option value="Апрель" onclick=month(4) value="4">Апрель</option>
-                     <option value="Май" onclick=month(5) value="5">Май</option>
-                     <option value="Июнь" onclick=month(6) value="6">Июнь</option>
-                     <option value="Июль" onclick=month(7) value="7">Июль</option>
-                     <option value="Август" onclick=month(8) value="8">Август</option>
-                     <option value="Сентябрь" onclick=month(9) value="9">Сентябрь</option>
-                     <option value="Октябрь" onclick=month(10) value="10">Октябрь</option>
-                     <option value="Ноябрь" onclick=month(11) value="11">Ноябрь</option>
-                     <option value="Декабрь" onclick=month(12) value="12">Декабрь</option>
-                    </select></p>
-                    
-                </form>
+                    <p><select size="1" name="type" id="month">
+                        <option disabled selected></option>
+                        <option id="1" value="Январь" onclick=month(1) >Январь</option>
+                        <option id="2" value="Февраль" onclick=month(2) >Февраль</option>
+                        <option id="3" value="Март" onclick=month(3) >Март</option>
+                        <option id="4" value="Апрель" onclick=month(4) >Апрель</option>
+                        <option id="5" value="Май" onclick=month(5) >Май</option>
+                        <option id="6" value="Июнь" onclick=month(6) >Июнь</option>
+                        <option id="7" value="Июль" onclick=month(7) >Июль</option>
+                        <option id="8" value="Август" onclick=month(8) >Август</option>
+                        <option id="9" value="Сентябрь" onclick=month(9) >Сентябрь</option>
+                        <option id="10" value="Октябрь" onclick=month(10) >Октябрь</option>
+                        <option id="11" value="Ноябрь" onclick=month(11) >Ноябрь</option>
+                        <option id="12" value="Декабрь" onclick=month(12)>Декабрь</option>
+                    </select></p>                   
+        </form>
 
-    <table id='mytbl'>
-            <tbody id='tbody'>
-                    <tr>
-                        <th>Идентификатор схемы</th>
-                        <th>Дата(день)</th>
-                        <th>кол-во вагонов</th>
-                        
-                      
-                    </tr>
-            </tbody>
-    </table>
+    <li id="butt">
+        <button id="myBtn" >Создать</button>
+        <!--<input type="button" id="button" value="Создать">-->
+        <input type="button" id="save" value="save">
+    </li>
+    <div id="daysDisplay"></div>    
+</div>
 
-        
+
+
+<div id="div" >
+    <br> 
+</div>
+
+  
 </section>
 
 
 <script type="text/javascript">
 
-//if(document.getElementById(monthTbl)==5)
-
-
 window.onload = function (){ 
-var obj; 
-    
-        
-    // 1. Создаём новый объект XMLHttpRequest
+
+
+//типы
+var typeWagon;
+
+//1. Создаём новый объект XMLHttpRequest
     var xhr = new XMLHttpRequest();
     
-    xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/showScheduleWagons.php',false);
+    xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/actionsFiles.php?wagon=1',false);
     
-    // 3. Отсылаем запрос
+     // 3. Отсылаем запрос
     xhr.send();
     
-    // 4. Если код ответа сервера не 200, то это ошибка
+   // 4. Если код ответа сервера не 200, то это ошибка
     if (xhr.status != 200) {
-    // обработать ошибку
+      // обработать ошибку
     console.log(xhr);
     alert( xhr.status + ': ' + xhr.statusText );  //пример вывода: 404: Not Found
     } else {
     
-            ourObj = JSON.parse(xhr.responseText);
-        
+        typeWagon = JSON.parse(xhr.responseText);
     
+      
     }
-         
+    var selector=document.getElementById('type');
 
-//Данные для таблицы 
+   for (i = 0; i < typeWagon.length; i++) {
+   	for (var key in typeWagon[i]) {
+     
+   			selector.innerHTML+='<option id="'+key+'"  onclick=typeWgn(1)>type'+key+'('+typeWagon[i][key]+')</option>'
+   	}
+   }
 
-    var myBtn = document.getElementById('build');
-    var mytbl = document.getElementById('mytbl');
-    var tb = mytbl.querySelector('tbody');
+}
+   
 
-// event process
-
-    var clearTable = function(countRow){
-        if (countRow > 1) {
-            for (i=tb.rows.length-1; i>0; i--){
-                tb.deleteRow(i);
+//получение количества дней в выбранном месяце
+var monthData;
+var count;
+Date.prototype.daysInMonth = function(month) {
+   
+            this.dirMonth = {
+                    'Январь': 0, 
+                    'Февраль': 1,  
+                    'Март': 2, 
+                    'Апрель': 3, 
+                    'Май': 4, 
+                    'Июнь': 5, 
+                    'Июль': 6, 
+                    'Август': 7,
+                    'Сентябрь': 8, 
+                    'Октябрь': 9, 
+                    'Ноябрь': 10, 
+                    'Декабрь':11
             }
-        }
-    }
-  
-        clearTable(tb.rows.length)
-        ourObj.forEach(function(item, i, arr) {
-            var tr = document.createElement('tr');
-            var id = item.SWagId;
-           
-            tr.id = `row-${id}`;
-            tr.innerHTML = `<td >${id}</td>
-                            <td>${item.SWagDay}</td>
-                            <td>${item.SWagQuantityWagon}</td>`;
-            tb.appendChild(tr);
-//Изменение элемента
+                return 33 - new Date(this.getFullYear(), this.dirMonth[month], 33).getDate();
+	  };
 
-    document.getElementById(`row-${id}`).ondblclick=function(){
-    alert(tr.id);
+var date = new Date();
+var generateBtn = document.getElementById('myBtn');
+var daysInMonth = '';
+var k=0;
+generateBtn.addEventListener('click', GenerateRowsTbl);
 
+function GenerateRowsTbl(evt) {
+      var monthsSelect = document.getElementById('month');
+      var months = monthsSelect.options;
+      var month = months[months.selectedIndex].text;
+      daysInMonth = date.daysInMonth(month);
+      var divDay = document.getElementById('daysDisplay');
+    
+     // divDay.innerText = `Days: ${daysInMonth}`
+
+/*
+            // 1. Создаём новый объект XMLHttpRequest
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/actionsFiles.php?table=schedule&day=' + daysInMonthb,false);
+
+            // 3. Отсылаем запрос
+            xhr.send(); 
+            //обновление страницы
+            
+            alert("Поставщик удален.");*/
+    
+
+//Создание таблицы
+    
+//http://www.cyberforum.ru/javascript/thread826942.html
+
+//var k=0;
+//button.addEventListener("click", function(){
+k++;
+if(k==1){
+        for(count=0;count<daysInMonth;count++) {
+                    var input = document.createElement('INPUT');
+                    input.type = 'text';
+                    input.setAttribute("data-id", "id" + count);
+                    input.setAttribute("class", "test");
+                    input.name = "value[]";
+                    var newlabel=document.createElement('label');
+                    newlabel.innerHTML=count+1;
+                    var br=document.createElement('br');
+
+                    document.querySelector('#div').appendChild(newlabel);
+                    document.querySelector('#div').appendChild(input);
+                    document.querySelector('#div').appendChild(br);
+
+   } }
+    else location.reload(); 
+   
+ 
+//});
+ } 
+document.getElementById('save').onclick=function(){
+    var arr = document.getElementsByClassName("test");alert(arr);
 }
 
 
-    });
-    }
-    document.getElementById('e6').onclick=function(){
-    document.getElementById('button2').style.display='block';
-}
 
 
-//Отправка типа вагона на сервер 
-function typeWgn(typeWgn){
-    var xhr = new XMLHttpRequest();       
-    xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/actionsFiles&typeWgn=' + typeWgn,false);
-                
-} 
 
-//Отправка месяца на сервер 
-function month(monthData){
-    var xhr = new XMLHttpRequest();       
-    xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/actionsFiles&monthData=' + monthData,false);
-                
-}  
+
+
    </script>
 
 </main>

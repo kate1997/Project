@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Forest</title>
+
+ <style>
+ #monthTbl{
+     margin-top: 120px;
+ }
+ </style>
+
+
+</head>
+<body>
+    <form id="monthTbl" action="select1.php" method="post">
+        <p id="dateWag">Выберите месяц</p>
+            <p><select size="1" name="type" id="month">
+             <option disabled selected></option>
+             <option id="1M"  value="1">Январь</option>
+             <option id="2M"  value="2">Февраль</option>
+             <option id="3M"  value="3">Март</option>
+             <option id="4M"  value="4">Апрель</option>
+             <option id="5M"  value="5">Май</option>
+             <option id="6M"  value="6">Июнь</option>
+             <option id="7M" value="7">Июль</option>
+             <option id="8M"  value="8">Август</option>
+             <option id="9M"  value="9">Сентябрь</option>
+             <option id="10M"  value="10">Октябрь</option>
+             <option id="11M"  value="11">Ноябрь</option>
+             <option id="12M"  value="12">Декабрь</option>
+            </select></p>
+           
+        </form>
+         <button id="myBtn">Get days</button>
+         <div id="daysDisplay">text</div>
+
+         <div id="div">
+           <!-- <label id="label">Строка</label>
+            <input type="text" data-id="id0" name="value[]">--><br>
+            
+        </div>
+            
+            <input type="button" id="button" value="Создать">
+            <input type="button" id="save" value="save">
+
+</body>
+<script>
+  
+    
+    var monthData;
+var count;
+
+
+Date.prototype.daysInMonth = function(month) {
+       this.dirMonth = {
+        'Январь': 0, 
+        'Февраль': 1,  
+        'Март': 2, 
+        'Апрель': 3, 
+        'Май': 4, 
+        'Июнь': 5, 
+        'Июль': 6, 
+        'Август': 7,
+        'Сентябрь': 8, 
+        'Октябрь': 9, 
+        'Ноябрь': 10, 
+        'Декабрь':11
+      }
+		  return 33 - new Date(this.getFullYear(), this.dirMonth[month], 33).getDate();
+	  };
+    var date = new Date();
+    var generateBtn = document.getElementById('myBtn');
+    var daysInMonth = '';
+
+    generateBtn.addEventListener('click', GenerateRowsTbl);
+
+    function GenerateRowsTbl(evt) {
+      var monthsSelect = document.getElementById('month');
+      var months = monthsSelect.options;
+      var month = months[months.selectedIndex].text;
+      daysInMonth = date.daysInMonth(month);
+      var divDay = document.getElementById('daysDisplay');
+      alert(divDay);
+      alert(daysInMonth);
+      divDay.innerText = `Days: ${daysInMonth}`
+    }
+
+//Создание таблицы
+    
+//http://www.cyberforum.ru/javascript/thread826942.html
+
+
+    button.addEventListener("click", function(){
+        for(count=0;count<daysInMonth;count++) {
+                    var input = document.createElement('INPUT');
+                    input.type = 'text';
+                    input.setAttribute("data-id", "id" + count);
+                    input.setAttribute("class", "test");
+                    input.name = "value[]";
+                    var newlabel=document.createElement('label');
+                    newlabel.innerHTML='hello';
+                    var br=document.createElement('br');
+
+                    document.querySelector('#div').appendChild(newlabel);
+                    document.querySelector('#div').appendChild(input);
+                    document.querySelector('#div').appendChild(br);
+
+   } 
+   
+ 
+});  
+document.getElementById('save').onclick=function(){
+    var arr = document.getElementsByClassName("test");alert(arr);
+}
+
+</script>
+</html>
