@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		
+		<style media='print' type='text/css'>
+			/* Идентификатор navbar-iframe, применение: < div id="help" > */
+			#navbar-iframe {
+				display: none; //Видимость - нет
+				height: 0px; 
+				visibility: hidden; //Элемент становится прозрачным, но продолжает участвовать в форматировании страницы, т.е. место не освобождается
+			}
+			/* Класс необходим для оборачивания информации, которая не должна быть видна при печати документа (отчёта) */
+			.noprint {
+				display: none; //Видимость - нет
+			}
+			body {
+				background:#FFFFFF; //Задний фон белого цвета
+				color:#000000; //Цвет текста элемента чёрный
+			}
+			/* Стиль ссылок */
+			a {
+				text-decoration: underline; //Устанавливаем подчёркнутый текст
+				color:#0000FF; //Цвет текста синий
+			}
+		}
+		</style>
+		
+		<!--<title>Круговая диаграмма</title>-->
+		<script src="https://www.google.com/jsapi"></script>
+		<script>
+			google.load("visualization", "1", {packages:["corechart"]});
+			google.setOnLoadCallback(drawChart);
+   
+			/*
+				Получение данных из php скрипта
+				http://kappa.cs.petrsu.ru/~akulov/Practice/showProvider.php
+				http://kappa.cs.petrsu.ru/~akulov/Practice/actionsFiles.php?diag=1
+			*/
+			var xhr = new XMLHttpRequest();
+			xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/actionsFiles.php?diag=1', false);
+			xhr.send();
+   
+			if (xhr.status != 200) {
+				// обработать ошибку
+				alert( xhr.status + ': ' + xhr.statusText ); // пример вывода: 404: Not Found
+			} else {
+				// преобразуем полученные данные в формат JSON
+				var ourObj = JSON.parse(xhr.responseText);
+				alert(xhr.responseText); // Выводим результат для теста в виде всплывающего окошка
+			}
+			//массив для хранения данных, нужен для составления самой диаграммы
+			var result = [];
+			//Заносим вручную первую строку для формирования диаграммы, без неё диаграмма построится некорректно
+			result[0] = ['Поставщик', 'Количество вагонов'];
+			
+			/*
+				Парсим данные из json-массива и заносим их в наш двумерный массив
+			*/
+			ourObj.forEach(function(item) {
+				//var el = [String(item.key), parseInt(item.value, 10)];//тестовое поле
+				//var el = [String(item.provName), parseInt(item.provPrice, 10)];//showProvider
+				var el = [String(item.provName), parseFloat(item.provCount)];//actionsFiles
+				result.push(el);
+			});
+			alert(result[1]);//тестовый вывод 
+			
+			var massiv = [['Поставщик', 'Количество вагонов'], ['Поставщик 0', 11], ['Поставщик 1', 15]];//тестовый массив
+			
+			/*
+				Рисуем диаграмму
+				На вход подаём наш двумерный массив
+			*/
+			function drawChart() {
+				<!-- Данные для отображения -->
+				var data = google.visualization.arrayToDataTable(result
+				/*[
+				<!-- Названия колонок (нигде не отображаются, но без них некорректно работает) -->
+					['Поставщик', 'Количество вагонов'],
+					['Поставщик 1', 12],
+					['Поставщик 2', 10],
+					['Поставщик 3', 25],
+					['Поставщик 4', 9],
+					['Поставщик 5', 6]
+				]
+				*/);
+
+				<!-- настройки -->
+				var options = {
+					<!-- Заголовок диаграммы -->
+					title: '%-ое соотношение количества вагонов каждому поставщику',
+					<!-- 3-ёх мерность (настройки являются не обязательными) -->
+					is3D: true,
+					//pieResidueSliceLabel: 'Остальное'
+				};
+				
+				var chart = new google.visualization.PieChart(document.getElementById('air'));
+				chart.draw(data, options);
+			}
+		</script>
+  
+  
+	</head>
+	
+	<body>
+		<!-- Вставляем диаграмму, указывая высоту и ширину -->
+		<div id="air" style="width: 500px; height: 400px; margin: auto;"></div>
+		<!-- Используем класс  "noprint", чтобы всё что находится внутри тега span не выводилось на печать-->
+		<span class="noprint">
+			<input type="button" value="Печать" onclick="print()"></input>
+		</span>
+	</body>
+</html>
