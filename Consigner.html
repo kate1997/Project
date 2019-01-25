@@ -40,7 +40,7 @@
     <table id='mytbl'>
             <tbody id='tbody'>
                     <tr>
-                       
+                        <th>№</th>
                         <th>Мин.кол-во вагонов</th>
                         <th>Макс.кол-во вагонов</th>
                         <th>Время загрузки вагонов</th>
@@ -101,6 +101,7 @@ var obj;
            
             tr.id = `row-${id}`;
             tr.innerHTML = `
+                            <td>${id}</td>
                             <td>${item.consMinWagon}</td>
                             <td>${item.consMaxWagon}</td>
                             <td>${item.consloadTime}</td>
@@ -108,6 +109,10 @@ var obj;
                             <td>${item.consCost}</td>
                             <button id=${`row-btn-${id}`} style="margin-left: 35%;outline:none;border:0;background: transparent;heigth:25px;"><img src="del.png" id="imgDel"></button>`;
             tb.appendChild(tr);
+
+            /*document.getElementById(`row-${id}`).ondblclick=function(){
+                alert(tr.id[4]); 
+            }*/
 
             //Удаление элемента
                     var deleteBtn = document.getElementById(`row-btn-${id}`);
@@ -137,11 +142,17 @@ var elements = document.getElementsByTagName('td');
       var data = content.innerText//получаем содержимое элемента
       function SellBlur(event) {
         if (event.target.value === "") {//если пусто,то присваиваем прежнее значение
-            content.innerText = data; 
+            content.innerText = data;
         }
             else{
         content.innerText = event.target.value;}//иначе-присваиваем другое значение
         input.removeEventListener('blur', SellBlur);
+        //Получение всей строки (измененной)
+        var id_a = content.parentNode.id[4];//Идентификатор строки, где произошло изменение
+        var table = document.getElementById("mytbl");//Получение таблицы
+        alert(table.rows[id_a].cells[1].innerHTML);//Получение данных в строке, где было изменение
+        //alert(content.parentNode.childNodes[0]);//Не разобрался что выводит, нам не нужно
+        //alert(content.parentNode.innerText);//выводит все данные
            }
          
       content.innerHTML = '<input type="text" id="editSell" ></input>'
