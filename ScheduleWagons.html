@@ -21,20 +21,48 @@ label{
 INPUT{
     margin-top: 2px;
 }
-
-#div{float: left;position: absolute; right: 0; top: 90px; width: 80%;
+/*левая колонка*/
+ #leftCol{
+    position: absolute;left:20%;padding-top:15%; top: 10%; width: 30%;height: 100%;
+  }
+  
+/*правая колонка*/
+#div{text-align: left;position: absolute; right: 0; top: 10%; width: 50%;height: 100%;
 
 }
 #butt{
     float: left;
-    margin-top: 250px;
-    margin-left: -120px;
+    margin-top: 190px;
+    margin-left: -170px;
     list-style: none;
 }
 
-  #left{
-    position: absolute; left: 250px; top: 0; width: 30%;
-  }
+
+/*заголовок списка "Тип вагона"*/
+#typeWag {
+    color:white;
+}
+
+/*список "Тип вагона"*/
+#typeTbl{
+    margin-top: 0px;
+    margin-left: 50px;
+    float: left;
+}
+
+/*заголовок списка месяца */
+#dateWag{
+    color: white;
+}
+
+/*список месяцев*/
+#monthTbl{
+    margin-top: 120px;
+    margin-left: -130px;
+    float: left;
+}
+
+ 
  </style>
 
  
@@ -92,12 +120,17 @@ INPUT{
                     </select></p>                   
         </form>
 
-    <li id="butt">
-        <button id="myBtn" >Создать</button>
-        <!--<input type="button" id="button" value="Создать">-->
-        <input type="button" id="save" value="save">
-    </li>
-    <div id="daysDisplay"></div>    
+
+        <li id="butt">
+            <button id="myBtn" >Создать</button>
+            <!--<input type="button" id="button" value="Создать">-->
+            <input type="button" id="save" value="Отправить">
+                        <button id="reload" onclick=location.reload()>Обновить</button>
+        </li>
+
+        <div id="daysDisplay"></div>
+
+    
 </div>
 
 
@@ -156,7 +189,7 @@ function change() {
     typeId=select.selectedIndex;
     value = select.options[select.selectedIndex].value; // Значение value для выбранного option
     text = select.options[select.selectedIndex].text; // Текстовое значение для выбранного option
-    alert("typeId:" + typeId + "\nValue: " + value + "\nТекст: " + text ); // Вывод алерта для проверки значений
+
 }
 //if(document.getElementById(type)==1) {
  //   alert('ura');
@@ -189,7 +222,7 @@ var generateBtn = document.getElementById('myBtn');
 var daysInMonth = '';
 var k=0;
 generateBtn.addEventListener('click', GenerateRowsTbl);
-
+var str;
 function GenerateRowsTbl(evt) {
       var monthsSelect = document.getElementById('month');
       var months = monthsSelect.options;
@@ -211,6 +244,7 @@ if(k==1){
                     input.type = 'text';
                     input.setAttribute("data-id", "id" + count);
                     input.setAttribute("class", "test");
+                    input.value=0;
                     input.name = "value[]";
                     var newlabel=document.createElement('label');
                     newlabel.innerHTML=count+1;
@@ -221,34 +255,30 @@ if(k==1){
                     document.querySelector('#div').appendChild(br);
 
    } }
-    else location.reload(); 
+    else alert('Обновите страницу'); 
    
- 
-//});
+
  } 
  document.getElementById('save').onclick=function(){
 var arr = document.getElementsByClassName("test")[0].value;
 
-var str="table=schedule&SWagType="+value+"&action=edit&day="+daysInMonth;
-for(i=1;i<daysInMonth;i++){
-    str+="&"+i+"="+document.getElementsByClassName("test")[i].value;
+str="table=schedule&type="+value+"&action=edit&day="+daysInMonth;
+for(i=0;i<daysInMonth;i++){
+    str+="&"+(i+1)+"="+document.getElementsByClassName("test")[i].value;
 }
 alert(str);
 
-}
+
 
 //отправка данных на сервер
  // 1. Создаём новый объект XMLHttpRequest
- var xhr = new XMLHttpRequest();
+var xhr = new XMLHttpRequest();
                 
-                 xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/actionsFiles.php?' + str,false);
+xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/actionsFiles.php?' + str,false);
 
-                // 3. Отсылаем запрос
-                xhr.send();
-                // Обновление страницы
-                location.reload();
-                alert("Грузоотправитель удален.");
-
+// 3. Отсылаем запрос
+xhr.send();
+}
 
 
 

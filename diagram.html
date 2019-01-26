@@ -6,29 +6,155 @@
 		<style media='print' type='text/css'>
 			/* Идентификатор navbar-iframe, применение: < div id="help" > */
 			#navbar-iframe {
-				display: none; //Видимость - нет
+				display: none; /*Видимость - нет*/
 				height: 0px; 
-				visibility: hidden; //Элемент становится прозрачным, но продолжает участвовать в форматировании страницы, т.е. место не освобождается
+				visibility: hidden; /*Элемент становится прозрачным, но продолжает участвовать в форматировании страницы, т.е. место не освобождается*/
 			}
 			/* Класс необходим для оборачивания информации, которая не должна быть видна при печати документа (отчёта) */
 			.noprint {
-				display: none; //Видимость - нет
+				display: none; /*Видимость - нет*/
 			}
 			body {
-				background:#FFFFFF; //Задний фон белого цвета
-				color:#000000; //Цвет текста элемента чёрный
+				background:#FFFFFF; /*Задний фон белого цвета*/
+				color:#000000; /*Цвет текста элемента чёрный*/
 			}
 			/* Стиль ссылок */
 			a {
-				text-decoration: underline; //Устанавливаем подчёркнутый текст
-				color:#0000FF; //Цвет текста синий
+				text-decoration: underline; /*Устанавливаем подчёркнутый текст*/
+				color:#0000FF; /*Цвет текста синий*/
 			}
-		}
-		</style>
-		
+        
+            
+        </style>
+        <style>
+h1{
+    text-align: center;
+}
+
+table{
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 60%;
+  
+    color: black;
+    margin-left: 19%;
+    
+            }
+
+td, th {
+    border: 2px solid black;
+    text-align: left;
+    padding: 8px;
+}
+  
+th{
+        color:black;
+}  
+#button{
+    text-align: center;
+    margin-left: 45%
+}
+    
+	</style>	
 		<!--<title>Круговая диаграмма</title>-->
-		<script src="https://www.google.com/jsapi"></script>
+		
+  
+	</head>
+    
+    
+
+	<body>
+        <h1>График поставок</h1>
+            <table id='mytbl'>
+                    <tbody id='tbody'>
+                            <tr>
+                                <th>День месяца</th>
+                                <th>Наименование грузоотправителя</th>
+                                <th>Количество вагонов</th>
+                                <th>Тип вагона</th>
+                            </tr>
+                    </tbody>
+            </table>
+		<!-- Вставляем диаграмму, указывая высоту и ширину -->
+		<div id="air" style="width: 500px; height: 400px; margin: auto;"></div>
+		<!-- Используем класс  "noprint", чтобы всё что находится внутри тега span не выводилось на печать-->
+		<span class="noprint">
+			<input id="button" type="button" value="Печать" onclick="print()"></input>
+		</span>
+    </body>
+
+
+
+
+<script src="https://www.google.com/jsapi"></script>
 		<script>
+
+/*график поставок*/
+// 
+//Получение данных с сервера 
+
+var ourObj; 
+// 1. Создаём новый объект XMLHttpRequest
+var xhr = new XMLHttpRequest();
+
+xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/showSupply.php',false);
+
+// 3. Отсылаем запрос
+xhr.send();
+
+// 4. Если код ответа сервера не 200, то это ошибка
+if (xhr.status != 200) {
+// обработать ошибку
+console.log(xhr);
+alert( xhr.status + ': ' + xhr.statusText );  //пример вывода: 404: Not Found
+} else {
+
+        ourObj = JSON.parse(xhr.responseText);
+    
+
+}
+
+
+
+//построение таблицы
+
+//Данные для таблицы
+var myBtn = document.getElementById('build');
+var mytbl = document.getElementById('mytbl');
+var tb = mytbl.querySelector('tbody');
+
+// event process
+var clearTable = function(countRow){
+    if (countRow > 1) {
+        for (i=tb.rows.length-1; i>0; i--){
+            tb.deleteRow(i);
+        }
+    }
+}
+
+
+clearTable(tb.rows.length)
+ourObj.forEach(function(item, i, arr) {
+    var tr = document.createElement('tr');
+    var id = item.supId;
+
+    tr.id = `row-${id}`;
+    tr.innerHTML = `<td >${id}</td>
+                    <td>${item.supNameCons}</td>
+                    <td>${item.supQuantityWagon}</td>
+                    <td>${item.supTypeWagon}</td>`
+                    
+    tb.appendChild(tr);
+    
+});
+        
+
+
+
+
+
+
+
 			google.load("visualization", "1", {packages:["corechart"]});
 			google.setOnLoadCallback(drawChart);
    
@@ -47,7 +173,7 @@
 			} else {
 				// преобразуем полученные данные в формат JSON
 				var ourObj = JSON.parse(xhr.responseText);
-				alert(xhr.responseText); // Выводим результат для теста в виде всплывающего окошка
+				//alert(xhr.responseText); // Выводим результат для теста в виде всплывающего окошка
 			}
 			//массив для хранения данных, нужен для составления самой диаграммы
 			var result = [];
@@ -72,7 +198,7 @@
 				На вход подаём наш двумерный массив
 			*/
 			function drawChart() {
-				<!-- Данные для отображения -->
+				// Данные для отображения 
 				var data = google.visualization.arrayToDataTable(result
 				/*[
 				<!-- Названия колонок (нигде не отображаются, но без них некорректно работает) -->
@@ -84,12 +210,11 @@
 					['Поставщик 5', 6]
 				]
 				*/);
-
-				<!-- настройки -->
+				// настройки 
 				var options = {
-					<!-- Заголовок диаграммы -->
+					//Заголовок диаграммы 
 					title: '%-ое соотношение количества вагонов каждому поставщику',
-					<!-- 3-ёх мерность (настройки являются не обязательными) -->
+					//3-ёх мерность (настройки являются не обязательными) 
 					is3D: true,
 					//pieResidueSliceLabel: 'Остальное'
 				};
@@ -99,15 +224,4 @@
 			}
 		</script>
   
-  
-	</head>
-	
-	<body>
-		<!-- Вставляем диаграмму, указывая высоту и ширину -->
-		<div id="air" style="width: 500px; height: 400px; margin: auto;"></div>
-		<!-- Используем класс  "noprint", чтобы всё что находится внутри тега span не выводилось на печать-->
-		<span class="noprint">
-			<input type="button" value="Печать" onclick="print()"></input>
-		</span>
-	</body>
 </html>

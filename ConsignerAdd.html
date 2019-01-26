@@ -41,6 +41,11 @@
 <main>
     <form class="prov" style="width:55%;margin-left: 23%">
         <li>
+            <label >Наименование:</label>
+            <input type="text" id="consName" name="consName">
+        </li>
+        
+        <li>
             <label >Мин.кол-во вагонов:</label>
             <input type="text" id="consMinWagon" name="consMinWagon">
         </li>
@@ -84,6 +89,7 @@
 document.getElementById('submit').onclick= function (){ 
 
  //проверка ввода данных
+var consName = document.getElementById('consName').value;
 var consMinWagon = document.getElementById('consMinWagon').value;
 var consMinWagon_par = /[0-9]+/;
 var provConsMinWagon = consMinWagon_par.test(consMinWagon);
@@ -101,11 +107,11 @@ var consCost_par = /[0-9]+/;
 var provConsCost = consCost_par.test(consCost);
 
 
-if( consMinWagon == "" && consMaxWagon =="" && consLoadTime=="" && consTimeOnRoad=="" && consCost==""){
+if( consName=="" && consMinWagon == "" && consMaxWagon =="" && consLoadTime=="" && consTimeOnRoad=="" && consCost==""){
     alert('Заполните поля!');
 }
 else{
-    if( consMinWagon == "" || consMaxWagon =="" || consLoadTime=="" || consTimeOnRoad=="" || consCost==""){
+    if( consName=="" || consMinWagon == "" || consMaxWagon =="" || consLoadTime=="" || consTimeOnRoad=="" || consCost==""){
         alert('Вы не заполнили одно из полей');
     }
         else{
@@ -115,7 +121,7 @@ else{
                     // 1. Создаём новый объект XMLHttpRequest
                     var xhr = new XMLHttpRequest();
                     
-                    xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/actionsTables.php?table=consigner&consMinWagon=' + document.getElementById("consMinWagon").value + "&consMaxWagon=" + document.getElementById("consMaxWagon").value + "&consloadTime=" + document.getElementById("consLoadTime").value + "&consTimeOnRoad=" + document.getElementById("consTimeOnRoad").value + "&consCost=" + document.getElementById("consCost").value,false);
+                    xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/actionsTables.php?table=consigner&consName=' + document.getElementById('consName').value +"&consMinWagon=" + document.getElementById("consMinWagon").value + "&consMaxWagon=" + document.getElementById("consMaxWagon").value + "&consloadTime=" + document.getElementById("consLoadTime").value + "&consTimeOnRoad=" + document.getElementById("consTimeOnRoad").value + "&consCost=" + document.getElementById("consCost").value,false);
                     
                     // 3. Отсылаем запрос
                     xhr.send();

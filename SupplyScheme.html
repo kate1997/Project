@@ -10,6 +10,48 @@
     background:rgba(50,50,50,1); /* Полупрозрачность. */
    
 }
+
+/*список "Тип вагона"*/
+#typeTbl{
+    margin-top: 200px;
+    margin-left: 50px;
+    float: left;
+}
+
+/*заголовок списка "Тип вагона"*/
+#typeWag {
+    color:white;
+}
+
+/*заголовок списка месяца */
+#dateWag{
+    color: white;
+}
+
+
+
+/*заголовок списка дней*/
+#dateChoose{
+    font-size: 30px;
+    color:rgb(255, 162, 56);
+}
+
+/*список месяцев*/
+#monthTbl{
+    margin-top: 320px;
+    margin-left: -130px;
+    float: left;
+}
+/*кнопка отчета*/
+#otch{
+    margin-top: 300px;
+    margin-left: -120px;
+    float: left;
+    padding: 10px;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
  </style>
 </head>
 <body>
@@ -40,22 +82,17 @@
     
 <section>
        
-
-        <form id="typeTbl" action="select1.php" method="post">
-            <p id="typeWag">Выберите тип вагона</p>
-                <p><select size="1" name="type" id="type">
-                 <option disabled selected></option>
-                 <option value="Щепа">Щепа</option>
-                 <option value="Опилки">Опилки</option>
-                 <option value="Бревна">Бревна</option>
-                 <option value="Доски">Доски</option>
-                </select></p>
-                
+        <form id="typeTbl"  method="post" onchange="change()">
+                <p id="typeWag">Выберите тип вагона</p>
+                    <p><select size="1" name="type" id="type">
+                    <option disabled selected></option>
+    
+                    </select><button id="choose">Выбрать</button></p>        
         </form>
 
         
  
-            <form id="monthTbl" action="select1.php" method="post">
+           <!-- <form id="monthTbl" action="select1.php" method="post">
                     <p id="dateWag">Выберите месяц</p>
                         <p><select size="1" name="type" id="type">
                          <option disabled selected></option>
@@ -73,8 +110,8 @@
                          <option value="Декабрь">Декабрь</option>
                         </select></p>
                         
-                    </form>
-       <button id="otch">Отчет</button>
+                    </form>-->
+       <button id="otch" onclick="location.href='diagram.html'">Отчет</button>
 
         <table id='mytbl'>
             <tbody id='tbody'>
@@ -96,64 +133,131 @@
 <script type="text/javascript">
 
 
-        window.onload = function (){ 
-        var obj; 
-         
-         //Получение данных с сервера    
-         // 1. Создаём новый объект XMLHttpRequest
-         var xhr = new XMLHttpRequest();
-         
-         xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/showSupply.php',false);
-         
-         // 3. Отсылаем запрос
-         xhr.send();
-         
-         // 4. Если код ответа сервера не 200, то это ошибка
-         if (xhr.status != 200) {
-           // обработать ошибку
-           console.log(xhr);
-           alert( xhr.status + ': ' + xhr.statusText );  //пример вывода: 404: Not Found
-         } else {
-         
-                 ourObj = JSON.parse(xhr.responseText);
-                
-         
-         }
-         
-
-        //Данные для таблицы
-        var myBtn = document.getElementById('build');
-        var mytbl = document.getElementById('mytbl');
-        var tb = mytbl.querySelector('tbody');
+window.onload = function (){ 
         
-        // event process
-        var clearTable = function(countRow){
-            if (countRow > 1) {
-                for (i=tb.rows.length-1; i>0; i--){
-                    tb.deleteRow(i);
-                }
+                    
+//создание списка типов вагонов
+        var typeWagon;
+
+    //1. Создаём новый объект XMLHttpRequest
+        var xhr = new XMLHttpRequest();
+        
+        xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/actionsFiles.php?wagon=1',false);
+        
+        // 3. Отсылаем запрос
+        xhr.send();
+        
+    // 4. Если код ответа сервера не 200, то это ошибка
+        if (xhr.status != 200) {
+        // обработать ошибку
+        console.log(xhr);
+        alert( xhr.status + ': ' + xhr.statusText );  //пример вывода: 404: Not Found
+        } else {
+        
+            typeWagon = JSON.parse(xhr.responseText);
+        
+        
+        }
+        var selector=document.getElementById('type');
+
+        for (i = 0; i < typeWagon.length; i++) {
+            for (var key in typeWagon[i]) {
+            
+                    selector.innerHTML+='<option id="'+key+'"  >'+key+'</option>'
+                    
             }
         }
-        
- 
-            clearTable(tb.rows.length)
-            ourObj.forEach(function(item, i, arr) {
-                var tr = document.createElement('tr');
-                var id = item.supId;
-            
-                tr.id = `row-${id}`;
-                tr.innerHTML = `<td >${id}</td>
-                                <td>${item.supNameCons}</td>
-                                <td>${item.supQuantityWagon}</td>
-                                <td>${item.supTypeWagon}</td>
-                               `
-                                
-                                tb.appendChild(tr);
-               
-        });
+
+}
+
+
+
+
+//работа со списком типов
+var select, value, text,value;
+function change() {
+    select = document.getElementById("type"); // Выбираем  select по id
+    typeId=select.selectedIndex;
+    value = select.options[select.selectedIndex].value; // Значение value для выбранного option
+    text = select.options[select.selectedIndex].text; // Текстовое значение для выбранного option
+    alert(typeId);
+}
+
+
+
+//отправка данных на сервер                    
+document.getElementById('choose').onclick=function(){
+alert('тест');
+ // 1. Создаём новый объект XMLHttpRequest
+var xhr = new XMLHttpRequest();
+                
+xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/actionsFiles.php?table=supply&type=' + typeId,false);
+
+// 3. Отсылаем запрос
+xhr.send();
+}
+
+
+
+//Получение данных с сервера 
+
+var ourObj; 
+// 1. Создаём новый объект XMLHttpRequest
+var xhr = new XMLHttpRequest();
+
+xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/showSupply.php',false);
+
+// 3. Отсылаем запрос
+xhr.send();
+
+// 4. Если код ответа сервера не 200, то это ошибка
+if (xhr.status != 200) {
+// обработать ошибку
+console.log(xhr);
+alert( xhr.status + ': ' + xhr.statusText );  //пример вывода: 404: Not Found
+} else {
+
+        ourObj = JSON.parse(xhr.responseText);
+    
+
+}
+
+
+
+//построение таблицы
+
+//Данные для таблицы
+var myBtn = document.getElementById('build');
+var mytbl = document.getElementById('mytbl');
+var tb = mytbl.querySelector('tbody');
+
+// event process
+var clearTable = function(countRow){
+    if (countRow > 1) {
+        for (i=tb.rows.length-1; i>0; i--){
+            tb.deleteRow(i);
         }
-     document.getElementById('e6').onclick=function(){
-    document.getElementById('button2').style.display='block';
+    }
+}
+
+
+clearTable(tb.rows.length)
+ourObj.forEach(function(item, i, arr) {
+    var tr = document.createElement('tr');
+    var id = item.supId;
+
+    tr.id = `row-${id}`;
+    tr.innerHTML = `<td >${id}</td>
+                    <td>${item.supNameCons}</td>
+                    <td>${item.supQuantityWagon}</td>
+                    <td>${item.supTypeWagon}</td>`
+                    
+    tb.appendChild(tr);
+    
+});
+        
+document.getElementById('e6').onclick=function(){
+document.getElementById('button2').style.display='block';
 }
       
    </script>

@@ -66,10 +66,6 @@ position: absolute;
     font-size:20px; margin-left: 100px;
 }
 
-input{
-   /* position: fixed;*/
-}
- 
 
  table{
     font-family: arial, sans-serif;
@@ -89,7 +85,7 @@ td, th {
 }
   
 th{
-        color:rgb(240, 146, 6);
+        color:rgb(0, 0, 0);
 }  
     
 /*картинки "Удалить"*/
@@ -109,47 +105,7 @@ th{
 #Del{width: 100px;}
     
 
-/*список "Тип вагона"*/
-#typeTbl{
-    margin-top: 40px;
-    margin-left: 50px;
-    float: left;
-}
 
-/*заголовок списка "Тип вагона"*/
-#typeWag {
-    color:white;
-}
-
-/*заголовок списка месяца */
-#dateWag{
-    color: white;
-}
-
-
-
-/*заголовок списка дней*/
-#dateChoose{
-    font-size: 30px;
-    color:rgb(255, 162, 56);
-}
-
-/*список месяцев*/
-#monthTbl{
-    margin-top: 160px;
-    margin-left: -130px;
-    float: left;
-}
-
-/*кнопка отчета*/
-#otch{
-    margin-top: 300px;
-    margin-left: -120px;
-    float: left;
-    padding: 10px;
-    padding-left: 25px;
-    padding-right: 25px;
-}
 
 #editSell{
     width: 100%;
