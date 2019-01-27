@@ -43,6 +43,8 @@
             <tbody id='tbody'>
                     <tr>
                         
+                        <th>№</th>
+                        <th>id строки в БД</th>
                         <th>Номер вагона</th>
                         <th>Объем вагона</th>
                         <th>Стоимость аренды вагона</th>
@@ -101,9 +103,11 @@ var obj;
 
             var tr = document.createElement('tr');
             var id = item.wagId;
-            
-            tr.id = `row-${id}`;
+            var number=i+1;
+            tr.id = `row-${number}`;
             tr.innerHTML = `
+                            <td>${number}</td>
+                            <td>${id}</td>
                             <td>${item.wagNumber}</td>
                             <td>${item.wagVolume}</td>
                             <td>${item.wagRentCost}</td>
@@ -141,11 +145,51 @@ var elements = document.getElementsByTagName('td');
         if (event.target.value === "") {//если пусто,то присваиваем прежнее значение
             content.innerText = data; 
         }
-            else{
-        content.innerText = event.target.value;}//иначе-присваиваем другое значение
-        input.removeEventListener('blur', SellBlur);
+        else{
+                content.innerText = event.target.value;//иначе-присваиваем другое значение
+                input.removeEventListener('blur', SellBlur);
+                //Получение всей строки (измененной)
+                var id_a = content.parentNode.id[4];//Идентификатор строки, где произошло изменение
+                alert(id_a);
+                var table = document.getElementById("mytbl");//Получение таблицы
+                var idStr=table.rows[id_a].cells[1].innerHTML;
+               
+                var wagNumber=table.rows[id_a].cells[2].innerHTML;
+                alert(wagNumber);//Получение данных в строке, где было изменение
+                var wagNumber_par = /[0-9]+/;
+                var provWagNumber = wagNumber_par.test(wagNumber);
+
+                var wagVolume=table.rows[id_a].cells[3].innerHTML;
+                alert(wagVolume);//Получение данных в строке, где было изменение
+                var wagVolume_par = /[0-9]+/;
+                var provWagVolume = wagVolume_par.test(wagVolume);
+
+                var wagRentCost=table.rows[id_a].cells[4].innerHTML;
+                alert(wagRentCost);//Получение данных в строке, где было изменение
+                var wagRentCost_par = /[0-9]+/;
+                var provWagRentCost = wagRentCost_par.test(wagRentCost);
+
+                var wagType=table.rows[id_a].cells[5].innerHTML;
+                alert(wagType);//Получение данных в строке, где было изменение
+                var wagType_par = /[0-9]+/;
+                var provWagType = wagType_par.test(wagType);
+
+               
+                //alert('http://kappa.cs.petrsu.ru/~akulov/Practice/actionsTables.php?table=consigner&consMinWagon=' + MinWagon +"&consMaxWagon=" + MaxWagon +"&consloadTime=" + loadTime +"&consTimeOnRoad=" +  TimeOnRoad +"&consCost=" + Cost + "&consName=" + Name +"&consId=" + id_a ,false);
+                 //alert(content.parentNode.innerText);//выводит все данные
+//if(provWagNumber==false || provWagVolume==false || provWagRentCost==false || provWagType==false){alert('Введите число!');}
+        //отправляем запрос на изменение
+                // 1. Создаём новый объект XMLHttpRequest
+                var xhr = new XMLHttpRequest();
+                
+                xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/actionsTables.php?table=wagon&wagNumber=' + wagNumber +"&wagVolume=" + wagVolume +"&wagRentCost=" + wagRentCost +"&wagType=" + wagType  +"&wagId=" + idStr ,false);
+               
+                // 3. Отсылаем запрос
+                xhr.send();
+                location.reload();
+                }
+           
            }
-         
       content.innerHTML = '<input type="text" id="editSell" ></input>'
       input = document.getElementById("editSell");
       input.addEventListener('blur', SellBlur);

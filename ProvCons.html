@@ -41,7 +41,8 @@
     <table id='mytbl'>
             <tbody id='tbody'>
                     <tr>
-                        
+                        <th>№</th>
+                        <th>Id строки в БД</th>
                         <th>Идентификатор поставщика</th>
                         <th>Идентификатор грузоотправителя</th>
                         
@@ -99,9 +100,10 @@
     ourObj.forEach(function(item, i, arr) {
         var tr = document.createElement('tr');
         var id = item.provConsId;
-        
-        tr.id = `row-${id}`;
-        tr.innerHTML = `
+        var number=i+1;
+        tr.id = `row-${number}`;
+        tr.innerHTML = `<td>${number}</td>
+                        <td>${id}</td>
                         <td>${item.provId}</td>
                         <td >${item.consId}</td>
                         <button id=${`row-btn-${id}`} style="margin-left: 35%;outline:none;border:0;background: transparent;heigth:25px;"><img src="del.png" id="imgDel"></button>`;
@@ -140,9 +142,39 @@ var elements = document.getElementsByTagName('td');
             content.innerText = data; 
         }
             else{
-        content.innerText = event.target.value;}//иначе-присваиваем другое значение
-        input.removeEventListener('blur', SellBlur);
-           }
+                content.innerText = event.target.value;//иначе-присваиваем другое значение
+                input.removeEventListener('blur', SellBlur);
+                //Получение всей строки (измененной)
+                var id_a = content.parentNode.id[4];//Идентификатор строки, где произошло изменение
+                //alert(id_a);
+                var table = document.getElementById("mytbl");//Получение таблицы
+                var idStr=table.rows[id_a].cells[1].innerHTML;
+                //alert(idStr);
+                var provId=table.rows[id_a].cells[2].innerHTML;
+                //alert(provId);//Получение данных в строке, где было изменение
+                var provId_par = /[0-9]+/;
+                var provProvId = provId_par.test(provProvId);
+                var consId=table.rows[id_a].cells[3].innerHTML;
+                //alert(consId);//Получение данных в строке, где было изменение
+                var consId_par = /[0-9]+/;
+                var provConsId = consId_par.test(consId);
+                
+                //alert('http://kappa.cs.petrsu.ru/~akulov/Practice/actionsTables.php?table=consigner&consMinWagon=' + MinWagon +"&consMaxWagon=" + MaxWagon +"&consloadTime=" + loadTime +"&consTimeOnRoad=" +  TimeOnRoad +"&consCost=" + Cost + "&consName=" + Name +"&consId=" + id_a ,false);
+                 //alert(content.parentNode.innerText);//выводит все данные
+//if(provProvId==false || provConsId==false){alert('Введите число!');location.reload();}
+//else{
+        //отправляем запрос на изменение
+                // 1. Создаём новый объект XMLHttpRequest
+                var xhr = new XMLHttpRequest();
+                
+                xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/actionsTables.php?table=provcons&provId=' + provId +"&consId=" + consId +"&provConsId=" + idStr ,false);
+               
+                // 3. Отсылаем запрос
+                xhr.send();
+                location.reload();
+           // }    
+            }
+      }
          
       content.innerHTML = '<input type="text" id="editSell" ></input>'
       input = document.getElementById("editSell");

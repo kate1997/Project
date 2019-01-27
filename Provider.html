@@ -43,7 +43,8 @@
     <table id='mytbl'>
             <tbody id='tbody'>
                     <tr>
-                        
+                        <th>№</th>
+                        <th>id строки в БД</th>
                         <th>Наименование поставщика</th>
                         <th>Стоимость сырья</th>
                         <th>Рейтинг поставщика</th>
@@ -103,9 +104,10 @@ var obj;
 
                     var tr = document.createElement('tr');
                     var id = item.provId;
-                
-                    tr.id = `row-${id}`;
-                    tr.innerHTML = `
+                var number=i+1;
+                    tr.id = `row-${number}`;
+                    tr.innerHTML = `<td data-type="name">${number}</td>
+                                    <td data-type="name">${id}</td>
                                     <td data-type="name">${item.provName}</td>
                                     <td data-type="number">${item.provPrice}</td>
                                     <td data-type="number">${item.provRating}</td>
@@ -146,25 +148,38 @@ var obj;
         function SellBlur(event) {
                 if (event.target.value === "") {//если пусто,то присваиваем прежнее значение
                     content.innerText = data; 
-                }
-                    else{
-                content.innerText = event.target.value;}//иначе-присваиваем другое значение
-
+                } else{
+                content.innerText = event.target.value;//иначе-присваиваем другое значение
                 input.removeEventListener('blur', SellBlur);
-                znach=event.target.value;
-               alert(znach);
-        
-            // 1. Создаём новый объект XMLHttpRequest
-                          /*      var xhr = new XMLHttpRequest();
+                //Получение всей строки (измененной)
+                var id_a = content.parentNode.id[4];//Идентификатор строки, где произошло изменение
+                //alert(id_a);
+                var table = document.getElementById("mytbl");//Получение таблицы
+                var idStr=table.rows[id_a].cells[1].innerHTML;
+                var Name=table.rows[id_a].cells[2].innerHTML;
+                //alert(Name);//Получение данных в строке, где было изменение 
+                var Price=table.rows[id_a].cells[3].innerHTML;
+                //alert(Price);//Получение данных в строке, где было изменение
+                var Price_par = /[0-9]+/;
+                var provPrice = Price_par.test(Price);
+                var Rating=table.rows[id_a].cells[4].innerHTML;
+                //alert(Rating);//Получение данных в строке, где было изменение
+                var Rating_par = /[0-9]+/;
+                var provRating = Rating_par.test(Rating);
                 
-                                xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/actionsTables.php?table=provider&consId=' + id,false);
+                //alert('http://kappa.cs.petrsu.ru/~akulov/Practice/actionsTables.php?table=consigner&consMinWagon=' + MinWagon +"&consMaxWagon=" + MaxWagon +"&consloadTime=" + loadTime +"&consTimeOnRoad=" +  TimeOnRoad +"&consCost=" + Cost + "&consName=" + Name +"&consId=" + id_a ,false);
+                 //alert(content.parentNode.innerText);//выводит все данные
+//if(provPrice==false || provRating==false){alert('Введите число!');}
+        //отправляем запрос на изменение
+                // 1. Создаём новый объект XMLHttpRequest
+                var xhr = new XMLHttpRequest();
                 
-                                // 3. Отсылаем запрос
-                                xhr.send();
-                                // Обновление страницы
-                       
-                                alert("Данные изменены");*/
-
+                xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/actionsTables.php?table=provider&provName=' + Name +"&provPrice=" + Price +"&provRating=" + Rating +"&provId=" + idStr ,false);
+               
+                // 3. Отсылаем запрос
+                xhr.send();
+                location.reload();
+                }
 
         }
          

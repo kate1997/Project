@@ -41,6 +41,7 @@
             <tbody id='tbody'>
                     <tr>
                         <th>№</th>
+                        <th>Id строки</th>
                         <th>Наименование</th>
                         <th>Мин.кол-во вагонов</th>
                         <th>Макс.кол-во вагонов</th>
@@ -96,9 +97,11 @@ var obj;
         ourObj.forEach(function(item, i, arr) {
             var tr = document.createElement('tr');
             var id = item.consId;
-           
-            tr.id = `row-${id}`;
-            tr.innerHTML = `
+            var number=i+1;
+          
+            tr.id = `row-${number}`;
+            
+            tr.innerHTML = ` <td>${number}</td>
                             <td>${id}</td>
                             <td>${item.consName}</td>
                             <td>${item.consMinWagon}</td>
@@ -107,7 +110,9 @@ var obj;
                             <td>${item.consTimeOnRoad}</td>
                             <td>${item.consCost}</td>
                             <button id=${`row-btn-${id}`} style="margin-left: 35%;outline:none;border:0;background: transparent;heigth:25px;"><img src="del.png" id="imgDel"></button>`;
-            tb.appendChild(tr);
+        
+            tb.appendChild(tr); 
+            
             /*document.getElementById(`row-${id}`).ondblclick=function(){
                 alert(tr.id[4]); 
             }*/
@@ -140,55 +145,48 @@ var elements = document.getElementsByTagName('td');
                 if (event.target.value === "") {//если пусто,то присваиваем прежнее значение
                     content.innerText = data;
                 }
-                    else{
-                content.innerText = event.target.value;}//иначе-присваиваем другое значение
+                else{
+                content.innerText = event.target.value;//иначе-присваиваем другое значение
                 input.removeEventListener('blur', SellBlur);
                 //Получение всей строки (измененной)
                 var id_a = content.parentNode.id[4];//Идентификатор строки, где произошло изменение
-               alert(id_a);
+                //alert(id_a);
                 var table = document.getElementById("mytbl");//Получение таблицы
-                
-                var Name=table.rows[id_a].cells[1].innerText;
-                alert(Name);//Получение данных в строке, где было изменение 
-                var MinWagon=table.rows[id_a].cells[2].innerHTML;
-                alert(MinWagon);//Получение данных в строке, где было изменение
+                var idStr=table.rows[id_a].cells[1].innerHTML;
+                var Name=table.rows[id_a].cells[2].innerText;
+                //alert(Name);//Получение данных в строке, где было изменение 
+                var MinWagon=table.rows[id_a].cells[3].innerHTML;
+                //alert(MinWagon);//Получение данных в строке, где было изменение
                 var MinWagon_par = /[0-9]+/;
                 var provMinWagon = MinWagon_par.test(MinWagon);
-
-                var MaxWagon=table.rows[id_a].cells[3].innerHTML;
-                alert(MaxWagon);//Получение данных в строке, где было изменение
+                var MaxWagon=table.rows[id_a].cells[4].innerHTML;
+                //alert(MaxWagon);//Получение данных в строке, где было изменение
                 var MaxWagon_par = /[0-9]+/;
                 var provMaxWagon = MaxWagon_par.test(MaxWagon);
-
-                var loadTime=table.rows[id_a].cells[4].innerHTML;
-                alert(loadTime);//Получение данных в строке, где было изменение
+                var loadTime=table.rows[id_a].cells[5].innerHTML;
+                //alert(loadTime);//Получение данных в строке, где было изменение
                 var loadTime_par = /[0-9]+/;
                 var provloadTime = loadTime_par.test(loadTime);
-
-                var TimeOnRoad=table.rows[id_a].cells[5].innerHTML;
+                var TimeOnRoad=table.rows[id_a].cells[6].innerHTML;
                 //alert(TimeOnRoad);//Получение данных в строке, где было изменение
                 var TimeOnRoad_par = /[0-9]+/;
                 var provTimeOnRoad = TimeOnRoad_par.test(TimeOnRoad);
-
-                var Cost=table.rows[id_a].cells[6].innerHTML;
+                var Cost=table.rows[id_a].cells[7].innerHTML;
                 //alert(Cost);//Получение данных в строке, где было изменение
                 var Cost_par = /[0-9]+/;
                 var provCost = Cost_par.test(Cost);
-
                 //alert('http://kappa.cs.petrsu.ru/~akulov/Practice/actionsTables.php?table=consigner&consMinWagon=' + MinWagon +"&consMaxWagon=" + MaxWagon +"&consloadTime=" + loadTime +"&consTimeOnRoad=" +  TimeOnRoad +"&consCost=" + Cost + "&consName=" + Name +"&consId=" + id_a ,false);
                  //alert(content.parentNode.innerText);//выводит все данные
 //if(provMinWagon==false || provMaxWagon==false || provloadTine==false || provTineOnRoad==false || provCost==false){alert('Введите число!');}
-
         //отправляем запрос на изменение
                 // 1. Создаём новый объект XMLHttpRequest
                 var xhr = new XMLHttpRequest();
                 
-                xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/actionsTables.php?table=consigner&consMinWagon=' + MinWagon +"&consMaxWagon=" + MaxWagon +"&consloadTime=" + loadTime +"&consTimeOnRoad=" +  TimeOnRoad +"&consCost=" + Cost + "&consName=" + Name +"&consId=" + id_a ,false);
+                xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/actionsTables.php?table=consigner&consMinWagon=' + MinWagon +"&consMaxWagon=" + MaxWagon +"&consloadTime=" + loadTime +"&consTimeOnRoad=" +  TimeOnRoad +"&consCost=" + Cost + "&consName=" + Name +"&consId=" + idStr ,false);
                
                 // 3. Отсылаем запрос
                 xhr.send();
-                location.reload();
-                
+                location.reload();}
            
            }
       content.innerHTML = '<input type="text" id="editSell" ></input>'
