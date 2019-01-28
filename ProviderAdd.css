@@ -57,7 +57,7 @@ h1{
 .prov{
     margin-top: 18%;
     margin-left: 25%;
-    color:rgb(226, 250, 12);
+    color:rgb(250, 206, 12);
     width: 50%;
     height: 400px;
     font-size: 25px;
@@ -79,10 +79,15 @@ form li{
     margin-top: 10px;    
 }
 
+/*кнопка "Отправить" для форм добавления*/
+#submit{
+    font-size:20px; padding:0px; text-align: center;margin-top: 12px;
+}
 
-/*кнопка "вернуться назад"*/
+/*кнопка "вернуться назад" для форм добавления*/
 #return{
-    font-size:20px; padding:0px; text-align: center;margin-top: 12px; margin-right: 6%;
+    font-size:20px; padding:0px; text-align: center;margin-top: 12px; margin-right: 0px;float: left;
+    
 }
 
 

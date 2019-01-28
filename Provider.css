@@ -70,7 +70,7 @@ position: absolute;
  table{
     font-family: arial, sans-serif;
     border-collapse: collapse;
-    width: 50%;
+    
     margin-top: 150px;
     color: rgb(228, 233, 160);
     margin-left: 25%;
@@ -122,7 +122,7 @@ th{
 
 /*Свойства меню*/  
 #nav{ 
-   
+     z-index: 9999;
     float:left;
 	margin-left: 1%;
     width:60px;
@@ -135,7 +135,7 @@ th{
 }
 
 #nav li{
-    
+    z-index: 9999;
     float: left;
     display: block;
     position: relative;
@@ -144,6 +144,7 @@ th{
 
 /* настройка выпадающего списка*/
 #nav ul{
+    z-index: 9999;
     list-style:none;
     left:-9999px; /* убираем элементы за пределы программы*/
 	opacity:0; /*скрываем <ul> */
@@ -153,6 +154,7 @@ th{
 
 /*Настройка элементов списка*/
 #nav ul li{
+    
     padding-top: 1px; 
     float: none;
     text-align: left;

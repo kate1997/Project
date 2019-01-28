@@ -6,7 +6,12 @@
   <link rel="stylesheet" href="provider.css ">
  <style>
  
- 
+ #nav li:hover ul li a:hover{ /* стили для конкретных выпадающих пунктов, при наведении на них курсора */
+   
+    /* цвет фона выпадающего элемента*/
+    background:#334;
+    background:rgba(50,50,50,1); /* Полупрозрачность. */
+ }
 main{
     margin-top: 10%;
 }
@@ -19,7 +24,7 @@ INPUT{
 }
 /*левая колонка*/
  #leftCol{
-    position: fixed;left:20%;padding-top:10%; top: 10%; width: 30%;height: 100%;
+    position: fixed;left:-2%;padding-top:10%; top: 10%; width: 30%;height: 100%;
   }
   
 /*правая колонка*/
@@ -72,7 +77,7 @@ INPUT{
 }
 /*кнопка Просмотр*/
 #show{
-    margin-left: -460px;
+    margin-left: -95%;
     margin-top: 300px;
     padding-left: 10px;
     padding-right: 10px;
@@ -83,8 +88,10 @@ INPUT{
 
 
  #div input{
+     margin-left: 15px;
      padding-top: 5px;
      padding-right: 100px;
+     
       
  }
 
@@ -92,6 +99,7 @@ INPUT{
  #littleDiv input{
    
      right: 0;
+    
  }
  #save,#myBtn,#reload{
      font-size:17px;
@@ -219,7 +227,7 @@ var typeWagon;
 }
 
 
-var select, value, text,value;
+var select, value, text,value,typeId;
 
 function change() {
     select = document.getElementById("type"); // Выбираем  select по id
@@ -270,8 +278,6 @@ function GenerateRowsTbl(evt) {
    
 
 
-    
-
 //Создание таблицы
 
 k++;//проверка для того,чтобы не дублировать несколько месяцев
@@ -317,7 +323,68 @@ xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/actionsFiles.php?' +
 xhr.send();
 }
 
-//отрисовка готовой таблицы по
+
+
+
+//отрисовка готовой таблицы по выбранному типу
+document.getElementById('show').onclick=function(){
+    select = document.getElementById("type"); // Выбираем  select по id
+    typeId=select.selectedIndex;
+
+ // 1. Создаём новый объект XMLHttpRequest
+var xhr = new XMLHttpRequest();
+                
+xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/actionsFiles.php?table=supply&type=' + typeId,false);
+
+// 3. Отсылаем запрос
+xhr.send();
+// 4. Если код ответа сервера не 200, то это ошибка
+if (xhr.status != 200) {
+// обработать ошибку
+console.log(xhr);
+alert( xhr.status + ': ' + xhr.statusText );  //пример вывода: 404: Not Found
+} else {
+
+        ourObj = JSON.parse(xhr.responseText);
+    //alert(ourObj[1][0]['consName']); 
+    //alert(ourObj[1].length);
+}
+    var monthsSelect = document.getElementById('month');
+      var months = monthsSelect.options;
+      var month = months[months.selectedIndex].text;
+      daysInMonth = date.daysInMonth(month);
+      var divDay = document.getElementById('daysDisplay');
+    
+   
+
+
+//Создание таблицы
+
+
+        for(count=0;count<daysInMonth;count++) {
+                    var input = document.createElement('INPUT');
+                    input.type = 'text';
+                    input.setAttribute("data-id", "id" + count);
+                    input.setAttribute("class", "test");
+                    input.value=ourObj[key][i];
+                    input.name = "value[]";
+                    var newlabel=document.createElement('label');
+                    newlabel.innerHTML=count+1;
+                    var br=document.createElement('br');
+
+                    document.querySelector('#div').appendChild(newlabel);
+                    document.querySelector('#div').appendChild(input);
+                    document.querySelector('#div').appendChild(br);
+
+   } 
+
+
+
+
+
+
+
+}
 
 
    </script>
