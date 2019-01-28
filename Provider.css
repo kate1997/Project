@@ -58,22 +58,22 @@ color: black;
     text-align: center;
     font-size: 50px;
 list-style: none;
-margin-left: 82%;
+margin-left: 77%;
 position: absolute;
    
 }
 #button2{
-    font-size:20px; 
+    font-size:20px;  margin-left: 100px;
 }
 
 
  table{
     font-family: arial, sans-serif;
     border-collapse: collapse;
-    width: 60%;
+    width: 50%;
     margin-top: 150px;
     color: rgb(228, 233, 160);
-    margin-left: 19%;
+    margin-left: 25%;
     background: linear-gradient(to top left,  rgba(5, 146, 23, 0.7), rgba(58, 175, 190, 0.7));
 }
     

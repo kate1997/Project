@@ -4,7 +4,7 @@
  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title>Forest</title>
   <link rel="stylesheet" href="provider.css ">
- <!--<link rel="stylesheet" href="StylesMenu.css ">-->
+
 
 </head>
 <body>
@@ -34,7 +34,7 @@
 <section> 
       <div class="buttons" style="position: fixed;">
             <li >
-                    <input onclick="location.href='ProvConsAdd.html'" id="button2" type="button" value="Добавить" style = " font-size:20px;">
+                    <input onclick="location.href='ProvConsAdd.html'" id="button2" type="button" value="Добавить" style = " font-size:20px;margin-left: 100px;">
                    
          
             </li>
@@ -43,7 +43,7 @@
             <tbody id='tbody'>
                     <tr>
                         <th>№</th>
-                        <th>Id строки в БД</th>
+                        <th>Id в БД</th>
                         <th>Идентификатор поставщика</th>
                         <th>Идентификатор грузоотправителя</th>
                         
@@ -107,7 +107,7 @@
                         <td>${id}</td>
                         <td>${item.provId}</td>
                         <td >${item.consId}</td>
-                        <button id=${`row-btn-${id}`} style="margin-left: 35%;outline:none;border:0;background: transparent;heigth:25px;"><img src="del.png" id="imgDel"></button>`;
+                        <button id=${`row-btn-${id}`} style="margin-left: 35%;outline:none;border:0;background: transparent;heigth:25px;padding-top:40%"><img src="del.png" id="imgDel"></button>`;
         tb.appendChild(tr);
 
 
@@ -127,7 +127,7 @@
                                 xhr.send();
                                 //обновление страницы
                                 location.reload();
-                                alert("Взаимосвязь удалена.");
+                                //alert("Взаимосвязь удалена.");
                         }
                     }
           

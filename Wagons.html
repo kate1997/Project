@@ -34,7 +34,7 @@
 <section>  
     <div class="buttons" style="position: fixed;">
             <li >
-                    <input onclick="location.href='WagonsAdd.html'" id="button2" type="button" value="Добавить" style = " font-size:20px; ">
+                    <input onclick="location.href='WagonsAdd.html'" id="button2" type="button" value="Добавить" style = " font-size:20px;margin-left: 100px; ">
                     
             
             </li>
@@ -45,7 +45,7 @@
                     <tr>
                         
                         <th>№</th>
-                        <th>id строки в БД</th>
+                        <th>id в БД</th>
                         <th>Номер вагона</th>
                         <th>Объем вагона</th>
                         <th>Стоимость аренды вагона</th>
@@ -68,7 +68,7 @@ var obj;
     // 1. Создаём новый объект XMLHttpRequest
     var xhr = new XMLHttpRequest();
     
-    xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/showWagon.php',false);
+    xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/actionsTables.php?table=wagon',false);
     
     // 3. Отсылаем запрос
     xhr.send();
@@ -105,7 +105,7 @@ var obj;
             var tr = document.createElement('tr');
             var id = item.wagId;
             var number=i+1;
-            tr.id = `row-${number}`;
+            tr.id = `${number}`;
             tr.innerHTML = `
                             <td>${number}</td>
                             <td>${id}</td>
@@ -113,7 +113,7 @@ var obj;
                             <td>${item.wagVolume}</td>
                             <td>${item.wagRentCost}</td>
                             <td>${item.wagType}</td>
-                            <button id=${`row-btn-${id}`} style="margin-left: 35%;outline:none;border:0;background: transparent;heigth:25px;"><img src="del.png" id="imgDel"></button>`;
+                            <button id=${`row-btn-${id}`} style="margin-left: 35%;outline:none;border:0;background: transparent;heigth:25px;padding-top:40%"><img src="del.png" id="imgDel"></button>`;
             tb.appendChild(tr);
         
                 //Удаление элемента
@@ -132,7 +132,7 @@ var obj;
                             xhr.send();
                             //
                             location.reload();
-                            alert("Вагон удален.");
+                            //alert("Вагон удален.");
                     }
                 }
     });
@@ -150,28 +150,29 @@ var elements = document.getElementsByTagName('td');
                 content.innerText = event.target.value;//иначе-присваиваем другое значение
                 input.removeEventListener('blur', SellBlur);
                 //Получение всей строки (измененной)
-                var id_a = content.parentNode.id[4];//Идентификатор строки, где произошло изменение
-                alert(id_a);
+                var id_a = content.parentNode.id;//Идентификатор строки, где произошло изменение
+                //alert(id_a);
+                
                 var table = document.getElementById("mytbl");//Получение таблицы
                 var idStr=table.rows[id_a].cells[1].innerHTML;
                
                 var wagNumber=table.rows[id_a].cells[2].innerHTML;
-                alert(wagNumber);//Получение данных в строке, где было изменение
+                //alert(wagNumber);//Получение данных в строке, где было изменение
                 var wagNumber_par = /[0-9]+/;
                 var provWagNumber = wagNumber_par.test(wagNumber);
 
                 var wagVolume=table.rows[id_a].cells[3].innerHTML;
-                alert(wagVolume);//Получение данных в строке, где было изменение
+                //alert(wagVolume);//Получение данных в строке, где было изменение
                 var wagVolume_par = /[0-9]+/;
                 var provWagVolume = wagVolume_par.test(wagVolume);
 
                 var wagRentCost=table.rows[id_a].cells[4].innerHTML;
-                alert(wagRentCost);//Получение данных в строке, где было изменение
+                //alert(wagRentCost);//Получение данных в строке, где было изменение
                 var wagRentCost_par = /[0-9]+/;
                 var provWagRentCost = wagRentCost_par.test(wagRentCost);
 
                 var wagType=table.rows[id_a].cells[5].innerHTML;
-                alert(wagType);//Получение данных в строке, где было изменение
+                //alert(wagType);//Получение данных в строке, где было изменение
                 var wagType_par = /[0-9]+/;
                 var provWagType = wagType_par.test(wagType);
 

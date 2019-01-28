@@ -1,120 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
- <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <title>Forest</title>
-  <link rel="stylesheet" href="provider.css ">
- <style>
- 
-
-#put{
-  
-    margin-top: 15%;
-    margin-left: 1%;
-    float: left;
-    text-align: center;
-    position: fixed;
-}
-/*заголовок списка "Тип вагона"*/
-#typeWag {
-    color:white;
-    font-size: 20px;
-   
-}
-
-/*заголовок списка месяца */
-#dayWag{
-    color: white;
-    font-size: 20px;
-    margin-top: 9%;
-}
-
-
-
-
-/*кнопка отчета*/
-#otch{
-    margin-top: 90px;
-   
-
-    padding: 10px;
-    padding-left: 25px;
-    padding-right: 25px;
-}
-
-#all{
-    padding: 10px;
-    padding-left: 25px;
-    padding-right: 25px;
-}
-
- </style>
-</head>
-<body>
-
- <header> 
-<h1> График поставок </h1>
-
-
-
-<!--Меню-->
-    <ul id="nav" >
-        <li>
-            <a href="#" title="Меню"  id="menu" ><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/1200px-Hamburger_icon.svg.png" width="30px" height="30px"  ></a>
-            <ul>
-                <li><a href="SupplyScheme.html">График поставок </a></li>
-                <li><a href="Consigner.html">Грузоотправители</a></li>
-                <li><a href="Provider.html">Поставщики</a></li>
-                <li><a href="ProvCons.html">Взаимосвязь </a></li>
-                <li><a href="Wagons.html">Вагоны </a></li>
-                <li><a href="ScheduleWagons.html">Расписание вагонов </a></li>
-                <li><a href="page1.html">Настройки </a></li>
-                <li><a href="site.html#">Главная </a></li>
-            </ul>
-        </li>
-    </ul>
- </header>
-
-<main>
-    
-<section>
-       
-  <div id="put">
-                <p id="typeWag">Выберите тип вагона</p>
-                    <p><select size="1" name="type" id="type">
-                    <option disabled selected></option>
-    
-                    </select><button id="choose">Выбрать</button></p>        
-       
-        <p id="dayWag">Выберите день</p>
-        <p><select size="1" name="type" id="day">
-        <option disabled selected></option>
-
-        </select><button id="choose2">Выбрать</button></p>
-        
- 
-        <button id="all">Просмотр всей таблицы</button>
-       <button id="otch" onclick="location.href='diagram.html'">Отчет</button>
-    </div>
-
-    <table id='mytbl'>
-            
-            <tbody id='tbody'>
-                    
-                    <tr>
-                        
-                           
-                            <th>Наименование грузоотправителя</th>
-                            <th>Количество вагонов</th>
-                    </tr>
-            </tbody>
-    </table>
-
-        
-</section>
-
-
-<script type="text/javascript">
 
 var myBtn = document.getElementById('build');
 var mytbl = document.getElementById('mytbl');
@@ -183,7 +66,6 @@ document.getElementById('choose2').onclick=function(){
 var mytbl = document.getElementById('mytbl');
 var tb = mytbl.querySelector('tbody');
 clearTable(tb.rows.length);
-
     select2 = document.getElementById("day"); // Выбираем  select по id
     dayId=select2.selectedIndex;
 
@@ -277,16 +159,3 @@ for (var key in ourObj){
     }
     }
 }
-
-      
-   </script>
-</main>
-<footer>
-        <address>...</address>
-        <small>@2019...</small>
-  </footer>
-  
-</body>
-
-
-</html>

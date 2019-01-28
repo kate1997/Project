@@ -10,12 +10,26 @@ html{
 
 body{
     background-repeat: no-repeat;
-    background-size: 100%;
+   
     background-attachment:fixed;
     overflow: auto;
     height: 100%;
-   background-image: url('http://www.rosphoto.com/images/u/articles/1605/6-tim-verbrugghe.jpg'); background-size: 100%;
+
+    background-size: 100% 100%;
+   /*background-image: url('http://www.rosphoto.com/images/u/articles/1605/6-tim-verbrugghe.jpg');*/
+    background-size: 100%;
 }
+/*.pic-1{
+    background-image: url([url]http://www.rosphoto.com/images/u/articles/1605/6-tim-verbrugghe.jpg);[/url]
+}
+.pic-2{
+    background-image: url([url]https://rossaprimavera.ru/static/files/727f760bf1c2.jpg);[/url]
+}
+.pic-3{
+    background-image: url([url]http://lorempixel.com/output/nightlife-q-c-1004-1004-9.jpg);[/url]
+}
+*/
+
 
 
 main{

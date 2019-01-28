@@ -42,7 +42,7 @@
             <tbody id='tbody'>
                     <tr>
                         <th>№</th>
-                        <th>Id строки</th>
+                        <th>id в БД</th>
                         <th>Наименование</th>
                         <th>Мин.кол-во вагонов</th>
                         <th>Макс.кол-во вагонов</th>
@@ -110,7 +110,7 @@ var obj;
                             <td>${item.consloadTime}</td>
                             <td>${item.consTimeOnRoad}</td>
                             <td>${item.consCost}</td>
-                            <button id=${`row-btn-${id}`} style="margin-left: 35%;outline:none;border:0;background: transparent;heigth:25px;"><img src="del.png" id="imgDel"></button>`;
+                            <button id=${`row-btn-${id}`} style="margin-left: 35%;outline:none;border:0;background: transparent;heigth:25px;padding-top:40%"><img src="del.png" id="imgDel"></button>`;
         
             tb.appendChild(tr); 
             
@@ -132,7 +132,7 @@ var obj;
                                 xhr.send();
                                 // Обновление страницы
                                 location.reload();
-                                alert("Грузоотправитель удален.");
+                                //alert("Грузоотправитель удален.");
                         }
                     }
     });

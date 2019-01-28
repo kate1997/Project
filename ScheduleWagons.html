@@ -6,11 +6,7 @@
   <link rel="stylesheet" href="provider.css ">
  <style>
  
- #nav li:hover ul li a:hover{ /* стили для конкретных выпадающих пунктов, при наведении на них курсора */
-    
-    background:rgba(50,50,50,1); /* Полупрозрачность. */
-   
-}
+ 
 main{
     margin-top: 10%;
 }
@@ -23,24 +19,34 @@ INPUT{
 }
 /*левая колонка*/
  #leftCol{
-    position: absolute;left:20%;padding-top:15%; top: 10%; width: 30%;height: 100%;
+    position: fixed;left:20%;padding-top:10%; top: 10%; width: 30%;height: 100%;
   }
   
 /*правая колонка*/
 #div{text-align: left;position: absolute; right: 0; top: 10%; width: 50%;height: 100%;
 
 }
+
+/*правая  колонка*/
+#littleDiv{float: left;position: absolute;  top: 10%; width: 60%;height: 100%;
+
+}
+
 #butt{
     float: left;
     margin-top: 190px;
-    margin-left: -170px;
+    margin-left: -200px;
     list-style: none;
+  
 }
 
 
 /*заголовок списка "Тип вагона"*/
 #typeWag {
     color:white;
+    font-size: 20px;
+    margin-top: 4px;
+    margin-left: -3px;
 }
 
 /*список "Тип вагона"*/
@@ -53,16 +59,43 @@ INPUT{
 /*заголовок списка месяца */
 #dateWag{
     color: white;
+    font-size: 20px;
+    margin-top: 4px;
+    margin-left: -3px;
 }
 
 /*список месяцев*/
 #monthTbl{
     margin-top: 120px;
-    margin-left: -130px;
+    margin-left: -150px;
     float: left;
 }
+/*кнопка Просмотр*/
+#show{
+    margin-left: -460px;
+    margin-top: 300px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    font-size: 20px;
+}
 
- 
+
+ #div input{
+     padding-top: 5px;
+     padding-right: 100px;
+      
+ }
+
+
+ #littleDiv input{
+   
+     right: 0;
+ }
+ #save,#myBtn,#reload{
+     font-size:17px;
+ }
  </style>
 
  
@@ -131,13 +164,16 @@ INPUT{
 
         <div id="daysDisplay"></div>
 
+        <button id="show">Просмотр</button>
     
 </div>
 
 
 
 <div id="div" >
-    <br> 
+    <div id="littleDiv">
+        <br> 
+    </div>
 </div>
 
   
@@ -281,7 +317,7 @@ xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/actionsFiles.php?' +
 xhr.send();
 }
 
-
+//отрисовка готовой таблицы по
 
 
    </script>

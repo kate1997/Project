@@ -10,7 +10,7 @@
 
   </style>
 </head>
-<body>
+<body >
 <header><h1> Система лесоснабжения предприятия </h1>
 
 <nav >
@@ -33,6 +33,18 @@
 </nav>
 </header>
 <main></main>
+<script>
+  var bgFolder = '';
+var backgrounds = [
+  'https://img.fonwall.ru/o/0h/geleznaya-doroga-vagoni-gruzovie.jpg',
+  'http://www.rosphoto.com/images/u/articles/1605/6-tim-verbrugghe.jpg',
+  'https://img1.fonwall.ru/o/ik/zima-sneg-zheleznaya-doroga-derevya-w2pc.jpg'
+];
+var rndBg = Math.floor(Math.random() * 3);
+
+document.body.style.backgroundImage = 'url(' + bgFolder + backgrounds[rndBg] + ')';
+//alert( 'url(' + bgFolder + backgrounds[rndBg] + ')');
+</script>
 <footer>
     <address>...</address>
     <small>@2019...</small>

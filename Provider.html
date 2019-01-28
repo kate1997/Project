@@ -45,7 +45,7 @@
             <tbody id='tbody'>
                     <tr>
                         <th>№</th>
-                        <th>id строки в БД</th>
+                        <th>id в БД</th>
                         <th>Наименование поставщика</th>
                         <th>Стоимость сырья</th>
                         <th>Рейтинг поставщика</th>
@@ -112,7 +112,7 @@ var obj;
                                     <td data-type="name">${item.provName}</td>
                                     <td data-type="number">${item.provPrice}</td>
                                     <td data-type="number">${item.provRating}</td>
-                                    <button id=${`row-btn-${id}`} style="margin-left: 35%;outline:none;border:0;background: transparent;heigth:25px;"><img src="del.png" id="imgDel"></button>`;
+                                    <button id=${`row-btn-${id}`} style="margin-left: 35%;outline:none;border:0;background: transparent;heigth:25px;padding-top:40%"><img src="del.png" id="imgDel"></button>`;
                     tb.appendChild(tr);
 
             //Удаление элемента
@@ -131,7 +131,7 @@ var obj;
                                 xhr.send(); 
                                 //обновление страницы
                                 location.reload();
-                                alert("Поставщик удален.");
+                                //alert("Поставщик удален.");
 
                                
 
