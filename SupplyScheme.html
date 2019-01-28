@@ -11,46 +11,41 @@
    
 }
 
-/*список "Тип вагона"*/
-#typeTbl{
-    margin-top: 200px;
-    margin-left: 50px;
+#put{
+  
+    margin-top: 15%;
+    margin-left: 4%;
     float: left;
+    text-align: center;
+    
 }
-
 /*заголовок списка "Тип вагона"*/
 #typeWag {
     color:white;
+    font-size: 20px;
+   
 }
 
 /*заголовок списка месяца */
-#dateWag{
+#dayWag{
     color: white;
+    font-size: 20px;
+    margin-top: 9%;
 }
 
 
 
-/*заголовок списка дней*/
-#dateChoose{
-    font-size: 30px;
-    color:rgb(255, 162, 56);
-}
 
-/*список месяцев*/
-#monthTbl{
-    margin-top: 320px;
-    margin-left: -130px;
-    float: left;
-}
 /*кнопка отчета*/
 #otch{
-    margin-top: 300px;
-    margin-left: -120px;
-    float: left;
+    margin-top: 90px;
+   
+
     padding: 10px;
     padding-left: 25px;
     padding-right: 25px;
 }
+
 
  </style>
 </head>
@@ -66,9 +61,10 @@
         <li>
             <a href="#" title="Меню"  id="menu" ><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/1200px-Hamburger_icon.svg.png" width="30px" height="30px"  ></a>
             <ul>
-                <li><a href="Consigner.html">Грузоотправители </a></li>
-                <li><a href="Provider.html">Поставщики </a></li>
-                <li><a href="ProvCons.html">Взаимосвязь</a></li>
+                <li><a href="SupplyScheme.html">График поставок </a></li>
+                <li><a href="Consigner.html">Грузоотправители</a></li>
+                <li><a href="Provider.html">Поставщики</a></li>
+                <li><a href="ProvCons.html">Взаимосвязь </a></li>
                 <li><a href="Wagons.html">Вагоны </a></li>
                 <li><a href="ScheduleWagons.html">Расписание вагонов </a></li>
                 <li><a href="page1.html">Настройки </a></li>
@@ -82,42 +78,26 @@
     
 <section>
        
-        <form id="typeTbl"  method="post" onchange="change()">
+  <div id="put">
                 <p id="typeWag">Выберите тип вагона</p>
                     <p><select size="1" name="type" id="type">
                     <option disabled selected></option>
     
                     </select><button id="choose">Выбрать</button></p>        
-        </form>
+       
+        <p id="dayWag">Выберите день</p>
+        <p><select size="1" name="type" id="day">
+        <option disabled selected></option>
 
+        </select><button id="choose2">Выбрать</button></p>
         
  
-           <!-- <form id="monthTbl" action="select1.php" method="post">
-                    <p id="dateWag">Выберите месяц</p>
-                        <p><select size="1" name="type" id="type">
-                         <option disabled selected></option>
-                         <option value="Январь">Январь</option>
-                         <option value="Февраль">Февраль</option>
-                         <option value="Март">Март</option>
-                         <option value="Апрель">Апрель</option>
-                         <option value="Май">Май</option>
-                         <option value="Июнь">Июнь</option>
-                         <option value="Июль">Июль</option>
-                         <option value="Август">Август</option>
-                         <option value="Сентябрь">Сентябрь</option>
-                         <option value="Октябрь">Октябрь</option>
-                         <option value="Ноябрь">Ноябрь</option>
-                         <option value="Декабрь">Декабрь</option>
-                        </select></p>
-                        
-                    </form>-->
+           
        <button id="otch" onclick="location.href='diagram.html'">Отчет</button>
-
+</div>
         <table id='mytbl'>
             <tbody id='tbody'>
                     <tr>
-                        <th>День месяца</th>
-                        <th>Наименование грузоотправителя</th>
                         <th>Количество вагонов</th>
                         <th>Тип вагона</th>
                        
@@ -132,9 +112,20 @@
 
 <script type="text/javascript">
 
+var myBtn = document.getElementById('build');
+var mytbl = document.getElementById('mytbl');
+var tb = mytbl.querySelector('tbody');
+var typeId;
+var clearTable = function(countRow){
+    if (countRow > 1) {
+        for (i=tb.rows.length-1; i>0; i--){
+            tb.deleteRow(i);
+        }
+    }
+}
 
 window.onload = function (){ 
-        
+ var ourObj;       
                     
 //создание списка типов вагонов
         var typeWagon;
@@ -173,21 +164,46 @@ window.onload = function (){
 
 
 
+
 //работа со списком типов
 var select, value, text,value;
 function change() {
-    select = document.getElementById("type"); // Выбираем  select по id
-    typeId=select.selectedIndex;
-    value = select.options[select.selectedIndex].value; // Значение value для выбранного option
-    text = select.options[select.selectedIndex].text; // Текстовое значение для выбранного option
+    
+    
     alert(typeId);
 }
 
+document.getElementById('choose2').onclick=function(){
 
+    var myBtn = document.getElementById('build');
+var mytbl = document.getElementById('mytbl');
+var tb = mytbl.querySelector('tbody');
+clearTable(tb.rows.length);
+    select2 = document.getElementById("day"); // Выбираем  select по id
+    dayId=select2.selectedIndex;
+
+    for (var i = 0; i < ourObj[dayId].length; i++) {
+            //alert(ourObj[key].length);
+    var tr = document.createElement('tr');
+   // var id = key;
+
+    //tr.id = `row-${id}`;
+    tr.innerHTML = `
+                    <td>${ourObj[dayId][i]['consName']}</td>
+                    <td>${ourObj[dayId][i]['quantity']}</td>`
+                    
+    tb.appendChild(tr);
+    }
+
+}
 
 //отправка данных на сервер                    
 document.getElementById('choose').onclick=function(){
 alert('тест');
+
+select = document.getElementById("type"); // Выбираем  select по id
+    typeId=select.selectedIndex;
+
  // 1. Создаём новый объект XMLHttpRequest
 var xhr = new XMLHttpRequest();
                 
@@ -195,11 +211,24 @@ xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/actionsFiles.php?tab
 
 // 3. Отсылаем запрос
 xhr.send();
+// 4. Если код ответа сервера не 200, то это ошибка
+if (xhr.status != 200) {
+// обработать ошибку
+console.log(xhr);
+alert( xhr.status + ': ' + xhr.statusText );  //пример вывода: 404: Not Found
+} else {
+
+        ourObj = JSON.parse(xhr.responseText);
+    //alert(ourObj[1][0]['consName']); 
+    //alert(ourObj[1].length);
+   
+
 }
 
 
 
-//Получение данных с сервера 
+
+/*//Получение данных с сервера 
 
 var ourObj; 
 // 1. Создаём новый объект XMLHttpRequest
@@ -221,7 +250,7 @@ alert( xhr.status + ': ' + xhr.statusText );  //пример вывода: 404: 
     
 
 }
-
+*/
 
 
 //построение таблицы
@@ -239,23 +268,36 @@ var clearTable = function(countRow){
         }
     }
 }
+//SELECT SUDA
+var selector2=document.getElementById('day');
+for (var key in ourObj){ 
+    selector2.innerHTML+='<option id="'+key+'"  >'+key+'</option>';
+}
+
+//clearTable(tb.rows.length);
 
 
-clearTable(tb.rows.length)
-ourObj.forEach(function(item, i, arr) {
+//ourObj.forEach(function(item, i, arr) {
+    //for (var key in ourObj){
+  
+   // }
+
+   /*for (var key in ourObj){
+    for (var i = 0; i < ourObj[key].length; i++) {
+            //alert(ourObj[key].length);
     var tr = document.createElement('tr');
-    var id = item.supId;
+   // var id = key;
 
-    tr.id = `row-${id}`;
-    tr.innerHTML = `<td >${id}</td>
-                    <td>${item.supNameCons}</td>
-                    <td>${item.supQuantityWagon}</td>
-                    <td>${item.supTypeWagon}</td>`
+    //tr.id = `row-${id}`;
+    tr.innerHTML = `<td>${ourObj[key][day]['consName']}</td>
+                    <td>${ourObj[key][day]['quantity']}</td>`
                     
     tb.appendChild(tr);
+    }
+    }*/
     
-});
-        
+//});
+}
 
       
    </script>
