@@ -88,7 +88,7 @@ th{
 
 <script src="https://www.google.com/jsapi"></script>
 		<script>
-
+//получение переменной из SupplyScheme
 var param=window
  .location
  .search
@@ -104,23 +104,9 @@ return p;
 	 {}
  );
 alert(param['param']);
-/*
-function parseGetParams() { 
-   var $_GET = {}; 
-   var __GET = window.location.search.substring(1).split("&"); 
-   for(var i=0; i<__GET.length; i++) { 
-      var getVar = __GET[i].split("="); 
-      $_GET[getVar[0]] = typeof(getVar[1])=="undefined" ? "" : getVar[1]; 
-   } 
-   return $_GET; 
-   alert($_GET);
-}
 
-//распарсить значение переменной typeId со страницы SupplyScheme
-window.OnLoad= function () {
-            var paramValue = window.location.href.split("?")[1].split("=")[1];
-			alert(paramValue);
-			}*/
+
+
 
 var myBtn = document.getElementById('build');
 var mytbl = document.getElementById('mytbl');
@@ -134,7 +120,7 @@ var ourObj;
 // 1. Создаём новый объект XMLHttpRequest
 var xhr = new XMLHttpRequest();
 
-xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/actionsFiles.php?table=supply&type=' + param['param'],false);
+xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/actionsFiles.php?table=supply&type=' + param['param'] + 'day=' + param['param2'],false);
 
 // 3. Отсылаем запрос
 xhr.send();
@@ -189,6 +175,33 @@ for (var key in ourObj){
     }
         
 
+
+
+		//отчет по дням
+	document.getElementById('choose2').onclick=function(){
+
+var myBtn = document.getElementById('build');
+var mytbl = document.getElementById('mytbl');
+var tb = mytbl.querySelector('tbody');
+clearTable(tb.rows.length);
+
+select2 = document.getElementById("day"); // Выбираем  select по id
+dayId=select2.selectedIndex;
+
+for (var i = 0; i < ourObj[dayId].length; i++) {
+		//alert(ourObj[key].length);
+var tr = document.createElement('tr');
+// var id = key;
+
+//tr.id = `row-${id}`;
+tr.innerHTML = `
+				<td>${ourObj[dayId][i]['consName']}</td>
+				<td>${ourObj[dayId][i]['quantity']}</td>`
+				
+tb.appendChild(tr);
+}
+
+}
 
 
 

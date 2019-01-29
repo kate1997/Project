@@ -47,7 +47,6 @@ table{
             <tbody id='tbody'>
                     <tr>
                         <th>№</th>
-                        <th>id в БД</th>
                         <th>Наименование</th>
                         <th>Мин.кол-во вагонов</th>
                         <th>Макс.кол-во вагонов</th>
@@ -104,11 +103,10 @@ var obj;
             var tr = document.createElement('tr');
             var id = item.consId;
             var number=i+1;
-          
-            tr.id = `row-${number}`;
+            tr.id = `${id}`;
+            tr.setAttribute("str", `${number}`);
             
             tr.innerHTML = ` <td>${number}</td>
-                            <td>${id}</td>
                             <td>${item.consName}</td>
                             <td>${item.consMinWagon}</td>
                             <td>${item.consMaxWagon}</td>
@@ -155,29 +153,31 @@ var elements = document.getElementsByTagName('td');
                 content.innerText = event.target.value;//иначе-присваиваем другое значение
                 input.removeEventListener('blur', SellBlur);
                 //Получение всей строки (измененной)
-                var id_a = content.parentNode.id[4];//Идентификатор строки, где произошло изменение
-                //alert(id_a);
+                var id_a = content.parentNode.id;//Идентификатор строки, где произошло изменение
+                var id_str = content.parentNode.getAttribute("str");//Идентификатор строки, где произошло изменение
+                //alert(id_str);
+                 
                 var table = document.getElementById("mytbl");//Получение таблицы
-                var idStr=table.rows[id_a].cells[1].innerHTML;
-                var Name=table.rows[id_a].cells[2].innerText;
+                //var idStr=table.rows[id_str].cells[1].innerHTML;
+                var Name=table.rows[id_str].cells[1].innerText;
                 //alert(Name);//Получение данных в строке, где было изменение 
-                var MinWagon=table.rows[id_a].cells[3].innerHTML;
+                var MinWagon=table.rows[id_str].cells[2].innerHTML;
                 //alert(MinWagon);//Получение данных в строке, где было изменение
                 var MinWagon_par = /[0-9]+/;
                 var provMinWagon = MinWagon_par.test(MinWagon);
-                var MaxWagon=table.rows[id_a].cells[4].innerHTML;
+                var MaxWagon=table.rows[id_str].cells[3].innerHTML;
                 //alert(MaxWagon);//Получение данных в строке, где было изменение
                 var MaxWagon_par = /[0-9]+/;
                 var provMaxWagon = MaxWagon_par.test(MaxWagon);
-                var loadTime=table.rows[id_a].cells[5].innerHTML;
+                var loadTime=table.rows[id_str].cells[4].innerHTML;
                 //alert(loadTime);//Получение данных в строке, где было изменение
                 var loadTime_par = /[0-9]+/;
                 var provloadTime = loadTime_par.test(loadTime);
-                var TimeOnRoad=table.rows[id_a].cells[6].innerHTML;
+                var TimeOnRoad=table.rows[id_str].cells[5].innerHTML;
                 //alert(TimeOnRoad);//Получение данных в строке, где было изменение
                 var TimeOnRoad_par = /[0-9]+/;
                 var provTimeOnRoad = TimeOnRoad_par.test(TimeOnRoad);
-                var Cost=table.rows[id_a].cells[7].innerHTML;
+                var Cost=table.rows[id_str].cells[6].innerHTML;
                 //alert(Cost);//Получение данных в строке, где было изменение
                 var Cost_par = /[0-9]+/;
                 var provCost = Cost_par.test(Cost);
@@ -188,7 +188,7 @@ var elements = document.getElementsByTagName('td');
                 // 1. Создаём новый объект XMLHttpRequest
                 var xhr = new XMLHttpRequest();
                 
-                xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/actionsTables.php?table=consigner&consMinWagon=' + MinWagon +"&consMaxWagon=" + MaxWagon +"&consloadTime=" + loadTime +"&consTimeOnRoad=" +  TimeOnRoad +"&consCost=" + Cost + "&consName=" + Name +"&consId=" + idStr ,false);
+                xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/actionsTables.php?table=consigner&consMinWagon=' + MinWagon +"&consMaxWagon=" + MaxWagon +"&consloadTime=" + loadTime +"&consTimeOnRoad=" +  TimeOnRoad +"&consCost=" + Cost + "&consName=" + Name +"&consId=" + id_a ,false);
                
                 // 3. Отсылаем запрос
                 xhr.send();

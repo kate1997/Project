@@ -47,7 +47,6 @@ table{
             <tbody id='tbody'>
                     <tr>
                         <th>№</th>
-                        <th>id в БД</th>
                         <th>Наименование поставщика</th>
                         <th>Стоимость сырья</th>
                         <th>Рейтинг поставщика</th>
@@ -107,10 +106,10 @@ var obj;
 
                     var tr = document.createElement('tr');
                     var id = item.provId;
-                var number=i+1;
-                    tr.id = `row-${number}-${id}`;
+                    var number=i+1;
+                    tr.id = `${id}`;
+                    tr.setAttribute("str", `${number}`);
                     tr.innerHTML = `<td data-type="name">${number}</td>
-                                    <td data-type="name">${id}</td>
                                     <td data-type="name">${item.provName}</td>
                                     <td data-type="number">${item.provPrice}</td>
                                     <td data-type="number">${item.provRating}</td>
@@ -155,17 +154,20 @@ var obj;
                 content.innerText = event.target.value;//иначе-присваиваем другое значение
                 input.removeEventListener('blur', SellBlur);
                 //Получение всей строки (измененной)
-                var id_a = content.parentNode.id[4];//Идентификатор строки, где произошло изменение
-                //alert(id_a);
+                var id_a = content.parentNode.id;//Идентификатор строки, где произошло изменение
+                alert(id_a);
+                var id_str = content.parentNode.getAttribute("str");//Идентификатор строки, где произошло изменение
+                alert(id_str);
+                 
                 var table = document.getElementById("mytbl");//Получение таблицы
-                var idStr=table.rows[id_a].cells[1].innerHTML;
-                var Name=table.rows[id_a].cells[2].innerHTML;
+                //var idStr=table.rows[id_str].cells[1].innerHTML;
+                var Name=table.rows[id_str].cells[1].innerHTML;
                 //alert(Name);//Получение данных в строке, где было изменение 
-                var Price=table.rows[id_a].cells[3].innerHTML;
+                var Price=table.rows[id_str].cells[2].innerHTML;
                 //alert(Price);//Получение данных в строке, где было изменение
                 var Price_par = /[0-9]+/;
                 var provPrice = Price_par.test(Price);
-                var Rating=table.rows[id_a].cells[4].innerHTML;
+                var Rating=table.rows[id_str].cells[3].innerHTML;
                 //alert(Rating);//Получение данных в строке, где было изменение
                 var Rating_par = /[0-9]+/;
                 var provRating = Rating_par.test(Rating);
@@ -177,7 +179,7 @@ var obj;
                 // 1. Создаём новый объект XMLHttpRequest
                 var xhr = new XMLHttpRequest();
                 
-                xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/actionsTables.php?table=provider&provName=' + Name +"&provPrice=" + Price +"&provRating=" + Rating +"&provId=" + idStr ,false);
+                xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/actionsTables.php?table=provider&provName=' + Name +"&provPrice=" + Price +"&provRating=" + Rating +"&provId=" + id_a ,false);
                
                 // 3. Отсылаем запрос
                 xhr.send();
@@ -200,9 +202,7 @@ var obj;
                                 
 
 }
-document.getElementById('e6').onclick=function(){
-document.getElementById('button2').style.display='block';
-}
+
       
    </script>
 

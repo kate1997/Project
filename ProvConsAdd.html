@@ -88,8 +88,8 @@ var obj;
             var provName=select1.value;
             var select2 = document.getElementById("cons"); // Выбираем  select по id
             var consName=select2.value;
-            alert(provName);
-            alert(consName);
+            //alert(provName);
+            //alert(consName);
              
 
                 //Отправка данных на сервер
@@ -110,7 +110,7 @@ var obj;
                 else {
                 
                         
-                            alert('Данные добавлены в БД');
+                            alert('Данные добавлены в БД');location.reload();
                             
                         
                     }
@@ -123,7 +123,7 @@ var obj;
 
 var provider;       
                     
-//создание списка типов вагонов
+//создание списка 
         
 
     //1. Создаём новый объект XMLHttpRequest
@@ -146,6 +146,7 @@ var provider;
         
         }
         var selector=document.getElementById('prov');
+        
 
         for (i = 0; i < provider.length; i++) {        
             selector.innerHTML+='<option  >'+provider[i]["provName"]+'</option>'

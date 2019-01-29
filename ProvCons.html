@@ -47,7 +47,6 @@ table{
             <tbody id='tbody'>
                     <tr>
                         <th>№</th>
-                        <th>Id в БД</th>
                         <th>Идентификатор поставщика</th>
                         <th>Идентификатор грузоотправителя</th>
                         
@@ -106,9 +105,11 @@ table{
         var tr = document.createElement('tr');
         var id = item.provConsId;
         var number=i+1;
-        tr.id = `row-${number}`;
+       
+        tr.id = `${id}`;
+        tr.setAttribute("str", `${number}`);
+        
         tr.innerHTML = `<td>${number}</td>
-                        <td>${id}</td>
                         <td>${item.provName}</td>
                         <td >${item.consName}</td>
                         <button id=${`row-btn-${id}`} style="margin-left: 35%;outline:none;border:0;background: transparent;heigth:25px;padding-top:40%"><img src="del.png" id="imgDel"></button>`;
@@ -138,6 +139,7 @@ table{
     });
 
 //изменение элемента по щелчку 
+
 var elements = document.getElementsByTagName('td');
     function SellHandle(event) {
 	    var content = event.target//указываем на элемент
@@ -148,21 +150,23 @@ var elements = document.getElementsByTagName('td');
         }
             else{
                 content.innerText = event.target.value;//иначе-присваиваем другое значение
-                input.removeEventListener('blur', SellBlur);
+                select.removeEventListener('blur', SellBlur);
                 //Получение всей строки (измененной)
-                var id_a = content.parentNode.id[4];//Идентификатор строки, где произошло изменение
+                var id_a = content.parentNode.id;//Идентификатор строки, где произошло изменение
                 //alert(id_a);
+                var id_str = content.parentNode.getAttribute("str");//Идентификатор строки, где произошло изменение
+                //alert(id_str);
                 var table = document.getElementById("mytbl");//Получение таблицы
-                var idStr=table.rows[id_a].cells[1].innerHTML;
+                //var idStr=table.rows[id_a].cells[1].innerHTML;
                 //alert(idStr);
-                var provId=table.rows[id_a].cells[2].innerHTML;
-                //alert(provId);//Получение данных в строке, где было изменение
-                var provId_par = /[0-9]+/;
-                var provProvId = provId_par.test(provProvId);
-                var consId=table.rows[id_a].cells[3].innerHTML;
-                //alert(consId);//Получение данных в строке, где было изменение
-                var consId_par = /[0-9]+/;
-                var provConsId = consId_par.test(consId);
+                var provNames=table.rows[id_str].cells[1].innerHTML;
+                //alert(provNames);//Получение данных в строке, где было изменение
+                var provNames_par = /[0-9]+/;
+                var provProvNames = provNames_par.test(provProvNames);
+                var consNames=table.rows[id_str].cells[2].innerHTML;
+                //alert(consNames);//Получение данных в строке, где было изменение
+                var consNames_par = /[0-9]+/;
+                var provConsNames = consNames_par.test(consNames);
                 
                 //alert('http://kappa.cs.petrsu.ru/~akulov/Practice/actionsTables.php?table=consigner&consMinWagon=' + MinWagon +"&consMaxWagon=" + MaxWagon +"&consloadTime=" + loadTime +"&consTimeOnRoad=" +  TimeOnRoad +"&consCost=" + Cost + "&consName=" + Name +"&consId=" + id_a ,false);
                  //alert(content.parentNode.innerText);//выводит все данные
@@ -172,7 +176,7 @@ var elements = document.getElementsByTagName('td');
                 // 1. Создаём новый объект XMLHttpRequest
                 var xhr = new XMLHttpRequest();
                 
-                xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/actionsTables.php?table=provcons&provId=' + provId +"&consId=" + consId +"&provConsId=" + idStr ,false);
+                xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/actionsFiles.php?table=provCons&action=edit&provName=' + provNames +"&consName=" + consNames +"&provConsId=" + id_a ,false);
                
                 // 3. Отсылаем запрос
                 xhr.send();
@@ -181,20 +185,53 @@ var elements = document.getElementsByTagName('td');
             }
       }
          
-      content.innerHTML = '<input type="text" id="editSell" ></input>'
-      input = document.getElementById("editSell");
-      input.addEventListener('blur', SellBlur);
-      input.focus();
+      content.innerHTML = '<select size="1" name="type" id="editSell" ></select>'
+      select = document.getElementById("editSell");
+      select.addEventListener('blur', SellBlur);
+      select.focus();
+      var provider;       
+                    
+        //создание списка 
+                
+        
+            //1. Создаём новый объект XMLHttpRequest
+                var xhr = new XMLHttpRequest();
+                
+                xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/actionsTables.php?table=provider',false);
+                
+                // 3. Отсылаем запрос
+                xhr.send();
+                
+            // 4. Если код ответа сервера не 200, то это ошибка
+                if (xhr.status != 200) {
+                // обработать ошибку
+                console.log(xhr);
+                alert( xhr.status + ': ' + xhr.statusText );  //пример вывода: 404: Not Found
+                } else {
+                
+                    provider = JSON.parse(xhr.responseText);
+                // alert(provider);
+                
+                }
+                //var selector=document.getElementById("editSell");
+                //alert(select);
+                for (i = 1; i < provider.length; i++) {        
+                    select.innerHTML+='<option  >'+provider[i]["provName"]+'</option>'
+                }
+                
+
+
+      
+
     };
     for(var i=0; i<elements.length; i++) {
-      elements[i].addEventListener('dblclick', SellHandle)
+      elements[i].addEventListener('dblclick', SellHandle);
     }
 
 }
-document.getElementById('e6').onclick=function(){
-document.getElementById('button2').style.display='block';
-}
-      
+
+
+
    </script>
 
 </main>
