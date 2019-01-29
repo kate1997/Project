@@ -88,6 +88,22 @@ th{
 
 <script src="https://www.google.com/jsapi"></script>
 		<script>
+
+var param=window
+ .location
+ .search
+ .replace('?','')
+ .split('&')
+ .reduce(
+	 function(p,e){
+var a= e.split('=');
+p[decodeURIComponent(a[0])]=decodeURIComponent(a[1]);
+return p;
+
+	 },
+	 {}
+ );
+alert(param['param']);
 /*
 function parseGetParams() { 
    var $_GET = {}; 
@@ -118,7 +134,7 @@ var ourObj;
 // 1. Создаём новый объект XMLHttpRequest
 var xhr = new XMLHttpRequest();
 
-xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/actionsFiles.php?table=supply&type=' + 1,false);
+xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/actionsFiles.php?table=supply&type=' + param['param'],false);
 
 // 3. Отсылаем запрос
 xhr.send();

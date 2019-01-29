@@ -6,13 +6,13 @@
   <link rel="stylesheet" href="ProviderAdd.css ">
   <style>
   .prov{
-    width:65%;
+    width:40%;
     height: 46%;
     background-color: rgba(0, 26, 11, 0.7);
     padding-left: 2%;
     padding-right: 2%;
     padding-top: 1%;
-    margin-left: 20%;
+    margin-left: 30%;
     margin-top: 20%;
     
 }
@@ -20,9 +20,7 @@
 </head>
 <body>
 
-    <script src="index.js">
-        
-    </script>
+    
 
 <header>  
 <h1> Добавление взаимосвязи </h1>
@@ -50,12 +48,22 @@
     <form class="prov" >
         <li>
             <label >Идентификатор поставщика:</label>
-            <input  type="text" id="provId" name="provId">
+            <p id="typeWag"></p>
+                    <p><select size="1" name="type" id="prov">
+                    <option disabled selected></option>
+    
+                    </select></p>        
+       
+                  
         </li>
 
         <li>
                 <label >Идентификатор грузоотправителя:</label>
-                <input type="text" id="consId" name="consId">
+                  <p id="dayWag"></p>
+                    <p><select size="1" name="type" id="cons">
+                    <option disabled selected></option>
+
+                    </select></p>
         </li>
 
         
@@ -74,31 +82,22 @@
 <script type="text/javascript">
 document.getElementById('submit').onclick= function (){ 
 var obj; 
- 
-    var provId = document.getElementById('provId').value;
-    var provId_par = /[0-9]+/;
-    var provProvId = provId_par.test(provId);
-    var consId = document.getElementById('consId').value;
-    var consId_par = /[0-9]+/;
-    var provConsId = consId_par.test(consId);
     
-    
-    if( provId == "" && consId =="" ){
-       alert('Заполните поля!');
-    }
-    else{
-       if( provId == "" || consId ==""){
-          alert('Вы не заполнили одно из полей');
-       }
-          else{
-             if(provProvId == true && provConsId == true){
+
+            var select1 = document.getElementById("prov"); // Выбираем  select по id
+            var provName=select1.value;
+            var select2 = document.getElementById("cons"); // Выбираем  select по id
+            var consName=select2.value;
+            alert(provName);
+            alert(consName);
+             
 
                 //Отправка данных на сервер
                 // 1. Создаём новый объект XMLHttpRequest
                 var xhr = new XMLHttpRequest();
                 
-                xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/actionsTables.php?table=provcons&provId=' + document.getElementById("provId").value + "&consId=" + document.getElementById("consId").value,false);
-                
+                xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/actionsFiles.php?table=provCons&action=create&provName=' + provName + "&consName=" + consName,false);
+               // alert('http://kappa.cs.petrsu.ru/~akulov/Practice/actionsFiles.php?table=provCons&action=create&provName=' + provName + "&consName=" + consName);
                 // 3. Отсылаем запрос
                 xhr.send();
                 
@@ -110,18 +109,82 @@ var obj;
                 } 
                 else {
                 
-                        if(xhr.responseText==1){
+                        
                             alert('Данные добавлены в БД');
-                            }
-                        else{alert('Данные не могут быть добавлены');}
+                            
+                        
                     }
 
                 }
-            else alert('Поля должны содержать только числовые значения');    
-        }     
-    }
-location.reload();
-}
+           
+            
+    
+
+
+var provider;       
+                    
+//создание списка типов вагонов
+        
+
+    //1. Создаём новый объект XMLHttpRequest
+        var xhr = new XMLHttpRequest();
+        
+        xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/actionsTables.php?table=provider',false);
+        
+        // 3. Отсылаем запрос
+        xhr.send();
+        
+    // 4. Если код ответа сервера не 200, то это ошибка
+        if (xhr.status != 200) {
+        // обработать ошибку
+        console.log(xhr);
+        alert( xhr.status + ': ' + xhr.statusText );  //пример вывода: 404: Not Found
+        } else {
+        
+            provider = JSON.parse(xhr.responseText);
+        
+        
+        }
+        var selector=document.getElementById('prov');
+
+        for (i = 0; i < provider.length; i++) {        
+            selector.innerHTML+='<option  >'+provider[i]["provName"]+'</option>'
+        }
+
+
+var consigner;       
+            
+    //создание списка типов вагонов
+            
+    
+        //1. Создаём новый объект XMLHttpRequest
+            var xhr = new XMLHttpRequest();
+            
+            xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/actionsTables.php?table=consigner',false);
+            
+            // 3. Отсылаем запрос
+            xhr.send();
+            
+        // 4. Если код ответа сервера не 200, то это ошибка
+            if (xhr.status != 200) {
+            // обработать ошибку
+            console.log(xhr);
+            alert( xhr.status + ': ' + xhr.statusText );  //пример вывода: 404: Not Found
+            } else {
+            
+                consigner = JSON.parse(xhr.responseText);
+            
+            
+            }
+            var selector2=document.getElementById('cons');
+    
+            for (i = 0; i < consigner.length; i++) {        
+                selector2.innerHTML+='<option  >'+consigner[i]["consName"]+'</option>'
+            }
+    
+
+
+
 </script>
 
 </html>

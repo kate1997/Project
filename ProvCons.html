@@ -70,7 +70,7 @@ table{
          // 1. Создаём новый объект XMLHttpRequest
          var xhr = new XMLHttpRequest();
          
-         xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/showProvCons.php',false);
+         xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/actionsFiles.php?provCons=1',false);
          
          // 3. Отсылаем запрос
          xhr.send();
@@ -109,8 +109,8 @@ table{
         tr.id = `row-${number}`;
         tr.innerHTML = `<td>${number}</td>
                         <td>${id}</td>
-                        <td>${item.provId}</td>
-                        <td >${item.consId}</td>
+                        <td>${item.provName}</td>
+                        <td >${item.consName}</td>
                         <button id=${`row-btn-${id}`} style="margin-left: 35%;outline:none;border:0;background: transparent;heigth:25px;padding-top:40%"><img src="del.png" id="imgDel"></button>`;
         tb.appendChild(tr);
 

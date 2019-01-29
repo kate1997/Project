@@ -92,15 +92,15 @@ table{
     
                     </select><button id="choose">Выбрать</button></p>        
        
-        <p id="dayWag">Выберите день</p>
-        <p><select size="1" name="type" id="day">
-        <option disabled selected></option>
+                    <p id="dayWag">Выберите день</p>
+                    <p><select size="1" name="type" id="day">
+                    <option disabled selected></option>
 
-        </select><button id="choose2">Выбрать</button></p>
+                    </select><button id="choose2">Выбрать</button></p>
         
  
         <button id="all">Просмотр всей таблицы</button>
-       <button id="otch" onclick="location.href='diagram.html'">Отчет</button>
+       <button id="otch" onclick="location.href='diagram.html?param='+typeId ">Отчет</button>
     </div>
 
     <table id='mytbl'>
@@ -126,6 +126,7 @@ var myBtn = document.getElementById('build');
 var mytbl = document.getElementById('mytbl');
 var tb = mytbl.querySelector('tbody');
 var typeId;
+
 var ourObj;
 
 var clearTable = function(countRow){
@@ -214,74 +215,74 @@ clearTable(tb.rows.length);
 document.getElementById('choose').onclick=function(){
 
 
-select = document.getElementById("type"); // Выбираем  select по id
-    typeId=select.selectedIndex;
+    select = document.getElementById("type"); // Выбираем  select по id
+        typeId=select.selectedIndex;
 
- // 1. Создаём новый объект XMLHttpRequest
-var xhr = new XMLHttpRequest();
-                
-xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/actionsFiles.php?table=supply&type=' + typeId,false);
+    // 1. Создаём новый объект XMLHttpRequest
+    var xhr = new XMLHttpRequest();
+                    
+    xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/actionsFiles.php?table=supply&type=' + typeId,false);
 
-// 3. Отсылаем запрос
-xhr.send();
-// 4. Если код ответа сервера не 200, то это ошибка
-if (xhr.status != 200) {
-// обработать ошибку
-console.log(xhr);
-alert( xhr.status + ': ' + xhr.statusText );  //пример вывода: 404: Not Found
-} else {
+    // 3. Отсылаем запрос
+    xhr.send();
+    // 4. Если код ответа сервера не 200, то это ошибка
+    if (xhr.status != 200) {
+    // обработать ошибку
+    console.log(xhr);
+    alert( xhr.status + ': ' + xhr.statusText );  //пример вывода: 404: Not Found
+    } else {
 
-        ourObj = JSON.parse(xhr.responseText);
-    //alert(ourObj[1][0]['consName']); 
-    //alert(ourObj[1].length);
-   
+            ourObj = JSON.parse(xhr.responseText);
+        //alert(ourObj[1][0]['consName']); 
+        //alert(ourObj[1].length);
+    
 
-}
+    }
 
 
 
-//построение таблицы
+    //построение таблицы
 
-//Данные для таблицы
-var myBtn = document.getElementById('build');
-var mytbl = document.getElementById('mytbl');
-var tb = mytbl.querySelector('tbody');
+    //Данные для таблицы
+    var myBtn = document.getElementById('build');
+    var mytbl = document.getElementById('mytbl');
+    var tb = mytbl.querySelector('tbody');
 
-// event process
-var clearTable = function(countRow){
-    if (countRow > 1) {
-        for (i=tb.rows.length-1; i>0; i--){
-            tb.deleteRow(i);
+    // event process
+    var clearTable = function(countRow){
+        if (countRow > 1) {
+            for (i=tb.rows.length-1; i>0; i--){
+                tb.deleteRow(i);
+            }
         }
     }
-}
-//SELECT SUDA
-var selector2=document.getElementById('day');
-for (var key in ourObj){ 
-    selector2.innerHTML+='<option id="'+key+'"  >'+key+'</option>';
-}
+    //SELECT SUDA
+    var selector2=document.getElementById('day');
+    for (var key in ourObj){ 
+        selector2.innerHTML+='<option id="'+key+'"  >'+key+'</option>';
+    }
 
 }
 //просмотр всей таблицы 
 document.getElementById('all').onclick=function(){ 
-clearTable(tb.rows.length)
-for (var key in ourObj){
-    for (var i = 0; i < ourObj[key].length; i++) {
-            //alert(ourObj[key].length);
-    var tr = document.createElement('tr');
-   // var id = key;
+    clearTable(tb.rows.length)
+    for (var key in ourObj){
+        for (var i = 0; i < ourObj[key].length; i++) {
+                //alert(ourObj[key].length);
+        var tr = document.createElement('tr');
+    // var id = key;
 
-    //tr.id = `row-${id}`;
-    tr.innerHTML = `
-				
-					<td>${ourObj[key][i]['consName']}</td>
-                    <td>${ourObj[key][i]['quantity']}</td>
-                    <td>${key}</td>
-					`
+        //tr.id = `row-${id}`;
+        tr.innerHTML = `
                     
-    tb.appendChild(tr);
-    }
-    }
+                        <td>${ourObj[key][i]['consName']}</td>
+                        <td>${ourObj[key][i]['quantity']}</td>
+                        <td>${key}</td>
+                        `
+                        
+        tb.appendChild(tr);
+        }
+        }
 }
 
       
