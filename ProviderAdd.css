@@ -72,7 +72,7 @@ li{
 input{
     float: right;
     padding-top: 3px;
-    padding-right: 22%;
+    padding-left: 22%;
     margin-top: 5px;
 }
 form li{

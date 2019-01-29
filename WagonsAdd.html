@@ -15,7 +15,17 @@
     
 }
 
+#wag{
+    float:right;
+    margin-top: -25px;
+    padding-left: 100px;
+    text-align: left;
+    padding-bottom: 5px;
+}
 
+input{
+    text-align: right;
+}
 </style>
 </head>
 <body>
@@ -65,7 +75,15 @@
 
         <li>
                 <label >Тип вагона:</label>
-                <input  type="text" id="wagType" name="wagType">
+                <p id="dayWag"></p>
+                    <p><select size="1" name="type" id="wag">
+                    <option disabled selected></option>
+                    <option >1</option>
+                    <option >2</option>
+                    <option >3</option>
+                    <option >4</option>
+                    <option >5</option>
+                    </select></p>
         </li>
 
         
@@ -84,8 +102,11 @@
 
 <script type="text/javascript">
 
-
 document.getElementById('submit').onclick= function (){ 
+
+select2 = document.getElementById("wag"); // Выбираем  select по id
+wagType=select2.selectedIndex;
+//alert(wagType);
 
 //проверка ввода данных
 var wagNumber = document.getElementById('wagNumber').value;
@@ -95,26 +116,24 @@ var provWagVolume = wagVolume_par.test(wagVolume);
 var wagRentCost = document.getElementById('wagRentCost').value;
 var wagRentCost_par = /[0-9]+/;
 var provWagRentCost = wagRentCost_par.test(wagRentCost);
-var wagType = document.getElementById('wagType').value;
-var wagType_par = /[0-9]+/;
-var provWagType = wagType_par.test(wagType);
 
 
-if( wagNumber == "" && wagVolume =="" && wagRentCost=="" && wagType==""){
+
+if( wagNumber == "" && wagVolume =="" && wagRentCost==""){
    alert('Заполните поля!');
 }
 else{
-   if( wagNumber == "" || wagVolume =="" || wagRentCost=="" || wagType==""){
+   if( wagNumber == "" || wagVolume =="" || wagRentCost=="" ){
        alert('Вы не заполнили одно из полей');
    }
        else{
-           if( provWagVolume == true && provWagRentCost== true && provWagType==true){
+           if( provWagVolume == true && provWagRentCost== true ){
 
                     //отправка данных на сервер         
                     // 1. Создаём новый объект XMLHttpRequest
                     var xhr = new XMLHttpRequest();
                     
-                    xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/actionsTables.php?table=wagon&wagNumber=' + document.getElementById("wagNumber").value + "&wagVolume=" + document.getElementById("wagVolume").value + "&wagRentCost=" + document.getElementById("wagRentCost").value + "&wagType=" + document.getElementById("wagType").value,false);
+                    xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/actionsTables.php?table=wagon&wagNumber=' + document.getElementById("wagNumber").value + "&wagVolume=" + document.getElementById("wagVolume").value + "&wagRentCost=" + document.getElementById("wagRentCost").value + "&wagType=" + wagType,false);
                     
                     // 3. Отсылаем запрос
                     xhr.send();
@@ -128,7 +147,8 @@ else{
                             else {
                             
                                 if(xhr.responseText==1){
-                                    alert('Данные добавлены в БД');location.reload();
+                                    //alert('Данные добавлены в БД');
+                                    location.reload();
                                     }
                                 }
                 }
