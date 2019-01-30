@@ -19,11 +19,14 @@ INPUT{
 }
 /*левая колонка*/
  #leftCol{
-    position: fixed;left:20%;padding-top:0%; top: 20%; width: 24%;height: 60%;
-    
-    
+    position: fixed;
+    left:20%;
+    padding-top:1%; 
+    top: 20%; 
+    width: 24%;
+    height: 40%;
     background-color: rgba(0, 26, 11, 0.7);
-    
+    padding-left: 2%;
     
 
   }
@@ -173,7 +176,6 @@ INPUT{
 
         <div id="daysDisplay"></div>
 
-        <button id="show">Просмотр</button>
     
 </div>
 
@@ -232,9 +234,9 @@ var select, value, text,value,typeId;
 
 function change() {
     select = document.getElementById("type"); // Выбираем  select по id
-    typeId=select.selectedIndex;
-    value = select.options[select.selectedIndex].value; // Значение value для выбранного option
-    text = select.options[select.selectedIndex].text; // Текстовое значение для выбранного option
+    typeId=select.value;
+   // value = select.options[select.selectedIndex].value; // Значение value для выбранного option
+   // text = select.options[select.selectedIndex].text; // Текстовое значение для выбранного option
 
 }
 //if(document.getElementById(type)==1) {
@@ -327,65 +329,8 @@ xhr.send();
 
 
 
-//отрисовка готовой таблицы по выбранному типу
-document.getElementById('show').onclick=function(){
-    select = document.getElementById("type"); // Выбираем  select по id
-    typeId=select.selectedIndex;
-
- // 1. Создаём новый объект XMLHttpRequest
-var xhr = new XMLHttpRequest();
-                
-xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/actionsFiles.php?table=supply&type=' + typeId,false);
-
-// 3. Отсылаем запрос
-xhr.send();
-// 4. Если код ответа сервера не 200, то это ошибка
-if (xhr.status != 200) {
-// обработать ошибку
-console.log(xhr);
-alert( xhr.status + ': ' + xhr.statusText );  //пример вывода: 404: Not Found
-} else {
-
-        ourObj = JSON.parse(xhr.responseText);
-    //alert(ourObj[1][0]['consName']); 
-    //alert(ourObj[1].length);
-}
-    var monthsSelect = document.getElementById('month');
-      var months = monthsSelect.options;
-      var month = months[months.selectedIndex].text;
-      daysInMonth = date.daysInMonth(month);
-      var divDay = document.getElementById('daysDisplay');
-    
-   
 
 
-//Создание таблицы
-
-
-        for(count=0;count<daysInMonth;count++) {
-                    var input = document.createElement('INPUT');
-                    input.type = 'text';
-                    input.setAttribute("data-id", "id" + count);
-                    input.setAttribute("class", "test");
-                    input.value=ourObj[key][i];
-                    input.name = "value[]";
-                    var newlabel=document.createElement('label');
-                    newlabel.innerHTML=count+1;
-                    var br=document.createElement('br');
-
-                    document.querySelector('#div').appendChild(newlabel);
-                    document.querySelector('#div').appendChild(input);
-                    document.querySelector('#div').appendChild(br);
-
-   } 
-
-
-
-
-
-
-
-}
 
 
    </script>

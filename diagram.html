@@ -67,12 +67,7 @@ th{
         <h1>График поставок</h1>
             <table id='mytbl'>
                     <tbody id='tbody'>
-                            <tr>
-                                
-                                <th>Наименование грузоотправителя</th>
-                                <th>Количество вагонов</th>
-                               
-                            </tr>
+                           
                     </tbody>
             </table>
 		<!-- Вставляем диаграмму, указывая высоту и ширину -->
@@ -88,7 +83,7 @@ th{
 
 <script src="https://www.google.com/jsapi"></script>
 		<script>
-//получение переменной из SupplyScheme
+//получение 1 переменной из SupplyScheme
 var param=window
  .location
  .search
@@ -103,8 +98,8 @@ return p;
 	 },
 	 {}
  );
-alert(param['param']);
-
+//alert(param['param']);
+//получение 2 переменной из SupplyScheme
 var param2=window
  .location
  .search
@@ -119,7 +114,7 @@ return p;
 	 },
 	 {}
  );
-alert(param2['param2']);
+//alert(param2['param2']);
 
 
 var myBtn = document.getElementById('build');
@@ -133,17 +128,20 @@ var tb = mytbl.querySelector('tbody');
 var ourObj; 
 // 1. Создаём новый объект XMLHttpRequest
 var xhr = new XMLHttpRequest();
-
-xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/actionsFiles.php?table=supply&type=' + param['param'] + 'day=' + param2['param2'],false);
+if (param2['param2']) {
+xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/actionsFiles.php?table=supply&type=' + param['param'] + '&day=' + param2['param2'],false);
+} else {
+	xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/actionsFiles.php?table=supply&type=' + param['param'],false);	
+}
 
 // 3. Отсылаем запрос
 xhr.send();
 
 // 4. Если код ответа сервера не 200, то это ошибка
 if (xhr.status != 200) {
-// обработать ошибку
-console.log(xhr);
-alert( xhr.status + ': ' + xhr.statusText );  //пример вывода: 404: Not Found
+		// обработать ошибку
+		console.log(xhr);
+		alert( xhr.status + ': ' + xhr.statusText );  //пример вывода: 404: Not Found
 } else {
 
         ourObj = JSON.parse(xhr.responseText);
@@ -169,43 +167,74 @@ var clearTable = function(countRow){
     }
 }
 
-//общий отчет
-clearTable(tb.rows.length);
-for (var key in ourObj){
-    for (var i = 0; i < ourObj[key].length; i++) {
-            //alert(ourObj[key].length);
-    var tr = document.createElement('tr');
-   // var id = key;
 
-    //tr.id = `row-${id}`;
-    tr.innerHTML = `
-					<td>${key}</td>
-					<td>${ourObj[key][i]['consName']}</td>
-                    <td>${ourObj[key][i]['quantity']}</td>
-					`
-                    
-    tb.appendChild(tr);
-    }
-    }
         
 
 
 
 //отчет по дням
 
-
+if (param2['param2']) {
 		clearTable(tb.rows.length);
-for (var i = 0; i < ourObj[param2['param2']].length; i++) {
-		//alert(ourObj[key].length);
-var tr = document.createElement('tr');
-// var id = key;
+		//строим таблицу
+		//добавляем заголовки столбцов
+		var myBtn = document.getElementById('build');
+		var mytbl = document.getElementById('mytbl');
+		var tb = mytbl.querySelector('tbody');
+		clearTable(tb.rows.length);
+		var mytbl = document.getElementById('mytbl');
+		var tbody = mytbl.querySelector('tbody');
+		var tr2 = document.createElement('tr');
+		th = document.createElement('th');
+		th.innerHTML= `Наименование грузоотправителя`;
+		tr2.appendChild(th);
+		th = document.createElement('th');
+		th.innerHTML= `Количество вагонов`;
+		tr2.appendChild(th);
+		tbody.appendChild(tr2);
 
-//tr.id = `row-${id}`;
-tr.innerHTML = `
-				<td>${ourObj[param2['param2']][i]['consName']}</td>
-				<td>${ourObj[param2['param2']][i]['quantity']}</td>`
+		for (var i = 0; i < ourObj[param2['param2']].length; i++) {
+				var tr = document.createElement('tr');
 				
-tb.appendChild(tr);
+				tr.innerHTML = `
+								<td>${ourObj[param2['param2']][i]['consName']}</td>
+								<td>${ourObj[param2['param2']][i]['quantity']}</td>`
+								
+				tb.appendChild(tr);
+		}
+
+} else {
+	//общий отчет
+
+			clearTable(tb.rows.length);
+			
+    var mytbl = document.getElementById('mytbl');
+    var tbody = mytbl.querySelector('tbody');
+    var tr2 = document.createElement('tr');
+    th = document.createElement('th');
+    th.innerHTML= `Наименование грузоотправителя`;
+    tr2.appendChild(th);
+    th = document.createElement('th');
+    th.innerHTML= `Количество вагонов`;
+    tr2.appendChild(th);
+    th = document.createElement('th');
+    th.innerHTML= `День`;
+    tr2.appendChild(th);
+    tbody.appendChild(tr2);
+		for (var key in ourObj){
+				for (var i = 0; i < ourObj[key].length; i++) {
+						//alert(ourObj[key].length);
+				var tr = document.createElement('tr');
+				tr.innerHTML = `
+								
+								<td>${ourObj[key][i]['consName']}</td>
+								<td>${ourObj[key][i]['quantity']}</td>
+								<td>${key}</td>
+								`
+								
+				tb.appendChild(tr);
+				}
+			}
 }
 
 

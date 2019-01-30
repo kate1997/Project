@@ -11,13 +11,14 @@
 
 table{
     width: 50%;
+    margin-left: 10%;
 }
 
 
 #put{
   
     margin-top: 8%;
-   right: 1%;
+   right: 5%;
     text-align: center;
     position: fixed;
     background-color:  rgba(0, 26, 11, 0.7);
@@ -43,6 +44,14 @@ table{
 /*кнопка отчета*/
 #otch{
     margin-top: 40px;
+   font-size: 18px;
+
+   
+}
+
+/*кнопка отчета по дням*/
+#otch2{
+    
    font-size: 18px;
 
    
@@ -90,29 +99,24 @@ table{
                     <p><select size="1" name="type" id="type">
                     <option disabled selected></option>
     
-                    </select><button id="choose">Выбрать</button></p>        
+                    </select></p>        
        
                     <p id="dayWag">Выберите день</p>
                     <p><select size="1" name="type" id="day">
                     <option disabled selected></option>
 
-                    </select><button id="choose2">Выбрать</button></p>
+                    </select></p>
         
  
         <button id="all">Просмотр всей таблицы</button>
-       <button id="otch" onclick="location.href='diagram.html?param='+typeId + '&param2=' + dayId ">Отчет</button>
+       <button id="otch" onclick="location.href='diagram.html?param='+typeId">Отчет</button>
+       <button id="otch2" onclick="location.href='diagram.html?param='+typeId + '&param2=' + dayId ">Отчет по дню</button>
     </div>
 
     <table id='mytbl'>
             
             <tbody id='tbody'>
-                    
-                    <tr>
-                        
-                           
-                            <th>Наименование грузоотправителя</th>
-                            <th>Количество вагонов</th>
-                    </tr>
+                  
             </tbody>
     </table>
 
@@ -134,7 +138,9 @@ var clearTable = function(countRow){
         for (i=tb.rows.length-1; i>0; i--){
             tb.deleteRow(i);
         }
+        tb.deleteRow(0);
     }
+
 }
 
 
@@ -180,19 +186,29 @@ window.onload = function (){
 
 
 
-//работа со списком типов
+
 var select, value, text,value;
-
-
-document.getElementById('choose2').onclick=function(){
-
-    var myBtn = document.getElementById('build');
+document.getElementById('day').onchange=function(){
+        var myBtn = document.getElementById('build');
 var mytbl = document.getElementById('mytbl');
 var tb = mytbl.querySelector('tbody');
-clearTable(tb.rows.length);
+    clearTable(tb.rows.length);
+    var mytbl = document.getElementById('mytbl');
+    var tbody = mytbl.querySelector('tbody');
+    var tr2 = document.createElement('tr');
+    th = document.createElement('th');
+    th.innerHTML= `Наименование грузоотправителя`;
+    tr2.appendChild(th);
+    th = document.createElement('th');
+    th.innerHTML= `Количество вагонов`;
+    tr2.appendChild(th);
+    tbody.appendChild(tr2);
+
+
+
 
     select2 = document.getElementById("day"); // Выбираем  select по id
-    dayId=select2.selectedIndex;
+    dayId=select2.value;
 
     for (var i = 0; i < ourObj[dayId].length; i++) {
             //alert(ourObj[key].length);
@@ -212,11 +228,11 @@ clearTable(tb.rows.length);
 
 
 //отправка данных на сервер                    
-document.getElementById('choose').onclick=function(){
+document.getElementById('type').onchange=function(){
 
 
     select = document.getElementById("type"); // Выбираем  select по id
-        typeId=select.selectedIndex;
+        typeId=select.value;
 
     // 1. Создаём новый объект XMLHttpRequest
     var xhr = new XMLHttpRequest();
@@ -263,14 +279,37 @@ document.getElementById('choose').onclick=function(){
     }
 
 }
+
 //просмотр всей таблицы 
 document.getElementById('all').onclick=function(){ 
     clearTable(tb.rows.length)
+    var mytbl = document.getElementById('mytbl');
+    var tbody = mytbl.querySelector('tbody');
+    var tr2 = document.createElement('tr');
+    //var trNew = tbody.querySelector('tr');
+ /*     
+    <tr>
+                        
+                           
+                        <th>Наименование грузоотправителя</th>
+                        <th>Количество вагонов</th>
+                </tr>*/
+    th = document.createElement('th');
+    th.innerHTML= `Наименование грузоотправителя`;
+    tr2.appendChild(th);
+    th = document.createElement('th');
+    th.innerHTML= `Количество вагонов`;
+    tr2.appendChild(th);
+    th = document.createElement('th');
+    th.innerHTML= `День`;
+    tr2.appendChild(th);
+    tbody.appendChild(tr2);
+    // var id = key;
     for (var key in ourObj){
         for (var i = 0; i < ourObj[key].length; i++) {
                 //alert(ourObj[key].length);
         var tr = document.createElement('tr');
-    // var id = key;
+       
 
         //tr.id = `row-${id}`;
         tr.innerHTML = `
@@ -278,7 +317,7 @@ document.getElementById('all').onclick=function(){
                         <td>${ourObj[key][i]['consName']}</td>
                         <td>${ourObj[key][i]['quantity']}</td>
                         <td>${key}</td>
-                        `
+                        `;
                         
         tb.appendChild(tr);
         }

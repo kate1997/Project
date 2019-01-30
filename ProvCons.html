@@ -110,8 +110,8 @@ table{
         tr.setAttribute("str", `${number}`);
         
         tr.innerHTML = `<td>${number}</td>
-                        <td>${item.provName}</td>
-                        <td >${item.consName}</td>
+                        <td class="provName">${item.provName}</td>
+                        <td class="consName">${item.consName}</td>
                         <button id=${`row-btn-${id}`} style="margin-left: 35%;outline:none;border:0;background: transparent;heigth:25px;padding-top:40%"><img src="del.png" id="imgDel"></button>`;
         tb.appendChild(tr);
 
@@ -141,10 +141,15 @@ table{
 //изменение элемента по щелчку 
 
 var elements = document.getElementsByTagName('td');
+
     function SellHandle(event) {
 	    var content = event.target//указываем на элемент
       var data = content.innerText//получаем содержимое элемента
+     
       function SellBlur(event) {
+
+          
+         // alert (content.getAttribute("class"));
         if (event.target.value === "") {//если пусто,то присваиваем прежнее значение
             content.innerText = data; 
         }
@@ -184,17 +189,74 @@ var elements = document.getElementsByTagName('td');
            // }    
             }
       }
-         
+
+      
+
+
+      
       content.innerHTML = '<select size="1" name="type" id="editSell" ></select>'
       select = document.getElementById("editSell");
-      select.addEventListener('blur', SellBlur);
+      select.addEventListener('blur', SellBlur); 
       select.focus();
       var provider;       
                     
         //создание списка 
                 
-        
-            //1. Создаём новый объект XMLHttpRequest
+        if(content.getAttribute("class") == "provName") { 
+       //1. Создаём новый объект XMLHttpRequest
+       var xhr = new XMLHttpRequest();
+                
+                xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/actionsTables.php?table=provider',false);
+                
+                // 3. Отсылаем запрос
+                xhr.send();
+                
+            // 4. Если код ответа сервера не 200, то это ошибка
+                if (xhr.status != 200) {
+                // обработать ошибку
+                console.log(xhr);
+                alert( xhr.status + ': ' + xhr.statusText );  //пример вывода: 404: Not Found
+                } else {
+                
+                    provider = JSON.parse(xhr.responseText);
+                // alert(provider);
+                
+                }
+                //var selector=document.getElementById("editSell");
+                //alert(select);
+                for (i = 0; i < provider.length; i++) {        
+                    select.innerHTML+='<option  >'+provider[i]["provName"]+'</option>'
+                }
+                
+      }
+      if(content.getAttribute("class") == "consName") { 
+       //1. Создаём новый объект XMLHttpRequest
+       var xhr = new XMLHttpRequest();
+                
+                xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/actionsTables.php?table=consigner',false);
+                
+                // 3. Отсылаем запрос
+                xhr.send();
+                
+            // 4. Если код ответа сервера не 200, то это ошибка
+                if (xhr.status != 200) {
+                // обработать ошибку
+                console.log(xhr);
+                alert( xhr.status + ': ' + xhr.statusText );  //пример вывода: 404: Not Found
+                } else {
+                
+                    consigner = JSON.parse(xhr.responseText);
+                // alert(provider);
+                
+                }
+                //var selector=document.getElementById("editSell");
+                //alert(select);
+                for (i = 0; i < consigner.length; i++) {        
+                    select.innerHTML+='<option  >'+consigner[i]["consName"]+'</option>'
+                }
+                
+      } 
+           /* //1. Создаём новый объект XMLHttpRequest
                 var xhr = new XMLHttpRequest();
                 
                 xhr.open('GET', 'http://kappa.cs.petrsu.ru/~akulov/Practice/actionsTables.php?table=provider',false);
@@ -217,17 +279,19 @@ var elements = document.getElementsByTagName('td');
                 //alert(select);
                 for (i = 1; i < provider.length; i++) {        
                     select.innerHTML+='<option  >'+provider[i]["provName"]+'</option>'
-                }
+                }*/
                 
 
-
+      
       
 
     };
+   
     for(var i=0; i<elements.length; i++) {
       elements[i].addEventListener('dblclick', SellHandle);
     }
-
+    
+    
 }
 
 
